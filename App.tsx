@@ -55,6 +55,7 @@ const App: React.FC = () => {
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+  useEffect(() => {}, [currentPath]);
 
   const navigate = (path: string) => {
     window.location.hash = path;
