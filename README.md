@@ -230,6 +230,12 @@ We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for det
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
 - [REFACTORING_PLAN.md](REFACTORING_PLAN.md) - Professional architecture plan
 
+### Backend Documentation
+
+- [BACKEND_IMPLEMENTATION_PLAN.md](BACKEND_IMPLEMENTATION_PLAN.md) - Complete backend implementation plan
+- [BACKEND_QUICKSTART.md](BACKEND_QUICKSTART.md) - Quick start guide for backend setup
+- [BACKEND_ARCHITECTURE.md](BACKEND_ARCHITECTURE.md) - Architecture diagrams and technical details
+
 ## License
 
 This project is proprietary software for Club Campestre Medellín.

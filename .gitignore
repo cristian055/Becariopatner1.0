@@ -24,6 +24,25 @@ playwright-report
 test-results
 *.lcov
 
+# Backend specific
+server/dist
+server/node_modules
+server/.env
+server/.env.local
+
+# Prisma
+server/prisma/migrations/**/migration.sql
+!server/prisma/migrations/migration_lock.toml
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Docker
+docker-data/
+postgres_data/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
