@@ -148,7 +148,7 @@ const CaddieManager: React.FC<CaddieManagerProps> = () => {
           isOpen={editingCaddie !== null || isAddingCaddie}
           caddie={isAddingCaddie ? {
             ...newCaddie,
-            id: 'temp-new',
+            id: `temp-${Date.now()}`,
             status: CaddieStatus.AVAILABLE,
             listId: null,
             historyCount: 0,
