@@ -6,7 +6,8 @@ import CaddieTable from './CaddieTable'
 import CaddieEditModal from './CaddieEditModal'
 import type { CaddieManagerProps } from './CaddieManager.types'
 import { DEFAULT_AVAILABILITY } from './CaddieManager.types'
-import { Caddie } from '../../../types'
+import type { Caddie } from '../../../types'
+import { CaddieStatus } from '../../../types'
 import './CaddieManager.css'
 
 const CaddieManager: React.FC<CaddieManagerProps> = () => {
@@ -61,8 +62,18 @@ const CaddieManager: React.FC<CaddieManagerProps> = () => {
     setError(null)
   }
 
-  const handleSaveNew = (caddieInput: typeof newCaddie): void => {
+  const handleSaveNew = (caddie: Caddie): void => {
     setError(null)
+
+    const caddieInput = {
+      name: caddie.name,
+      number: caddie.number,
+      category: caddie.category,
+      location: caddie.location,
+      role: caddie.role,
+      availability: caddie.availability,
+      weekendPriority: caddie.weekendPriority || caddie.number
+    }
 
     const validation = caddieService.validateCreateInput(caddieInput, caddies)
     if (!validation.valid) {
@@ -70,10 +81,7 @@ const CaddieManager: React.FC<CaddieManagerProps> = () => {
       return
     }
 
-    createCaddie({
-      ...caddieInput,
-      weekendPriority: caddieInput.number
-    })
+    createCaddie(caddieInput)
     setIsAddingCaddie(false)
 
     setNewCaddie({
@@ -138,7 +146,17 @@ const CaddieManager: React.FC<CaddieManagerProps> = () => {
       {(editingCaddie || isAddingCaddie) && (
         <CaddieEditModal
           isOpen={editingCaddie !== null || isAddingCaddie}
-          caddie={editingCaddie}
+          caddie={isAddingCaddie ? {
+            ...newCaddie,
+            id: 'temp-new',
+            status: CaddieStatus.AVAILABLE,
+            listId: null,
+            historyCount: 0,
+            absencesCount: 0,
+            lateCount: 0,
+            leaveCount: 0,
+            lastActionTime: '08:00 AM'
+          } as Caddie : editingCaddie}
           isAdding={isAddingCaddie}
           allCaddies={caddies}
           error={error}
