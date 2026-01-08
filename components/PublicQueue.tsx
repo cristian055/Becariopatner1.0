@@ -63,7 +63,7 @@ const PublicQueue: React.FC<PublicQueueProps> = ({ caddies, lists, lastDispatchB
                 <div key={caddie.id} className={`flex items-center ${layout.card} bg-arena rounded-[1.5rem] md:rounded-[3rem] border-2 md:border-4 border-campestre-100 shadow-md relative overflow-hidden`}>
                   <div className="absolute top-2 left-2 flex items-center gap-1 opacity-20">
                      <Hash size={12} className="text-campestre-800" />
-                     <span className="text-[8px] font-black uppercase">Carné</span>
+                     <span className="text-[8px] font-black uppercase">Numero</span>
                   </div>
                   
                   <div className={`${layout.circle} bg-campestre-800 rounded-[1.2rem] md:rounded-[2.5rem] flex items-center justify-center text-white font-black shadow-lg ring-4 md:ring-8 ring-white/10 shrink-0`}>
@@ -120,7 +120,7 @@ const PublicQueue: React.FC<PublicQueueProps> = ({ caddies, lists, lastDispatchB
                       idx === 0 ? 'bg-campestre-500 text-white' : 'bg-arena text-campestre-300'
                     }`}>
                       <span className="text-lg md:text-4xl leading-none">{caddie.number}</span>
-                      <span className="text-[6px] md:text-[10px] uppercase opacity-60 font-black mt-1">Carné</span>
+                      <span className="text-[6px] md:text-[10px] uppercase opacity-60 font-black mt-1">Numero</span>
                     </div>
                     <div className="min-w-0">
                       <p className={`font-black text-sm md:text-3xl uppercase tracking-tighter truncate max-w-[120px] md:max-w-[200px] ${idx === 0 ? 'text-campestre-800' : 'text-campestre-400'}`}>
