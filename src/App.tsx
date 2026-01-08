@@ -20,7 +20,7 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/monitor" element={<MonitorPage />} />
+        <Route path="/monitor/*" element={<MonitorPage />} />
         <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
 
         {/* Protected Admin Routes */}
