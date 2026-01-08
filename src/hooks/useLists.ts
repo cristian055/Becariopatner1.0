@@ -14,7 +14,7 @@ interface UseListsProps {
 }
 
 export const useLists = (props: UseListsProps = {}) => {
-  const { lists, updateList, randomizeList, setListOrder } = useListStore();
+  const { lists, updateList, randomizeList, setListOrder: setListOrderStore } = useListStore();
 
   /**
    * Get lists by category
@@ -68,8 +68,8 @@ export const useLists = (props: UseListsProps = {}) => {
     id: string,
     order: typeof LIST_ORDER_TYPES[keyof typeof LIST_ORDER_TYPES],
   ) => {
-    setListOrder(id, order);
-  }, [setListOrder]);
+    setListOrderStore(id, order);
+  }, [setListOrderStore]);
 
   /**
    * Statistics

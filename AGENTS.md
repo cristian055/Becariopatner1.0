@@ -28,12 +28,14 @@ npm run test:e2e:ui      # Playwright UI mode
 
 ## Critical Standards
 
-1. **English only** - All code, comments, UI text, documentation
-2. **No emojis** - Professional code only
-3. **No business logic in components** - Extract to hooks/services
-4. **Every component needs a .css file** with same name
-5. **Max 200 lines per component** - Split if exceeded
-6. **No `any` types** - TypeScript strict mode enabled
+1. **English only** - All code, comments, UI text, documentation.
+2. **No emojis** - Professional code only.
+3. **No business logic in components** - Extract to hooks/services.
+4. **Every component needs a .css file** with the same name.
+5. **Max 200 lines per component** - Split if exceeded.
+6. **No `any` types** - TypeScript strict mode enabled.
+7. **Clean commits** - Only commit functional, type-safe code.
+8. **No path aliases for file tools** - Never use `@/` to access files with tools (Read, Write, Edit, Glob). Always use relative paths (`./`) or absolute paths.
 
 ## File Structure
 
@@ -42,29 +44,26 @@ src/
   components/
     ui/           # Reusable: Button, Input, Modal
     layout/       # Header, Sidebar, Layout
-    features/     # Feature components
-  hooks/          # Custom hooks (business logic)
-  services/       # API and data operations
+    features/     # Feature components (CaddieManager, WeeklyDraw)
+  hooks/          # Custom hooks (business logic state)
+  services/       # API, data operations, pure logic
   stores/         # Zustand global state
   types/          # TypeScript definitions
-  utils/          # Pure utility functions
+  utils/          # Pure utility functions (time, validation)
   tests/          # Test setup and utilities
 ```
 
 ## Code Style
 
 ### Formatting (Prettier)
-- No semicolons
-- Single quotes
-- 2-space indentation
-- Trailing commas (ES5)
-- 100 char line width
+- No semicolons, single quotes, 2-space indentation.
+- Trailing commas (ES5), 100 char line width.
 
-### Import Order (enforced)
+### Import Order (Enforced)
 1. React imports
 2. Third-party libraries
 3. Types (`import type { ... }` - required by ESLint)
-4. Local services/hooks/components
+4. Local services/hooks/components (using `@/` alias)
 5. Styles (last)
 
 ### Naming Conventions
@@ -77,96 +76,28 @@ src/
 | Constants | UPPER_SNAKE_CASE | `INITIAL_CADDIES` |
 | CSS classes | kebab-case (BEM) | `.caddie-manager__header` |
 
-### Component Pattern
-```typescript
-import React, { useState } from 'react'
-import type { CaddieManagerProps } from './CaddieManager.types'
-import { useCaddies } from '@/hooks/useCaddies'
-import './CaddieManager.css'
+### Component & Hook Patterns
+- Use `React.FC<Props>` for components.
+- Define props in separate `.types.ts` file if they exceed 5 lines.
+- Wrap complex handlers in `useCallback`.
+- Use `useMemo` for derived data (e.g., filtered lists).
 
-const CaddieManager: React.FC<CaddieManagerProps> = ({ location }) => {
-  // Only simple UI state in components
-  const [isOpen, setIsOpen] = useState(false)
-  
-  // Business logic in hooks
-  const { caddies, updateCaddie } = useCaddies()
+## Error Handling & Logging
 
-  return <div className="caddie-manager">{/* JSX only */}</div>
-}
+- Use the central `logger` utility (`src/utils/logger.ts`) for state changes and errors.
+- Services should throw `ServiceError` (from `src/types/store.types.ts`).
+- Hooks must expose `error` and `loading` states.
 
-export default CaddieManager
-```
+## TypeScript & Testing
 
-### Custom Hook Pattern
-```typescript
-import { useState, useCallback } from 'react'
-import type { Caddie } from '@/types'
+- Use `interface` for object shapes, `type` for unions/aliases.
+- Unit tests: `ComponentName.test.tsx` using Vitest + RTL.
+- E2E tests: Playwright for critical flows (dispatch, scheduling).
+- Coverage: Maintain >80% coverage on all business logic.
 
-export const useCaddies = () => {
-  const [caddies, setCaddies] = useState<Caddie[]>([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+## State Management (Zustand)
 
-  const fetchCaddies = useCallback(async () => {
-    setLoading(true)
-    try {
-      // API call
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error')
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  return { caddies, loading, error, fetchCaddies }
-}
-```
-
-## Error Handling
-
-- Services: try/catch with user-friendly error messages
-- Hooks: expose `error` and `loading` states
-- Components: render `<ErrorAlert>` or `<LoadingSpinner>`
-
-## TypeScript Rules
-
-- Strict mode enabled
-- No `any` types (ESLint error)
-- Explicit return types (ESLint warning)
-- Use `interface` for objects, `type` for unions/primitives
-- Unused vars must be prefixed with `_`
-- Path alias: `@/*` maps to `./src/*`
-
-## Testing
-
-- Test files: `ComponentName.test.tsx` alongside component
-- Setup file: `src/tests/setup.ts`
-- Coverage threshold: 80% (lines, functions, branches, statements)
-- Use `@testing-library/react` for component tests
-
-```typescript
-import { render, screen } from '@testing-library/react'
-import CaddieManager from './CaddieManager'
-
-describe('CaddieManager', () => {
-  it('renders caddie table', () => {
-    render(<CaddieManager caddies={[]} />)
-    expect(screen.getByRole('table')).toBeInTheDocument()
-  })
-})
-```
-
-## CSS Organization
-
-- BEM naming: `.component__element--modifier`
-- Tailwind for layout/spacing
-- Custom CSS for component-specific styles
-- Custom colors: `bg-campestre-*`, `bg-arena`
-
-## State Management
-
-- `useState`: Simple UI state (modals, toggles)
-- Custom hooks: Business logic state
-- Zustand stores: Cross-component global state
-- `useMemo`: Expensive computations
-- `useCallback`: Functions passed as props
+- **CaddieStore**: Master data, dispatch batches.
+- **ListStore**: Turn configuration and sorting.
+- **ScheduleStore**: Weekly shifts and assignments.
+- **UIStore**: Modals, notifications, global UI state.

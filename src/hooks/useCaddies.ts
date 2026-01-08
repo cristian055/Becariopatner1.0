@@ -1,7 +1,7 @@
 import React from 'react'
-import type { Caddie } from '@/types'
-import { CaddieStatus } from '@/types'
-import { useCaddieStore } from '@/stores'
+import type { Caddie } from '../types'
+import { CaddieStatus } from '../types'
+import { useCaddieStore } from '../stores'
 import {
   filterBySearchTerm,
   filterByCategory,
@@ -11,8 +11,8 @@ import {
   filterByAvailability,
   filterForQueue,
   filterForReturns,
-} from '@/utils'
-import { logger } from '@/utils'
+} from '../utils'
+import { logger } from '../utils'
 
 /**
  * useCaddies - Custom hook for caddie data operations
