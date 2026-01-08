@@ -4,9 +4,13 @@ import MonitorPage from './pages/MonitorPage'
 import LoginPage from './pages/LoginPage'
 import AdminPage from './pages/AdminPage'
 import { ProtectedRoute } from './routes/ProtectedRoute'
+import { useAppInitialization } from './hooks/useAppInitialization'
 
 const App: React.FC = () => {
   const [isAdmin, setIsAdmin] = useState(false)
+
+  // Initialize app with backend data and WebSocket connections
+  useAppInitialization()
 
   const handleLogin = (): void => {
     setIsAdmin(true)

@@ -1,0 +1,194 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// User model for authentication
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      UserRole @default(VIEWER)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  OPERATOR
+  VIEWER
+}
+
+// Caddie model
+model Caddie {
+  id               String            @id @default(cuid())
+  name             String
+  number           Int               @unique
+  status           CaddieStatus      @default(AVAILABLE)
+  isActive         Boolean           @default(true)
+  listId           String?
+  historyCount     Int               @default(0)
+  absencesCount    Int               @default(0)
+  lateCount        Int               @default(0)
+  leaveCount       Int               @default(0)
+  lastActionTime   String?
+  category         CaddieCategory
+  location         CaddieLocation
+  role             CaddieRole
+  weekendPriority  Int
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  
+  availability     DayAvailability[]
+  assignments      WeeklyAssignment[]
+  
+  @@index([status])
+  @@index([category])
+  @@index([isActive])
+  @@map("caddies")
+}
+
+enum CaddieStatus {
+  AVAILABLE
+  IN_PREP
+  IN_FIELD
+  ABSENT
+  ON_LEAVE
+  LATE
+}
+
+enum CaddieCategory {
+  Primera
+  Segunda
+  Tercera
+}
+
+enum CaddieLocation {
+  Llanogrande
+  Medellin
+}
+
+enum CaddieRole {
+  Golf
+  Tennis
+  Hybrid
+}
+
+// Day availability model
+model DayAvailability {
+  id           String                 @id @default(cuid())
+  caddieId     String
+  day          DayOfWeek
+  isAvailable  Boolean                @default(true)
+  rangeType    AvailabilityRangeType
+  rangeTime    String?
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+  
+  caddie       Caddie                 @relation(fields: [caddieId], references: [id], onDelete: Cascade)
+  
+  @@unique([caddieId, day])
+  @@index([caddieId])
+  @@map("day_availabilities")
+}
+
+enum DayOfWeek {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
+}
+
+enum AvailabilityRangeType {
+  full
+  before
+  after
+  between
+}
+
+// List configuration model
+model ListConfig {
+  id         String         @id @default(cuid())
+  name       String         @unique
+  category   CaddieCategory
+  order      ListOrder      @default(ASC)
+  rangeStart Int
+  rangeEnd   Int
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  
+  @@index([category])
+  @@map("list_configs")
+}
+
+enum ListOrder {
+  ASC
+  DESC
+  RANDOM
+  MANUAL
+}
+
+// Weekly shift model
+model WeeklyShift {
+  id           String              @id @default(cuid())
+  day          DayOfWeek
+  startTime    String
+  endTime      String
+  location     CaddieLocation
+  role         CaddieRole
+  requirements ShiftRequirement[]
+  assignments  WeeklyAssignment[]
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  
+  @@index([day])
+  @@index([location])
+  @@map("weekly_shifts")
+}
+
+// Shift requirement model
+model ShiftRequirement {
+  id        String         @id @default(cuid())
+  shiftId   String
+  category  CaddieCategory
+  count     Int
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  
+  shift     WeeklyShift    @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  
+  @@unique([shiftId, category])
+  @@index([shiftId])
+  @@map("shift_requirements")
+}
+
+// Weekly assignment model
+model WeeklyAssignment {
+  id        String      @id @default(cuid())
+  shiftId   String
+  caddieId  String
+  priority  Int
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  
+  shift     WeeklyShift @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  caddie    Caddie      @relation(fields: [caddieId], references: [id], onDelete: Cascade)
+  
+  @@unique([shiftId, caddieId])
+  @@index([shiftId])
+  @@index([caddieId])
+  @@map("weekly_assignments")
+}

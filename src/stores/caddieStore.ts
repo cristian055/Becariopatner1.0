@@ -8,53 +8,8 @@ import type {
   BulkUpdateInput,
   DispatchState,
 } from '../types/store.types'
-import { INITIAL_CADDIES_COUNT } from '../constants/app.constants'
 import { logger } from '../utils'
-
-// Generate initial caddies
-const generateInitialCaddies = (): Caddie[] => {
-  return Array.from({ length: INITIAL_CADDIES_COUNT }, (_, i) => {
-    const num = i + 1;
-    let category: 'Primera' | 'Segunda' | 'Tercera' = 'Primera';
-    if (num > 40 && num <= 80) category = 'Segunda';
-    if (num > 80) category = 'Tercera';
-
-    return {
-      id: `c-${num}`,
-      name: `Caddie ${num}`,
-      number: num,
-      status: CaddieStatus.AVAILABLE,
-      isActive: true,
-      listId: num <= 40 ? 'list-1' : num <= 80 ? 'list-2' : 'list-3',
-      historyCount: 0,
-      absencesCount: 0,
-      lateCount: 0,
-      leaveCount: 0,
-      lastActionTime: '08:00 AM',
-      category,
-      location: 'Llanogrande',
-      role: num % 5 === 0 ? 'Hybrid' : 'Golf',
-      weekendPriority: num,
-      availability: [
-        {
-          day: 'Friday',
-          isAvailable: true,
-          range: { type: 'after', time: '09:30 AM' },
-        },
-        {
-          day: 'Saturday',
-          isAvailable: true,
-          range: { type: 'full' },
-        },
-        {
-          day: 'Sunday',
-          isAvailable: true,
-          range: { type: 'full' },
-        },
-      ],
-    };
-  });
-};
+import { caddiesApi } from '../services/api'
 
 /**
  * CaddieStore - Global state for caddie management
@@ -78,7 +33,7 @@ interface CaddieStore extends CaddieState, DispatchState {
 
 export const useCaddieStore = create<CaddieStore>((set, get) => ({
   // Initial state
-  caddies: generateInitialCaddies(),
+  caddies: [],
   loading: false,
   error: null,
   lastDispatchBatch: null,
@@ -106,16 +61,16 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
   setLastDispatchBatch: (batch) => set({ lastDispatchBatch: batch }),
   setShowPopup: (show) => set({ showPopup: show }),
 
-  // Fetch caddies (placeholder for future API integration)
+  // Fetch caddies from backend API
   fetchCaddies: async () => {
     try {
       set({ loading: true, error: null });
-      logger.info('Fetching caddies...', 'CaddieStore');
+      logger.info('Fetching caddies from backend...', 'CaddieStore');
 
-      // In future: const caddies = await caddieService.fetchCaddies();
-      // For now, caddies are already initialized
-
-      set({ loading: false });
+      const caddies = await caddiesApi.getAll();
+      set({ caddies, loading: false });
+      
+      logger.info(`Fetched ${caddies.length} caddies from backend`, 'CaddieStore');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to fetch caddies';
       set({ loading: false, error: errorMessage });
@@ -123,50 +78,79 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
     }
   },
 
-  // Create new caddie
+  // Create new caddie via backend API
   createCaddie: async (input) => {
     try {
       set({ loading: true, error: null });
       logger.action('createCaddie', input as unknown as Record<string, unknown>, 'CaddieStore');
 
-      const time = new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      const id = `c-${Math.random().toString(36).substring(2, 11)}`;
-
-      const newCaddie: Caddie = {
-        ...input,
-        id,
-        status: CaddieStatus.AVAILABLE,
-        isActive: true,
-        listId: null,
-        historyCount: 0,
-        absencesCount: 0,
-        lateCount: 0,
-        leaveCount: 0,
-        lastActionTime: time,
-        weekendPriority: input.weekendPriority || input.number,
-      };
+      const newCaddie = await caddiesApi.create(input);
 
       set(state => ({
         caddies: [...state.caddies, newCaddie],
         loading: false,
       }));
 
-      logger.info(`Caddie created: ${id}`, 'CaddieStore');
+      logger.info(`Caddie created: ${newCaddie.id}`, 'CaddieStore');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to create caddie';
       set({ loading: false, error: errorMessage });
       logger.serviceError('CREATE_ERROR', errorMessage, error, 'CaddieStore');
+      throw error;
     }
   },
 
-  // Update existing caddie
-  updateCaddie: (input) => {
+  // Update existing caddie via backend API
+  updateCaddie: async (input) => {
     logger.action('updateCaddie', input as unknown as Record<string, unknown>, 'CaddieStore');
 
     try {
+      const time = new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+
+      // Get the current caddie to check status changes
+      const currentCaddie = get().caddies.find(c => c.id === input.id);
+      if (!currentCaddie) {
+        throw new Error(`Caddie not found: ${input.id}`);
+      }
+
+      const updates = { ...input.updates };
+      
+      // Increment counters when status changes to specific values
+      if (updates.status) {
+        const oldStatus = currentCaddie.status;
+        const newStatus = updates.status;
+        
+        // Only increment if transitioning from a different status
+        if (oldStatus !== newStatus) {
+          if (newStatus === CaddieStatus.ABSENT && oldStatus !== CaddieStatus.ABSENT) {
+            updates.absencesCount = (currentCaddie.absencesCount || 0) + 1;
+          }
+          if (newStatus === CaddieStatus.ON_LEAVE && oldStatus !== CaddieStatus.ON_LEAVE) {
+            updates.leaveCount = (currentCaddie.leaveCount || 0) + 1;
+          }
+          if (newStatus === CaddieStatus.LATE && oldStatus !== CaddieStatus.LATE) {
+            updates.lateCount = (currentCaddie.lateCount || 0) + 1;
+          }
+        }
+      }
+
+      // Update in backend
+      const updatedCaddie = await caddiesApi.update(input.id, updates);
+
+      // Update local state
+      set(state => ({
+        caddies: state.caddies.map(c => 
+          c.id === input.id ? { ...updatedCaddie, lastActionTime: time } : c
+        ),
+      }));
+
+      logger.info(`Caddie updated: ${input.id}`, 'CaddieStore');
+    } catch (error) {
+      logger.error('Failed to update caddie', error as Error, 'CaddieStore');
+      // Keep local state as fallback
       const time = new Date().toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
@@ -201,28 +185,36 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
           return { ...c, ...updates, lastActionTime: time };
         }),
       }));
-
-      logger.info(`Caddie updated: ${input.id}`, 'CaddieStore');
-    } catch (error) {
-      logger.error('Failed to update caddie', error as Error, 'CaddieStore');
     }
   },
 
-  // Delete caddie (soft delete - set inactive)
-  deleteCaddie: (id) => {
+  // Delete caddie (soft delete - set inactive) via backend API
+  deleteCaddie: async (id) => {
     logger.action('deleteCaddie', { id }, 'CaddieStore');
 
-    set(state => ({
-      caddies: state.caddies.map(c =>
-        c.id === id ? { ...c, isActive: false } : c
-      ),
-    }));
+    try {
+      await caddiesApi.delete(id);
+      
+      set(state => ({
+        caddies: state.caddies.map(c =>
+          c.id === id ? { ...c, isActive: false } : c
+        ),
+      }));
 
-    logger.info(`Caddie deactivated: ${id}`, 'CaddieStore');
+      logger.info(`Caddie deactivated: ${id}`, 'CaddieStore');
+    } catch (error) {
+      logger.error('Failed to delete caddie', error as Error, 'CaddieStore');
+      // Fallback to local update
+      set(state => ({
+        caddies: state.caddies.map(c =>
+          c.id === id ? { ...c, isActive: false } : c
+        ),
+      }));
+    }
   },
 
-  // Bulk update caddies (for dispatch operations)
-  bulkUpdateCaddies: (input) => {
+  // Bulk update caddies (for dispatch operations) via backend API
+  bulkUpdateCaddies: async (input) => {
     logger.action('bulkUpdateCaddies', { count: input.updates.length } as Record<string, unknown>, 'CaddieStore');
 
     try {
@@ -232,6 +224,10 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
       });
       const ids = input.updates.map(u => u.id);
 
+      // Call backend API for bulk update
+      await caddiesApi.bulkUpdateStatus(ids, input.updates[0].status!);
+
+      // Update local state with counter increments
       set(state => ({
         caddies: state.caddies.map(c => {
           const update = input.updates.find(u => u.id === c.id);
@@ -272,6 +268,43 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
       logger.info(`Bulk update completed: ${ids.length} caddies`, 'CaddieStore');
     } catch (error) {
       logger.error('Failed to bulk update caddies', error as Error, 'CaddieStore');
+      
+      // Fallback to local update
+      const time = new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      const ids = input.updates.map(u => u.id);
+
+      set(state => ({
+        caddies: state.caddies.map(c => {
+          const update = input.updates.find(u => u.id === c.id);
+          if (!update) return c;
+          
+          const updates = { ...update };
+          
+          // Increment counters when status changes to specific values
+          if (updates.status) {
+            const oldStatus = c.status;
+            const newStatus = updates.status;
+            
+            // Only increment if transitioning from a different status
+            if (oldStatus !== newStatus) {
+              if (newStatus === CaddieStatus.ABSENT && oldStatus !== CaddieStatus.ABSENT) {
+                updates.absencesCount = (c.absencesCount || 0) + 1;
+              }
+              if (newStatus === CaddieStatus.ON_LEAVE && oldStatus !== CaddieStatus.ON_LEAVE) {
+                updates.leaveCount = (c.leaveCount || 0) + 1;
+              }
+              if (newStatus === CaddieStatus.LATE && oldStatus !== CaddieStatus.LATE) {
+                updates.lateCount = (c.lateCount || 0) + 1;
+              }
+            }
+          }
+          
+          return { ...c, ...updates, lastActionTime: time };
+        }),
+      }));
     }
   },
 
@@ -311,16 +344,18 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
     });
   },
 
-  // Reset caddies to initial state
-  resetCaddies: () => {
+  // Reset caddies by fetching from backend
+  resetCaddies: async () => {
     logger.action('resetCaddies', undefined, 'CaddieStore');
 
-    set({
-      caddies: generateInitialCaddies(),
-      error: null,
-    });
-
-    logger.info('Caddies reset to initial state', 'CaddieStore');
+    try {
+      await get().fetchCaddies();
+      set({ error: null });
+      logger.info('Caddies reset from backend', 'CaddieStore');
+    } catch (error) {
+      logger.error('Failed to reset caddies', error as Error, 'CaddieStore');
+      set({ caddies: [], error: 'Failed to reset caddies' });
+    }
   },
 
 }));

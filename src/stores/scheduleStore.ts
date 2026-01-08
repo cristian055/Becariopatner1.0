@@ -5,10 +5,11 @@ import type {
   WeeklyShiftInput,
 } from '../types/store.types'
 import { timeToMinutes, logger } from '../utils'
+import { scheduleApi } from '../services/api'
 
 /**
  * ScheduleStore - Global state for weekly scheduling
- * Handles shift management, assignment generation, and priority tracking
+ * Handles shift management, assignment generation, and priority tracking with backend API
  */
 interface ScheduleStore extends WeeklyScheduleState {
   // Actions
@@ -16,10 +17,12 @@ interface ScheduleStore extends WeeklyScheduleState {
   setAssignments: (assignments: WeeklyAssignment[]) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
-  addShift: (shift: WeeklyShiftInput) => void;
-  removeShift: (id: string) => void;
+  fetchShifts: () => Promise<void>;
+  fetchAssignments: (shiftId?: string) => Promise<void>;
+  addShift: (shift: WeeklyShiftInput) => Promise<void>;
+  removeShift: (id: string) => Promise<void>;
   generateWeeklyDraw: (day: string, caddies: Caddie[]) => void;
-  resetSchedule: () => void;
+  resetSchedule: () => Promise<void>;
 }
 
 export const useScheduleStore = create<ScheduleStore>((set, get) => ({
@@ -54,27 +57,82 @@ export const useScheduleStore = create<ScheduleStore>((set, get) => ({
     }
   },
 
-  // Add new shift
-  addShift: (shift) => {
-    logger.action('addShift', shift as unknown as Record<string, unknown>, 'ScheduleStore');
+  // Fetch shifts from backend
+  fetchShifts: async () => {
+    try {
+      set({ loading: true, error: null });
+      logger.info('Fetching shifts from backend...', 'ScheduleStore');
 
-    set(state => ({
-      shifts: [...state.shifts, shift],
-    }));
-
-    logger.info(`Shift added: ${shift.id}`, 'ScheduleStore');
+      const shifts = await scheduleApi.getAllShifts();
+      set({ shifts, loading: false });
+      
+      logger.info(`Fetched ${shifts.length} shifts from backend`, 'ScheduleStore');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch shifts';
+      set({ loading: false, error: errorMessage });
+      logger.serviceError('FETCH_ERROR', errorMessage, error, 'ScheduleStore');
+    }
   },
 
-  // Remove shift
-  removeShift: (id) => {
+  // Fetch assignments from backend
+  fetchAssignments: async (shiftId?: string) => {
+    try {
+      set({ loading: true, error: null });
+      logger.info('Fetching assignments from backend...', 'ScheduleStore');
+
+      const assignments = await scheduleApi.getAllAssignments(shiftId);
+      set({ assignments, loading: false });
+      
+      logger.info(`Fetched ${assignments.length} assignments from backend`, 'ScheduleStore');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch assignments';
+      set({ loading: false, error: errorMessage });
+      logger.serviceError('FETCH_ERROR', errorMessage, error, 'ScheduleStore');
+    }
+  },
+
+  // Add new shift via backend
+  addShift: async (shift) => {
+    logger.action('addShift', shift as unknown as Record<string, unknown>, 'ScheduleStore');
+
+    try {
+      const newShift = await scheduleApi.createShift(shift as unknown as Omit<WeeklyShift, 'id'>);
+      
+      set(state => ({
+        shifts: [...state.shifts, newShift],
+      }));
+
+      logger.info(`Shift added: ${newShift.id}`, 'ScheduleStore');
+    } catch (error) {
+      logger.error('Failed to add shift', error as Error, 'ScheduleStore');
+      // Fallback to local add
+      set(state => ({
+        shifts: [...state.shifts, shift],
+      }));
+    }
+  },
+
+  // Remove shift via backend
+  removeShift: async (id) => {
     logger.action('removeShift', { id }, 'ScheduleStore');
 
-    set(state => ({
-      shifts: state.shifts.filter(s => s.id !== id),
-      assignments: state.assignments.filter(a => a.shiftId !== id),
-    }));
+    try {
+      await scheduleApi.deleteShift(id);
+      
+      set(state => ({
+        shifts: state.shifts.filter(s => s.id !== id),
+        assignments: state.assignments.filter(a => a.shiftId !== id),
+      }));
 
-    logger.info(`Shift removed: ${id}`, 'ScheduleStore');
+      logger.info(`Shift removed: ${id}`, 'ScheduleStore');
+    } catch (error) {
+      logger.error('Failed to remove shift', error as Error, 'ScheduleStore');
+      // Fallback to local removal
+      set(state => ({
+        shifts: state.shifts.filter(s => s.id !== id),
+        assignments: state.assignments.filter(a => a.shiftId !== id),
+      }));
+    }
   },
 
   // Generate weekly draw (assignment algorithm)
@@ -221,16 +279,18 @@ export const useScheduleStore = create<ScheduleStore>((set, get) => ({
     }
   },
 
-  // Reset schedule to initial state
-  resetSchedule: () => {
+  // Reset schedule by fetching from backend
+  resetSchedule: async () => {
     logger.action('resetSchedule', undefined, 'ScheduleStore');
 
-    set({
-      shifts: [],
-      assignments: [],
-      error: null,
-    });
-
-    logger.info('Schedule reset to initial state', 'ScheduleStore');
+    try {
+      await get().fetchShifts();
+      await get().fetchAssignments();
+      set({ error: null });
+      logger.info('Schedule reset from backend', 'ScheduleStore');
+    } catch (error) {
+      logger.error('Failed to reset schedule', error as Error, 'ScheduleStore');
+      set({ shifts: [], assignments: [], error: 'Failed to reset schedule' });
+    }
   },
 }));
