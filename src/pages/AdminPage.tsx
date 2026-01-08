@@ -137,8 +137,13 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
               </span>
             </button>
           ))}
-          <button onClick={() => navigate('/monitor')} className="text-campestre-400">
+          <button onClick={() => navigate('/monitor')} className="flex flex-col items-center gap-1 text-campestre-400">
             <Monitor size={20} />
+            <span className="text-[9px] font-black uppercase tracking-tighter">Monitor</span>
+          </button>
+          <button onClick={onLogout} className="flex flex-col items-center gap-1 text-rose-400">
+            <LogOut size={20} />
+            <span className="text-[9px] font-black uppercase tracking-tighter">Logout</span>
           </button>
         </nav>
       </div>
