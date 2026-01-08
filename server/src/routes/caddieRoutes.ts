@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import { caddieController } from '../controllers/caddieController'
 import { authMiddleware, requireRole } from '../middleware/auth'
+import { validate } from '../middleware/validate'
+import { CreateCaddieSchema, UpdateCaddieSchema, BulkUpdateStatusSchema } from '../utils/validation'
 
 const router = Router()
 
@@ -17,6 +19,7 @@ router.get('/:id', caddieController.getCaddieById.bind(caddieController))
 router.post(
   '/',
   requireRole(['admin', 'operator']),
+  validate(CreateCaddieSchema),
   caddieController.createCaddie.bind(caddieController)
 )
 
@@ -24,6 +27,7 @@ router.post(
 router.put(
   '/:id',
   requireRole(['admin', 'operator']),
+  validate(UpdateCaddieSchema),
   caddieController.updateCaddie.bind(caddieController)
 )
 
@@ -38,6 +42,7 @@ router.delete(
 router.post(
   '/bulk-update',
   requireRole(['admin', 'operator']),
+  validate(BulkUpdateStatusSchema),
   caddieController.bulkUpdateStatus.bind(caddieController)
 )
 

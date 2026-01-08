@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { caddieService } from '../services/caddieService'
 import { ApiError } from '../middleware/errorHandler'
+import { socketManager } from '../server'
 
 export class CaddieController {
   async getAllCaddies(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -36,6 +37,10 @@ export class CaddieController {
   async createCaddie(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const caddie = await caddieService.createCaddie(req.body)
+      
+      // Broadcast WebSocket event
+      socketManager.broadcastCaddieCreated(caddie)
+      
       res.status(201).json({
         success: true,
         data: caddie,
@@ -53,6 +58,9 @@ export class CaddieController {
       if (!caddie) {
         throw new ApiError('Caddie not found', 404)
       }
+
+      // Broadcast WebSocket event
+      socketManager.broadcastCaddieUpdated(caddie)
 
       res.json({
         success: true,
@@ -72,6 +80,9 @@ export class CaddieController {
         throw new ApiError('Caddie not found', 404)
       }
 
+      // Broadcast WebSocket event
+      socketManager.broadcastCaddieDeleted(id)
+
       res.json({
         success: true,
         message: 'Caddie deleted successfully',
@@ -90,6 +101,10 @@ export class CaddieController {
       }
 
       const updated = await caddieService.bulkUpdateStatus(ids, status)
+      
+      // Broadcast WebSocket event
+      socketManager.broadcastCaddiesBulkUpdated(updated)
+      
       res.json({
         success: true,
         data: updated,

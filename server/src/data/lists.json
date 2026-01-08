@@ -1,0 +1,26 @@
+[
+  {
+    "id": "list-1",
+    "name": "Primera",
+    "order": "ASC",
+    "rangeStart": 1,
+    "rangeEnd": 40,
+    "category": "Primera"
+  },
+  {
+    "id": "list-2",
+    "name": "Segunda",
+    "order": "ASC",
+    "rangeStart": 41,
+    "rangeEnd": 80,
+    "category": "Segunda"
+  },
+  {
+    "id": "list-3",
+    "name": "Tercera",
+    "order": "ASC",
+    "rangeStart": 81,
+    "rangeEnd": 100,
+    "category": "Tercera"
+  }
+]

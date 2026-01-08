@@ -4134,5 +4134,23 @@
     "weekendPriority": 999,
     "availability": [],
     "id": "814ab445-eb23-4d49-bdf4-16f0f2516045"
+  },
+  {
+    "name": "Test Caddie",
+    "number": 999,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": null,
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 999,
+    "availability": [],
+    "id": "adedff78-7b6b-4c14-97d8-46ae6c993586"
   }
 ]
