@@ -1,0 +1,4138 @@
+[
+  {
+    "id": "038d75e4-ab01-452b-89c9-b25b550de0f8",
+    "name": "Caddie 1",
+    "number": 1,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 1,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "5cde2605-c621-4abe-b486-2005bc8d2a0a",
+    "name": "Caddie 2",
+    "number": 2,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 2,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "f0b17ef9-0b3c-4deb-8080-86edc4ba7eb7",
+    "name": "Caddie 3",
+    "number": 3,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 3,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "d0b349cd-99ae-478d-86c4-7f49830962c2",
+    "name": "Caddie 4",
+    "number": 4,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 4,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "0609026b-23b5-4e8e-9e6c-043dcb1dd865",
+    "name": "Caddie 5",
+    "number": 5,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 5,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "f7069314-4d71-4d4f-8ba3-22d9c2768f0a",
+    "name": "Caddie 6",
+    "number": 6,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 6,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "203a2869-fe86-4a49-8011-6281ec3eb103",
+    "name": "Caddie 7",
+    "number": 7,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 7,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "00f6f579-27e7-4a18-9242-2dfc9c2385f2",
+    "name": "Caddie 8",
+    "number": 8,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 8,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "aa2e30d0-6250-4838-8c5b-8219cf431758",
+    "name": "Caddie 9",
+    "number": 9,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 9,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "8b243ec1-61c7-4bb0-93f1-e91cdb18312d",
+    "name": "Caddie 10",
+    "number": 10,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 10,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "af144c17-6703-4e4a-820c-0773f8077312",
+    "name": "Caddie 11",
+    "number": 11,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 11,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "cac924ab-0c35-40e3-b19a-828d1279d934",
+    "name": "Caddie 12",
+    "number": 12,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 12,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "0a79d6c3-a47b-48dc-8bde-1a1bf3879645",
+    "name": "Caddie 13",
+    "number": 13,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 13,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "6bd6bfb8-5f7e-444d-857f-7a13a8c5ecb1",
+    "name": "Caddie 14",
+    "number": 14,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 14,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ea9ab25f-9d43-4214-a2c8-2e71e70b65f4",
+    "name": "Caddie 15",
+    "number": 15,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 15,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "4551b066-0b9e-4c21-9d10-8663c81b9618",
+    "name": "Caddie 16",
+    "number": 16,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 16,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "fd0c1223-5cec-41b0-b369-69ba9bae0f97",
+    "name": "Caddie 17",
+    "number": 17,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 17,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "018fd892-913b-4790-ba56-b8c91f996686",
+    "name": "Caddie 18",
+    "number": 18,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 18,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ed8e113c-2d76-438e-a83b-bdd52311e64d",
+    "name": "Caddie 19",
+    "number": 19,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 19,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "723ed7d4-68d9-4124-a4ea-60e530281314",
+    "name": "Caddie 20",
+    "number": 20,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 20,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "0920a1e3-82f2-4ec2-bea8-7604757dd3c5",
+    "name": "Caddie 21",
+    "number": 21,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 21,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "f199bb63-c3e7-4438-9230-0dafd8802164",
+    "name": "Caddie 22",
+    "number": 22,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 22,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "32f5e1b8-9839-44cb-82c0-121521ffe2fe",
+    "name": "Caddie 23",
+    "number": 23,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 23,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "29e9b3d2-b62b-4a13-8266-77356b8effe5",
+    "name": "Caddie 24",
+    "number": 24,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 24,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "074ec4ad-40e8-4299-acb4-3ca99a46f883",
+    "name": "Caddie 25",
+    "number": 25,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 25,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "d8c237de-a469-4e50-b1e1-f94b4266541d",
+    "name": "Caddie 26",
+    "number": 26,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 26,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "7b1d16e0-e556-4386-b77e-901f8cfb8063",
+    "name": "Caddie 27",
+    "number": 27,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 27,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "2f424184-a83b-4721-a9b1-fd2eeb0510fa",
+    "name": "Caddie 28",
+    "number": 28,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 28,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "a5777059-3aa7-4136-b5a9-a477f57bbdac",
+    "name": "Caddie 29",
+    "number": 29,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 29,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "770ff2ee-9000-4cfb-89f4-4c259cc9f493",
+    "name": "Caddie 30",
+    "number": 30,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 30,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ca1614bc-c6c0-41e5-a997-adb94c5fa763",
+    "name": "Caddie 31",
+    "number": 31,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 31,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "49fb289f-5d5f-4458-8fed-4da5398074f0",
+    "name": "Caddie 32",
+    "number": 32,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 32,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "4d6a3b3d-aaa6-471c-a6d1-a861d6f8c830",
+    "name": "Caddie 33",
+    "number": 33,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 33,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "67c35320-67f7-45e8-877f-05f25c1fb191",
+    "name": "Caddie 34",
+    "number": 34,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 34,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "38702362-c398-4aa6-bae7-b9bb95b5356f",
+    "name": "Caddie 35",
+    "number": 35,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 35,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "b3aeb58a-1965-4f21-8e6e-d61a0cc839ad",
+    "name": "Caddie 36",
+    "number": 36,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 36,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "69cf4c5c-b456-4241-9310-db3a9c011a6f",
+    "name": "Caddie 37",
+    "number": 37,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 37,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "de13ef87-6228-48dd-8907-bcf058d9b144",
+    "name": "Caddie 38",
+    "number": 38,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 38,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "0b44eb96-70b9-4dd5-b5df-b0dfe158503b",
+    "name": "Caddie 39",
+    "number": 39,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 39,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "37e5ac34-f990-42a1-8389-35d2bfa31b04",
+    "name": "Caddie 40",
+    "number": 40,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-1",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 40,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "108cd1c1-96d2-4e90-8fe6-01db222850c5",
+    "name": "Caddie 41",
+    "number": 41,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 41,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "fc5feb0d-9858-4cdc-9313-1173bbeea201",
+    "name": "Caddie 42",
+    "number": 42,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 42,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "6a99ce32-44c2-4b52-a390-280e2fef1398",
+    "name": "Caddie 43",
+    "number": 43,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 43,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "901849ac-28e2-401c-ad6e-78b1f6fd4f84",
+    "name": "Caddie 44",
+    "number": 44,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 44,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "11859409-67c8-4820-89ab-200984e55767",
+    "name": "Caddie 45",
+    "number": 45,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 45,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "107fe13f-8fe9-4f8f-892b-df6a97e95839",
+    "name": "Caddie 46",
+    "number": 46,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 46,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "4f4ffcba-3d7b-450d-b01c-6e551d83e0b3",
+    "name": "Caddie 47",
+    "number": 47,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 47,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ade57a41-4f3c-4b23-888b-62988591f1a7",
+    "name": "Caddie 48",
+    "number": 48,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 48,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "c86c9851-2f8d-4f14-87d0-9f17c69f7552",
+    "name": "Caddie 49",
+    "number": 49,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 49,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "eaf57998-d50b-4fb5-ac0f-689edc3ec179",
+    "name": "Caddie 50",
+    "number": 50,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 50,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "189736ea-703c-4b92-8f92-d0f917f837b8",
+    "name": "Caddie 51",
+    "number": 51,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 51,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "d9aea320-669a-4300-ba87-f02abb554518",
+    "name": "Caddie 52",
+    "number": 52,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 52,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dbfe0878-899a-47ea-b26a-563f8f371c4a",
+    "name": "Caddie 53",
+    "number": 53,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 53,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "8a97e899-4ca8-4e01-9ee2-3e79cba76631",
+    "name": "Caddie 54",
+    "number": 54,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 54,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "a1d5fa28-2034-4938-949d-7a880b99a645",
+    "name": "Caddie 55",
+    "number": 55,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 55,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "8e487872-e9c7-4f53-be40-651ef84cb798",
+    "name": "Caddie 56",
+    "number": 56,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 56,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "8e44d0e8-7417-4070-a0a8-41455759184a",
+    "name": "Caddie 57",
+    "number": 57,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 57,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "1158fbc5-024d-4770-ad4c-472e713ebcf9",
+    "name": "Caddie 58",
+    "number": 58,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 58,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "d30db8b7-5e50-490b-bb03-ec2f0e29a452",
+    "name": "Caddie 59",
+    "number": 59,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 59,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "6092d037-a2a8-4e3d-85bf-eeca50ddfb2b",
+    "name": "Caddie 60",
+    "number": 60,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 60,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "6a4f7c30-2025-40b8-9401-11dc8a5a952c",
+    "name": "Caddie 61",
+    "number": 61,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 61,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "4c8b4948-ec4f-4ee3-b6bb-fe30e965b758",
+    "name": "Caddie 62",
+    "number": 62,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 62,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "9c26b778-6ddd-4af1-9298-bf289e21d9fc",
+    "name": "Caddie 63",
+    "number": 63,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 63,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bc7ce701-cd46-4452-8425-7aaea836ec8a",
+    "name": "Caddie 64",
+    "number": 64,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 64,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "66a20dd1-6442-4d9f-80c4-9fee891b5aa5",
+    "name": "Caddie 65",
+    "number": 65,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 65,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "e2930c2d-6d07-4d14-8305-87ef7ff485c1",
+    "name": "Caddie 66",
+    "number": 66,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 66,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "5b6645da-16a3-4198-8798-c6e816a246bc",
+    "name": "Caddie 67",
+    "number": 67,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 67,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "a039deda-be78-4157-b7ee-9786c8d5f5ba",
+    "name": "Caddie 68",
+    "number": 68,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 68,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "4bf2e851-e0b2-4d5d-97c1-826e586adf99",
+    "name": "Caddie 69",
+    "number": 69,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 69,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "974caece-949a-4eca-87d0-4abae7e55aec",
+    "name": "Caddie 70",
+    "number": 70,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 70,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "75be943b-b63c-4c36-8ce7-4bc522782bca",
+    "name": "Caddie 71",
+    "number": 71,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 71,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "5a27bbdf-bd64-45c3-a387-c1eabd950f63",
+    "name": "Caddie 72",
+    "number": 72,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 72,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "db450006-659d-4963-9683-0c28235245b1",
+    "name": "Caddie 73",
+    "number": 73,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 73,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "c64f3d12-f5bb-41b7-82b4-6f11fa886b40",
+    "name": "Caddie 74",
+    "number": 74,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 74,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "614400ce-24a8-41e7-aea9-2ba3ca5072e0",
+    "name": "Caddie 75",
+    "number": 75,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 75,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "13d633b8-d5a2-416d-bbdf-a35449656498",
+    "name": "Caddie 76",
+    "number": 76,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 76,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "e4f17ad9-f0e1-4325-8b48-95155e84c4eb",
+    "name": "Caddie 77",
+    "number": 77,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 77,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "e281ada6-1953-48aa-8996-44c6a89dd1c3",
+    "name": "Caddie 78",
+    "number": 78,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 78,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "60ca83c6-c64f-487b-ae30-1943e69cfeef",
+    "name": "Caddie 79",
+    "number": 79,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 79,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "bce34814-0b00-4295-bc59-aeab1a0896fc",
+    "name": "Caddie 80",
+    "number": 80,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-2",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Segunda",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 80,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "cc73531c-aa49-4fa2-9abb-c6786a96a71b",
+    "name": "Caddie 81",
+    "number": 81,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 81,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "e0c2bed1-165e-45f8-8e60-8dfbc73ec10d",
+    "name": "Caddie 82",
+    "number": 82,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 82,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "333161a2-d6e8-4e50-a059-d71366d6206a",
+    "name": "Caddie 83",
+    "number": 83,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 83,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "5e7e0b77-b2f0-47d8-8853-8837759383cd",
+    "name": "Caddie 84",
+    "number": 84,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 84,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "e752ae53-87fd-4ab8-8193-7e03397e066d",
+    "name": "Caddie 85",
+    "number": 85,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 85,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ae337daa-dd46-408c-81be-9435a50a666f",
+    "name": "Caddie 86",
+    "number": 86,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 86,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "2d4cbd29-176a-49e0-95de-09c5ce60ca98",
+    "name": "Caddie 87",
+    "number": 87,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 87,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "e9e56ed2-f017-4221-899b-93abecc76013",
+    "name": "Caddie 88",
+    "number": 88,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 88,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "e8bd78d3-93e5-48a7-8b53-22ddd3764fe4",
+    "name": "Caddie 89",
+    "number": 89,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 89,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "584131f3-e04e-4a10-b928-86ef6d03585f",
+    "name": "Caddie 90",
+    "number": 90,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 90,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "942b39be-db7f-4f7c-b80a-6b59cd1cb87f",
+    "name": "Caddie 91",
+    "number": 91,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 91,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "97517fb1-d208-443a-8823-6e76ed6822f2",
+    "name": "Caddie 92",
+    "number": 92,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 92,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "4dacd305-3c18-477b-8ed1-0131656233bf",
+    "name": "Caddie 93",
+    "number": 93,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 93,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "b83842c0-f117-48b3-b2c8-01b53e433315",
+    "name": "Caddie 94",
+    "number": 94,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 94,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "220d1486-e394-4f56-9c61-eb2487f61344",
+    "name": "Caddie 95",
+    "number": 95,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 95,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "c167f34b-41a3-4603-a6c6-068717584ef0",
+    "name": "Caddie 96",
+    "number": 96,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 96,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "a6b3dc94-1193-4015-9017-5c315aefa4de",
+    "name": "Caddie 97",
+    "number": 97,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 97,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "19335f28-1840-47e3-bb70-06219a89d1f4",
+    "name": "Caddie 98",
+    "number": 98,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 98,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "0b8f694b-8b8d-4ebf-a9d6-b32de48d7107",
+    "name": "Caddie 99",
+    "number": 99,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 99,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "id": "27c9cf9c-a3b7-49e7-adb2-4c3d61076a1d",
+    "name": "Caddie 100",
+    "number": 100,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": "list-3",
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Tercera",
+    "location": "Llanogrande",
+    "role": "Hybrid",
+    "weekendPriority": 100,
+    "availability": [
+      {
+        "day": "Friday",
+        "isAvailable": true,
+        "range": {
+          "type": "after",
+          "time": "09:30 AM"
+        }
+      },
+      {
+        "day": "Saturday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      },
+      {
+        "day": "Sunday",
+        "isAvailable": true,
+        "range": {
+          "type": "full"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Test Caddie",
+    "number": 999,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": null,
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 999,
+    "availability": [],
+    "id": "b9f387ea-8c79-4a43-9e40-3ba91a42204e"
+  },
+  {
+    "name": "Test Caddie",
+    "number": 999,
+    "status": "AVAILABLE",
+    "isActive": true,
+    "listId": null,
+    "historyCount": 0,
+    "absencesCount": 0,
+    "lateCount": 0,
+    "leaveCount": 0,
+    "lastActionTime": "08:00 AM",
+    "category": "Primera",
+    "location": "Llanogrande",
+    "role": "Golf",
+    "weekendPriority": 999,
+    "availability": [],
+    "id": "814ab445-eb23-4d49-bdf4-16f0f2516045"
+  }
+]
