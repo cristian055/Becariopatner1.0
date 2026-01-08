@@ -10,7 +10,7 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ onLogin, onBackToPublic }) => {
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault()
     setLoading(true)
     // Simulate API call

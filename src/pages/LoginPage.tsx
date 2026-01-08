@@ -9,7 +9,7 @@ interface LoginPageProps {
 const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const navigate = useNavigate()
 
-  const handleLogin = () => {
+  const handleLogin = (): void => {
     onLogin()
     navigate('/admin')
   }
