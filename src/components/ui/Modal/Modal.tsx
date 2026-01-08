@@ -1,3 +1,4 @@
+import React from 'react'
 import type { ModalProps as ModalPropsType } from './Modal.types';
 import { X } from 'lucide-react';
 import './Modal.css';
