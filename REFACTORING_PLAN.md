@@ -241,23 +241,23 @@ src/
 - [ ] Convert to English
 
 ### 4.3 Refactor PublicQueue
-- [x] Already has CSS, extract subcomponents:
-  - [x] QueueHeader.tsx + QueueHeader.css
-  - [x] QueueCategory.tsx + QueueCategory.css
-  - [x] CaddieRow.tsx + CaddieRow.css
-  - [x] DispatchPopup.tsx + DispatchPopup.css
-- [x] Convert to English
-- [x] Add tests
+- [ ] Already has CSS, extract subcomponents:
+  - QueueHeader.tsx + QueueHeader.css
+  - QueueCategory.tsx + QueueCategory.css
+  - CaddieRow.tsx + CaddieRow.css
+  - DispatchPopup.tsx + DispatchPopup.css
+- [ ] Convert to English
+- [ ] Add tests
 
 ### 4.4 Refactor App.tsx
-- [x] Implement React Router v6
-- [x] Create routes/ directory
-- [x] Extract routing logic to useRoute hook (implemented via react-router hooks)
-- [x] Create separate pages:
-  - [x] pages/MonitorPage.tsx
-  - [x] pages/AdminPage.tsx
-  - [x] pages/LoginPage.tsx
-- [x] Add route protection
+- [ ] Implement React Router v6
+- [ ] Create routes/ directory
+- [ ] Extract routing logic to useRoute hook
+- [ ] Create separate pages:
+  - pages/Monitor.tsx
+  - pages/Admin.tsx
+  - pages/Login.tsx
+- [ ] Add route protection
 - [ ] Implement lazy loading
 - [ ] Add 404 page
 
@@ -449,3 +449,5 @@ Which phase should we start with?
 - **Option D:** Custom phase combination
 
 Please specify which phase to begin with, and I will execute the implementation.
+
+  

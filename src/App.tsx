@@ -8,11 +8,11 @@ import { ProtectedRoute } from './routes/ProtectedRoute'
 const App: React.FC = () => {
   const [isAdmin, setIsAdmin] = useState(false)
 
-  const handleLogin = () => {
+  const handleLogin = (): void => {
     setIsAdmin(true)
   }
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     setIsAdmin(false)
   }
 
@@ -20,7 +20,7 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/monitor" element={<MonitorPage />} />
+        <Route path="/monitor/*" element={<MonitorPage />} />
         <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
 
         {/* Protected Admin Routes */}

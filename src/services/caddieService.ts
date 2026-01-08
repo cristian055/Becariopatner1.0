@@ -1,9 +1,11 @@
+import { ERROR_CODES } from '../constants/app.constants';
 import type { Caddie } from '../types'
 import { CaddieStatus } from '../types'
-import type {
-  CreateCaddieInput,
-  ValidationResult,
-  BulkUpdateInput,
+import {
+  type CreateCaddieInput,
+  type ValidationResult,
+  type BulkUpdateInput,
+  ServiceError,
 } from '../types/store.types'
 import {
   validateCreateCaddieInput,

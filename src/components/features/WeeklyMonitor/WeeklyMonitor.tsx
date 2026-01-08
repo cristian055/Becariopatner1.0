@@ -3,6 +3,7 @@ import type { WeeklyMonitorProps } from './WeeklyMonitor.types'
 import MonitorHeader from './MonitorHeader'
 import MonitorAgenda from './MonitorAgenda'
 import MonitorPool from './MonitorPool'
+import MonitorNavBar from '../../MonitorNavBar'
 import { useCaddieStore, useScheduleStore } from '../../../stores'
 import './WeeklyMonitor.css'
 
@@ -47,6 +48,7 @@ const WeeklyMonitor: React.FC<WeeklyMonitorProps> = ({ onBack }) => {
 
   return (
     <div className="weekly-monitor">
+      <MonitorNavBar onBack={() => onBack?.()} />
       <MonitorHeader
         activeDay={activeDay}
         onDayChange={setActiveDay}
