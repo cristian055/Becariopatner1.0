@@ -1,0 +1,129 @@
+.queue-category {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .queue-category {
+    gap: 2.5rem;
+  }
+}
+
+.queue-category__header {
+  padding: 1rem;
+  border-radius: 1.5rem;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .queue-category__header {
+    padding: 2.5rem;
+    border-radius: 4rem;
+  }
+}
+
+.queue-category__header-content {
+  position: relative;
+  z-index: 10;
+}
+
+.queue-category__title {
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .queue-category__title {
+    font-size: 3rem;
+  }
+}
+
+.queue-category__subtitle {
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+  margin-top: 0.125rem;
+}
+
+@media (min-width: 768px) {
+  .queue-category__subtitle {
+    font-size: 0.875rem;
+  }
+}
+
+.queue-category__icon {
+  position: absolute;
+  right: -1rem;
+  bottom: -1rem;
+  width: 4rem;
+  height: 4rem;
+  opacity: 0.2;
+}
+
+@media (min-width: 768px) {
+  .queue-category__icon {
+    right: -2rem;
+    bottom: -2rem;
+    width: 6.25rem;
+    height: 6.25rem;
+  }
+}
+
+.queue-category__list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .queue-category__list {
+    gap: 1.5rem;
+  }
+}
+
+.queue-category__empty-slot {
+  height: 60px;
+  background-color: rgba(247, 247, 242, 0.4); /* arena with opacity */
+  border-radius: 1.2rem;
+  border: 2px dashed rgba(209, 213, 219, 0.4); /* campestre-100 opacity */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.3;
+}
+
+@media (min-width: 768px) {
+  .queue-category__empty-slot {
+    height: 140px;
+    border-radius: 3rem;
+    border-width: 4px;
+  }
+}
+
+.queue-category__empty-bar {
+  width: 2.5rem;
+  height: 0.375rem;
+  background-color: #f3f4f6; /* campestre-100 */
+  border-radius: 9999px;
+}
+
+@media (min-width: 768px) {
+  .queue-category__empty-bar {
+    width: 5rem;
+    height: 1rem;
+  }
+}

@@ -1,0 +1,171 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  animation: modal-fade-in 0.2s ease-out;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal__content {
+  position: relative;
+  background-color: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 95vw;
+  max-height: 95vh;
+  overflow-y: auto;
+  animation: modal-slide-up 0.3s ease-out;
+}
+
+/* Header */
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal__title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.modal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal__close:hover {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.modal__close:focus-visible {
+  outline: 2px solid #0d9488;
+  outline-offset: 2px;
+}
+
+/* Body */
+.modal__body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(95vh - 5rem);
+}
+
+/* Sizes */
+.modal--sm .modal__content {
+  max-width: 25rem;
+}
+
+.modal--md .modal__content {
+  max-width: 40rem;
+}
+
+.modal--lg .modal__content {
+  max-width: 60rem;
+}
+
+.modal--xl .modal__content {
+  max-width: 80rem;
+}
+
+.modal--full .modal__content {
+  max-width: 95vw;
+  max-height: 95vh;
+  border-radius: 1rem;
+}
+
+/* Animations */
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-slide-up {
+  from {
+    transform: translateY(2rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Focus management */
+.modal[aria-modal='true'] {
+  outline: none;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .modal__content {
+    max-width: 95vw;
+    border-radius: 1rem;
+  }
+
+  .modal__header {
+    padding: 1rem;
+  }
+
+  .modal__title {
+    font-size: 1.25rem;
+  }
+
+  .modal__body {
+    padding: 1rem;
+  }
+
+  .modal--sm .modal__content,
+  .modal--md .modal__content,
+  .modal--lg .modal__content,
+  .modal--xl .modal__content {
+    max-width: 95vw;
+  }
+}
+
+/* Scrollbar */
+.modal__body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal__body::-webkit-scrollbar-track {
+  background-color: #f9fafb;
+}
+
+.modal__body::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 4px;
+}
+
+.modal__body::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}

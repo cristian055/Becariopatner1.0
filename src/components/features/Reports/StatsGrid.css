@@ -1,0 +1,77 @@
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stats-grid__card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  border: 1px solid var(--color-campestre-100);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stats-grid__card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.stats-grid__label {
+  font-size: 0.625rem;
+  font-weight: 900;
+  color: var(--color-campestre-400);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+}
+
+.stats-grid__value {
+  font-size: 1.875rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+}
+
+.stats-grid__value--emerald { color: rgb(16 185 129); }
+.stats-grid__value--rose { color: rgb(225 29 72); }
+.stats-grid__value--sky { color: rgb(14 165 233); }
+.stats-grid__value--amber { color: rgb(245 158 11); }
+
+.stats-grid__icon-box {
+  padding: 0.75rem;
+  border-radius: 1rem;
+}
+
+.stats-grid__icon-box--emerald { background-color: rgb(236 253 245); color: rgb(16 185 129); }
+.stats-grid__icon-box--rose { background-color: rgb(255 241 242); color: rgb(225 29 72); }
+.stats-grid__icon-box--sky { background-color: rgb(240 249 255); color: rgb(14 165 233); }
+.stats-grid__icon-box--amber { background-color: rgb(255 251 235); color: rgb(245 158 11); }
+
+.stats-grid__sublabel {
+  font-size: 0.5625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  letter-spacing: 0.1em;
+}
+
+.stats-grid__sublabel--emerald { color: rgb(16 185 129); }
+.stats-grid__sublabel--rose { color: var(--color-campestre-400); }
+.stats-grid__sublabel--sky { color: var(--color-campestre-400); }
+.stats-grid__sublabel--amber { color: rgb(245 158 11); }

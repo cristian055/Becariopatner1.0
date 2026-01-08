@@ -1,0 +1,30 @@
+/* CaddieManager - Main orchestration component */
+
+.caddie-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.caddie-manager__search-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .caddie-manager__search-section {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+}
+
+.caddie-manager__table-section {
+  background-color: white;
+  border-radius: 2.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0d8;
+  overflow: hidden;
+  min-height: 25rem;
+}

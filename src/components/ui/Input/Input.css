@@ -1,0 +1,125 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Label */
+.input__label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #374151;
+}
+
+.input__required {
+  color: #dc2626;
+  margin-left: 0.125rem;
+}
+
+/* Wrapper */
+.input__wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Icon */
+.input__icon {
+  position: absolute;
+  left: 1rem;
+  color: #6b7280;
+  pointer-events: none;
+}
+
+.input__field--with-icon {
+  padding-left: 3rem;
+}
+
+/* Field */
+.input__field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #1f2937;
+  background-color: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input__field::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.input__field:hover:not(:disabled):not(:read-only) {
+  border-color: #0d9488;
+}
+
+.input__field:focus-visible {
+  border-color: #0d9488;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+
+.input__field:disabled {
+  background-color: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.input__field:read-only {
+  background-color: #f9fafb;
+  cursor: default;
+}
+
+/* Error state */
+.input--error .input__field {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.input--error .input__field:focus-visible {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.input--error .input__icon {
+  color: #dc2626;
+}
+
+.input__error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  color: #dc2626;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+/* Helper text */
+.input__helper-text {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .input__label {
+    font-size: 0.8125rem;
+  }
+
+  .input__field {
+    font-size: 0.875rem;
+    padding: 0.625rem 0.875rem;
+  }
+}

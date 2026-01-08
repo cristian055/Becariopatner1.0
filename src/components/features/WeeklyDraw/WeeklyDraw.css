@@ -1,0 +1,42 @@
+.weekly-draw {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-bottom: 5rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.weekly-draw__layout {
+  display: grid;
+  grid-template-cols: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .weekly-draw__layout {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .weekly-draw__sidebar {
+    grid-column: span 4;
+  }
+
+  .weekly-draw__content {
+    grid-column: span 8;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

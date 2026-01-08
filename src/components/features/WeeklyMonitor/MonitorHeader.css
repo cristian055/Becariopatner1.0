@@ -1,0 +1,109 @@
+.monitor-header {
+  height: 6rem;
+  background-color: white;
+  border-bottom: 4px solid var(--color-campestre-100);
+  display: flex;
+  align-items: center;
+  padding: 0 2.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.monitor-header__container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.monitor-header__back-btn {
+  padding: 1rem;
+  background-color: var(--color-campestre-50);
+  color: var(--color-campestre-600);
+  border-radius: 1rem;
+  transition: all 0.2s;
+}
+
+.monitor-header__back-btn:hover {
+  background-color: var(--color-campestre-800);
+  color: white;
+}
+
+.monitor-header__title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.monitor-header__title {
+  font-size: 1.875rem;
+  font-weight: 900;
+  color: var(--color-campestre-800);
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+.monitor-header__subtitle {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--color-campestre-400);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-top: 0.25rem;
+}
+
+.monitor-header__days {
+  margin-left: auto;
+  display: flex;
+  padding: 0.25rem;
+  background-color: var(--color-arena);
+  border: 1px solid var(--color-campestre-100);
+  border-radius: 1rem;
+  overflow-x: auto;
+}
+
+.monitor-header__day-btn {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.2s;
+  white-space: nowrap;
+  color: var(--color-campestre-400);
+}
+
+.monitor-header__day-btn:hover {
+  color: var(--color-campestre-600);
+}
+
+.monitor-header__day-btn--active {
+  background-color: var(--color-campestre-800);
+  color: white;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+@media (max-width: 768px) {
+  .monitor-header {
+    height: 4rem;
+    padding: 0 1rem;
+  }
+
+  .monitor-header__container {
+    gap: 1rem;
+  }
+
+  .monitor-header__title {
+    font-size: 1.25rem;
+  }
+
+  .monitor-header__subtitle {
+    font-size: 0.5rem;
+  }
+
+  .monitor-header__day-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.5625rem;
+  }
+}

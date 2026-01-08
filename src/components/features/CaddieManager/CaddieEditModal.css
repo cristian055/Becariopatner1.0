@@ -1,0 +1,177 @@
+/* CaddieEditModal - Modal for create/edit operations */
+
+.caddie-edit-modal {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.caddie-edit-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 2rem 1rem 2rem;
+}
+
+.caddie-edit-modal__title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.025em;
+}
+
+.caddie-edit-modal__subtitle {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #a8a89e;
+  margin-top: 0.25rem;
+}
+
+.caddie-edit-modal__close {
+  padding: 0.75rem;
+  background-color: #f5f5f0;
+  border-radius: 1rem;
+  color: #a8a89e;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.caddie-edit-modal__close:hover {
+  color: #1e293b;
+}
+
+.caddie-edit-modal__content {
+  flex: 1;
+  padding: 0 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  overflow-y: auto;
+}
+
+.caddie-edit-modal__error {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 1rem;
+}
+
+.caddie-edit-modal__status-toggle {
+  background-color: #f5f5f0;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid #e0e0d8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.caddie-edit-modal__status-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.caddie-edit-modal__status-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caddie-edit-modal__status-icon--active {
+  background-color: #10b981;
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+}
+
+.caddie-edit-modal__status-icon--inactive {
+  background-color: #64748b;
+  color: white;
+  filter: grayscale(100%);
+}
+
+.caddie-edit-modal__status-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #a8a89e;
+}
+
+.caddie-edit-modal__status-text {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+.caddie-edit-modal__status-text--active {
+  color: #10b981;
+}
+
+.caddie-edit-modal__status-text--inactive {
+  color: #64748b;
+}
+
+.caddie-edit-modal__section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.caddie-edit-modal__section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.caddie-edit-modal__section-icon {
+  color: #0d9488;
+}
+
+.caddie-edit-modal__section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #1e293b;
+}
+
+.caddie-edit-modal__form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .caddie-edit-modal__form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.caddie-edit-modal__footer {
+  display: flex;
+  gap: 1rem;
+  padding: 2rem;
+  border-top: 1px solid #e0e0d8;
+  background-color: white;
+}
+
+.caddie-edit-modal__cancel {
+  flex: 1;
+}
+
+.caddie-edit-modal__save {
+  flex: 2;
+}

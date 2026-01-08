@@ -1,0 +1,149 @@
+.day-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 2.5rem;
+  border: 1px solid #f3f4f6; /* campestre-100 */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 1280px) {
+  .day-selector {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.day-selector__tabs {
+  display: flex;
+  padding: 0.25rem;
+  background-color: #f7f7f2; /* arena */
+  border: 1px solid #f3f4f6;
+  border-radius: 1rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.day-selector__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .day-selector__tabs {
+    flex: none;
+    width: auto;
+  }
+}
+
+.day-selector__tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s;
+  white-space: nowrap;
+  color: #9ca3af; /* campestre-400 */
+}
+
+@media (min-width: 1280px) {
+  .day-selector__tab {
+    flex: none;
+  }
+}
+
+.day-selector__tab:hover {
+  color: #064e3b; /* campestre-600 equivalent */
+}
+
+.day-selector__tab--active {
+  background-color: #064e3b; /* campestre-800 */
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.day-selector__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 1280px) {
+  .day-selector__actions {
+    width: auto;
+  }
+}
+
+.day-selector__pool-stats {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  background-color: #f0fdf4; /* campestre-50 equivalent */
+  border: 1px solid #f3f4f6;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+@media (min-width: 1280px) {
+  .day-selector__pool-stats {
+    flex: none;
+  }
+}
+
+.day-selector__pool-label {
+  font-size: 8px;
+  font-weight: 900;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.125rem;
+}
+
+.day-selector__pool-value {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #064e3b;
+  line-height: 1;
+}
+
+.day-selector__generate-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background-color: #10b981; /* campestre-500 */
+  color: white;
+  border-radius: 1rem;
+  font-weight: 900;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.2);
+  transition: all 0.3s;
+}
+
+@media (min-width: 1280px) {
+  .day-selector__generate-btn {
+    flex: none;
+  }
+}
+
+.day-selector__generate-btn:active {
+  transform: scale(0.95);
+}
+
+.day-selector__generate-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+}

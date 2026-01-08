@@ -11,19 +11,51 @@
     ],
     "skipLibCheck": true,
     "types": [
-      "node"
+      "node",
+      "@testing-library/jest-dom",
+      "@testing-library/user-event"
     ],
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "moduleDetection": "force",
     "allowJs": true,
     "jsx": "react-jsx",
+    "noEmit": true,
+    "baseUrl": "./",  
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "paths": {
       "@/*": [
-        "./*"
+        "./src/*"
       ]
     },
-    "allowImportingTsExtensions": true,
-    "noEmit": true
-  }
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false
+  },
+  "include": [
+    "src/**/*.{ts,tsx}",
+    "*.ts",
+    "*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "dist-ssr",
+    "*.local",
+    "playwright-report",
+    "test-results",
+    "vite.config.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
