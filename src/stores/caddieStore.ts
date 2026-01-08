@@ -175,8 +175,30 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
       set(state => ({
         caddies: state.caddies.map(c => {
           if (c.id !== input.id) return c;
-          logger.stateChange(`caddie.${input.id}`, c, { ...c, ...input.updates }, 'CaddieStore');
-          return { ...c, ...input.updates, lastActionTime: time };
+          
+          const updates = { ...input.updates };
+          
+          // Increment counters when status changes to specific values
+          if (updates.status) {
+            const oldStatus = c.status;
+            const newStatus = updates.status;
+            
+            // Only increment if transitioning from a different status
+            if (oldStatus !== newStatus) {
+              if (newStatus === CaddieStatus.ABSENT && oldStatus !== CaddieStatus.ABSENT) {
+                updates.absencesCount = (c.absencesCount || 0) + 1;
+              }
+              if (newStatus === CaddieStatus.ON_LEAVE && oldStatus !== CaddieStatus.ON_LEAVE) {
+                updates.leaveCount = (c.leaveCount || 0) + 1;
+              }
+              if (newStatus === CaddieStatus.LATE && oldStatus !== CaddieStatus.LATE) {
+                updates.lateCount = (c.lateCount || 0) + 1;
+              }
+            }
+          }
+          
+          logger.stateChange(`caddie.${input.id}`, c, { ...c, ...updates }, 'CaddieStore');
+          return { ...c, ...updates, lastActionTime: time };
         }),
       }));
 
@@ -214,7 +236,29 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
         caddies: state.caddies.map(c => {
           const update = input.updates.find(u => u.id === c.id);
           if (!update) return c;
-          return { ...c, ...update, lastActionTime: time };
+          
+          const updates = { ...update };
+          
+          // Increment counters when status changes to specific values
+          if (updates.status) {
+            const oldStatus = c.status;
+            const newStatus = updates.status;
+            
+            // Only increment if transitioning from a different status
+            if (oldStatus !== newStatus) {
+              if (newStatus === CaddieStatus.ABSENT && oldStatus !== CaddieStatus.ABSENT) {
+                updates.absencesCount = (c.absencesCount || 0) + 1;
+              }
+              if (newStatus === CaddieStatus.ON_LEAVE && oldStatus !== CaddieStatus.ON_LEAVE) {
+                updates.leaveCount = (c.leaveCount || 0) + 1;
+              }
+              if (newStatus === CaddieStatus.LATE && oldStatus !== CaddieStatus.LATE) {
+                updates.lateCount = (c.lateCount || 0) + 1;
+              }
+            }
+          }
+          
+          return { ...c, ...updates, lastActionTime: time };
         }),
       }));
 
