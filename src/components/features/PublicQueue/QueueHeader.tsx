@@ -15,15 +15,6 @@ const QueueHeader: React.FC<QueueHeaderProps> = () => {
           <h1 className="queue-header__title">Dispatch Turns</h1>
           <p className="queue-header__subtitle">Club Campestre Medellín</p>
         </div>
-
-        <button
-          onClick={() => navigate('/monitor/weekly')}
-          className="queue-header__weekly-btn"
-          title="View Weekly Schedule"
-        >
-          <CalendarDays size={20} />
-          <span>Weekly Schedule</span>
-        </button>
       </div>
     </header>
   )
