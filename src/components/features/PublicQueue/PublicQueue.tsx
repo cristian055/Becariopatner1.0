@@ -1,14 +1,14 @@
 import React from 'react'
 import { ExternalLink } from 'lucide-react'
-import { CaddieStatus } from '../../../types'
 import { Trophy, Star, Users as UsersIcon } from 'lucide-react'
-import { useDispatchMonitor } from '../../../hooks/useDispatchMonitor'
+import { usePublicDispatchMonitor } from '../../../hooks/usePublicDispatchMonitor'
 import MonitorNavBar from '../../MonitorNavBar'
 import type { PublicQueueProps, QueueCategoryInfo } from './PublicQueue.types'
 import QueueHeader from './QueueHeader'
 import QueueCategory from './QueueCategory'
 import DispatchPopup from './DispatchPopup'
-import { useCaddieStore, useListStore } from '../../../stores'
+import { usePublicStore } from '../../../stores'
+import { isAuthenticated } from '../../../services/authService'
 import './PublicQueue.css'
 
 const CATEGORIES: QueueCategoryInfo[] = [
@@ -18,29 +18,31 @@ const CATEGORIES: QueueCategoryInfo[] = [
 ]
 
 const PublicQueue: React.FC<PublicQueueProps> = ({ onBack }) => {
-  const { caddies, lastDispatchBatch } = useCaddieStore()
-  const { lists } = useListStore()
-  const { showPopup, callingCaddies, layout } = useDispatchMonitor(lastDispatchBatch, caddies)
+  const { primera, segunda, tercera, loading, error } = usePublicStore()
+  const authenticated = isAuthenticated()
 
+  // Use public store dispatch monitor for real-time WebSocket updates
+  const { showPopup, callingCaddies, layout } = usePublicDispatchMonitor()
+
+  // Get top caddies for each category
+  // For public users: use publicStore data (already sorted by backend)
+  // For admin: use caddieStore data (original behavior)
   const getCategoryTop = (category: string) => {
-    const list = lists.find((l) => l.category === category)
-    if (!list) return []
-    return caddies
-      .filter(
-        (c) =>
-          c.isActive &&
-          c.category === category &&
-          (c.status === CaddieStatus.AVAILABLE || c.status === CaddieStatus.LATE)
-      )
-      .sort((a, b) => {
-        if (a.status !== b.status) return a.status === CaddieStatus.AVAILABLE ? -1 : 1
-
-        if (list.order === 'RANDOM' || list.order === 'MANUAL') {
-          return a.weekendPriority - b.weekendPriority
-        }
-        return list.order === 'ASC' ? a.number - b.number : b.number - a.number
-      })
-      .slice(0, 5)
+    if (!authenticated) {
+      // Use public store data
+      switch (category) {
+        case 'Primera':
+          return primera
+        case 'Segunda':
+          return segunda
+        case 'Tercera':
+          return tercera
+        default:
+          return []
+      }
+    }
+    // Admin users - data not needed in public queue, return empty
+    return []
   }
 
   return (
@@ -52,6 +54,18 @@ const PublicQueue: React.FC<PublicQueueProps> = ({ onBack }) => {
       )}
 
       <QueueHeader onBack={onBack} />
+
+      {loading && (
+        <div className="public-queue__loading">
+          <p>Loading queue...</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="public-queue__error">
+          <p>Error loading queue: {error}</p>
+        </div>
+      )}
 
       <main className="public-queue__content">
         {CATEGORIES.map((cat) => (

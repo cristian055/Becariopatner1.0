@@ -3,6 +3,7 @@ import type { ListConfig } from '../types'
 import { INITIAL_LISTS, LIST_ORDER_TYPES } from '../constants/app.constants'
 import type { ListState, UpdateListInput } from '../types/store.types'
 import { logger } from '../utils'
+import { listApiService } from '../services/listApiService'
 
 /**
  * ListStore - Global state for list configuration management
@@ -13,6 +14,7 @@ interface ListStore extends ListState {
   setLists: (lists: ListConfig[]) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
+  fetchLists: () => Promise<void>;
   updateList: (input: UpdateListInput) => void;
   randomizeList: (listId: string) => void;
   setListOrder: (listId: string, order: typeof LIST_ORDER_TYPES[keyof typeof LIST_ORDER_TYPES]) => void;
@@ -41,6 +43,22 @@ export const useListStore = create<ListStore>((set, get) => ({
     set({ error });
     if (error) {
       logger.error('List store error:', new Error(error), 'ListStore');
+    }
+  },
+
+  // Fetch lists from API
+  fetchLists: async () => {
+    try {
+      set({ loading: true, error: null });
+      logger.info('Fetching lists...', 'ListStore');
+
+      const lists = await listApiService.fetchLists();
+
+      set({ lists, loading: false });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch lists';
+      set({ loading: false, error: errorMessage });
+      logger.serviceError('FETCH_ERROR', errorMessage, error, 'ListStore');
     }
   },
 

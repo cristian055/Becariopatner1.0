@@ -1,5 +1,7 @@
-import type { Caddie, ListConfig } from '../../../types'
+import type { Caddie } from '../../../types'
 import type { LucideIcon } from 'lucide-react'
+import type { PublicCaddie } from '../../../services/publicApiService'
+import type { DispatchCaddie } from '../../../stores/publicStore'
 
 export interface PublicQueueProps {
   onBack?: () => void
@@ -15,18 +17,24 @@ export interface QueueHeaderProps {
   onBack?: () => void
 }
 
+// QueueCaddie can be either a full Caddie (admin) or PublicCaddie (public monitor)
+export type QueueCaddie = Caddie | PublicCaddie
+
 export interface QueueCategoryProps {
   category: QueueCategoryInfo
-  topCaddies: Caddie[]
+  topCaddies: QueueCaddie[]
 }
 
 export interface CaddieRowProps {
-  caddie: Caddie
+  caddie: QueueCaddie
   index: number
 }
 
+// DispatchPopupCaddie can be either a full Caddie (admin) or DispatchCaddie (public monitor)
+export type DispatchPopupCaddie = Caddie | DispatchCaddie
+
 export interface DispatchPopupProps {
-  callingCaddies: Caddie[]
+  callingCaddies: DispatchPopupCaddie[]
   layout: {
     grid: string
     card: string

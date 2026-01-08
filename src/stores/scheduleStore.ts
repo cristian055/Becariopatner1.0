@@ -5,6 +5,7 @@ import type {
   WeeklyShiftInput,
 } from '../types/store.types'
 import { timeToMinutes, logger } from '../utils'
+import { scheduleApiService } from '../services/scheduleApiService'
 
 /**
  * ScheduleStore - Global state for weekly scheduling
@@ -16,6 +17,8 @@ interface ScheduleStore extends WeeklyScheduleState {
   setAssignments: (assignments: WeeklyAssignment[]) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
+  fetchShifts: () => Promise<void>;
+  fetchAssignments: () => Promise<void>;
   addShift: (shift: WeeklyShiftInput) => void;
   removeShift: (id: string) => void;
   generateWeeklyDraw: (day: string, caddies: Caddie[]) => void;
@@ -51,6 +54,38 @@ export const useScheduleStore = create<ScheduleStore>((set, get) => ({
     set({ error });
     if (error) {
       logger.error('Schedule store error:', new Error(error), 'ScheduleStore');
+    }
+  },
+
+  // Fetch shifts from API
+  fetchShifts: async () => {
+    try {
+      set({ loading: true, error: null });
+      logger.info('Fetching shifts...', 'ScheduleStore');
+
+      const shifts = await scheduleApiService.fetchShifts();
+
+      set({ shifts, loading: false });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch shifts';
+      set({ loading: false, error: errorMessage });
+      logger.serviceError('FETCH_ERROR', errorMessage, error, 'ScheduleStore');
+    }
+  },
+
+  // Fetch assignments from API
+  fetchAssignments: async () => {
+    try {
+      set({ loading: true, error: null });
+      logger.info('Fetching assignments...', 'ScheduleStore');
+
+      const assignments = await scheduleApiService.fetchAssignments();
+
+      set({ assignments, loading: false });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch assignments';
+      set({ loading: false, error: errorMessage });
+      logger.serviceError('FETCH_ERROR', errorMessage, error, 'ScheduleStore');
     }
   },
 
