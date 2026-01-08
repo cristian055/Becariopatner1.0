@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { ShieldCheck, ArrowRight, Monitor, Lock, Eye, EyeOff } from 'lucide-react'
+import { login } from '../services/authService'
+import { ApiError } from '../services/apiClient'
 import './Login.css'
 
 interface LoginProps {
@@ -10,15 +12,28 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ onLogin, onBackToPublic }) => {
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
     setLoading(true)
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false)
+    setError(null)
+
+    try {
+      const email = (document.getElementById('email') as HTMLInputElement).value
+      const password = (document.getElementById('password') as HTMLInputElement).value
+
+      await login({ email, password })
       onLogin()
-    }, 1000)
+    } catch (err) {
+      if (err instanceof ApiError) {
+        setError(err.message)
+      } else {
+        setError('An unexpected error occurred')
+      }
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -50,8 +65,8 @@ const Login: React.FC<LoginProps> = ({ onLogin, onBackToPublic }) => {
                 type="email"
                 placeholder="admin@campestre.com"
                 defaultValue="admin@campestre.com"
-                readOnly
                 className="login__input"
+                required
               />
             </div>
 
@@ -64,9 +79,9 @@ const Login: React.FC<LoginProps> = ({ onLogin, onBackToPublic }) => {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Enter your password"
-                  defaultValue="123456"
-                  readOnly
+                  defaultValue="admin123"
                   className="login__input login__password-input"
+                  required
                 />
                 <button
                   type="button"
@@ -82,6 +97,12 @@ const Login: React.FC<LoginProps> = ({ onLogin, onBackToPublic }) => {
                 </button>
               </div>
             </div>
+
+            {error && (
+              <div className="login__error-message">
+                {error}
+              </div>
+            )}
 
             <button
               type="submit"

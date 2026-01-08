@@ -8,53 +8,10 @@ import type {
   BulkUpdateInput,
   DispatchState,
 } from '../types/store.types'
-import { INITIAL_CADDIES_COUNT } from '../constants/app.constants'
 import { logger } from '../utils'
+import { caddieApiService } from '../services/caddieApiService'
 
-// Generate initial caddies
-const generateInitialCaddies = (): Caddie[] => {
-  return Array.from({ length: INITIAL_CADDIES_COUNT }, (_, i) => {
-    const num = i + 1;
-    let category: 'Primera' | 'Segunda' | 'Tercera' = 'Primera';
-    if (num > 40 && num <= 80) category = 'Segunda';
-    if (num > 80) category = 'Tercera';
-
-    return {
-      id: `c-${num}`,
-      name: `Caddie ${num}`,
-      number: num,
-      status: CaddieStatus.AVAILABLE,
-      isActive: true,
-      listId: num <= 40 ? 'list-1' : num <= 80 ? 'list-2' : 'list-3',
-      historyCount: 0,
-      absencesCount: 0,
-      lateCount: 0,
-      leaveCount: 0,
-      lastActionTime: '08:00 AM',
-      category,
-      location: 'Llanogrande',
-      role: num % 5 === 0 ? 'Hybrid' : 'Golf',
-      weekendPriority: num,
-      availability: [
-        {
-          day: 'Friday',
-          isAvailable: true,
-          range: { type: 'after', time: '09:30 AM' },
-        },
-        {
-          day: 'Saturday',
-          isAvailable: true,
-          range: { type: 'full' },
-        },
-        {
-          day: 'Sunday',
-          isAvailable: true,
-          range: { type: 'full' },
-        },
-      ],
-    };
-  });
-};
+// Initial state - empty array, will be populated from API
 
 /**
  * CaddieStore - Global state for caddie management
@@ -78,7 +35,7 @@ interface CaddieStore extends CaddieState, DispatchState {
 
 export const useCaddieStore = create<CaddieStore>((set, get) => ({
   // Initial state
-  caddies: generateInitialCaddies(),
+  caddies: [],
   loading: false,
   error: null,
   lastDispatchBatch: null,
@@ -106,16 +63,15 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
   setLastDispatchBatch: (batch) => set({ lastDispatchBatch: batch }),
   setShowPopup: (show) => set({ showPopup: show }),
 
-  // Fetch caddies (placeholder for future API integration)
+  // Fetch caddies from API
   fetchCaddies: async () => {
     try {
       set({ loading: true, error: null });
       logger.info('Fetching caddies...', 'CaddieStore');
 
-      // In future: const caddies = await caddieService.fetchCaddies();
-      // For now, caddies are already initialized
+      const caddies = await caddieApiService.fetchCaddies();
 
-      set({ loading: false });
+      set({ caddies, loading: false });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to fetch caddies';
       set({ loading: false, error: errorMessage });
@@ -123,38 +79,20 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
     }
   },
 
-  // Create new caddie
+  // Create new caddie via API
   createCaddie: async (input) => {
     try {
       set({ loading: true, error: null });
       logger.action('createCaddie', input as unknown as Record<string, unknown>, 'CaddieStore');
 
-      const time = new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      const id = `c-${Math.random().toString(36).substring(2, 11)}`;
-
-      const newCaddie: Caddie = {
-        ...input,
-        id,
-        status: CaddieStatus.AVAILABLE,
-        isActive: true,
-        listId: null,
-        historyCount: 0,
-        absencesCount: 0,
-        lateCount: 0,
-        leaveCount: 0,
-        lastActionTime: time,
-        weekendPriority: input.weekendPriority || input.number,
-      };
+      const newCaddie = await caddieApiService.createCaddie(input);
 
       set(state => ({
         caddies: [...state.caddies, newCaddie],
         loading: false,
       }));
 
-      logger.info(`Caddie created: ${id}`, 'CaddieStore');
+      logger.info(`Caddie created: ${newCaddie.id}`, 'CaddieStore');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to create caddie';
       set({ loading: false, error: errorMessage });
@@ -162,53 +100,61 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
     }
   },
 
-  // Update existing caddie
-  updateCaddie: (input) => {
+  // Update existing caddie via API
+  updateCaddie: async (input) => {
     logger.action('updateCaddie', input as unknown as Record<string, unknown>, 'CaddieStore');
 
     try {
-      const time = new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
+      const updatedCaddie = await caddieApiService.updateCaddie(input);
 
       set(state => ({
         caddies: state.caddies.map(c => {
           if (c.id !== input.id) return c;
-          logger.stateChange(`caddie.${input.id}`, c, { ...c, ...input.updates }, 'CaddieStore');
-          return { ...c, ...input.updates, lastActionTime: time };
+          logger.stateChange(`caddie.${input.id}`, c, updatedCaddie, 'CaddieStore');
+          return updatedCaddie;
         }),
       }));
 
       logger.info(`Caddie updated: ${input.id}`, 'CaddieStore');
     } catch (error) {
-      logger.error('Failed to update caddie', error as Error, 'CaddieStore');
+      const errorMessage = error instanceof Error ? error.message : 'Failed to update caddie';
+      set({ error: errorMessage });
+      logger.serviceError('UPDATE_ERROR', errorMessage, error, 'CaddieStore');
     }
   },
 
-  // Delete caddie (soft delete - set inactive)
-  deleteCaddie: (id) => {
+  // Delete caddie (soft delete via API)
+  deleteCaddie: async (id) => {
     logger.action('deleteCaddie', { id }, 'CaddieStore');
 
-    set(state => ({
-      caddies: state.caddies.map(c =>
-        c.id === id ? { ...c, isActive: false } : c
-      ),
-    }));
+    try {
+      await caddieApiService.deleteCaddie(id);
 
-    logger.info(`Caddie deactivated: ${id}`, 'CaddieStore');
+      set(state => ({
+        caddies: state.caddies.map(c =>
+          c.id === id ? { ...c, isActive: false } : c
+        ),
+      }));
+
+      logger.info(`Caddie deactivated: ${id}`, 'CaddieStore');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to delete caddie';
+      set({ error: errorMessage });
+      logger.serviceError('DELETE_ERROR', errorMessage, error, 'CaddieStore');
+    }
   },
 
-  // Bulk update caddies (for dispatch operations)
-  bulkUpdateCaddies: (input) => {
+  // Bulk update caddies (for dispatch operations) via API
+  bulkUpdateCaddies: async (input) => {
     logger.action('bulkUpdateCaddies', { count: input.updates.length } as Record<string, unknown>, 'CaddieStore');
 
     try {
+      const result = await caddieApiService.bulkUpdateCaddies(input);
+
       const time = new Date().toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
       });
-      const ids = input.updates.map(u => u.id);
 
       set(state => ({
         caddies: state.caddies.map(c => {
@@ -220,14 +166,16 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
 
       // Trigger dispatch popup
       get().setLastDispatchBatch({
-        ids,
-        timestamp: Date.now(),
+        ids: result.dispatched,
+        timestamp: result.timestamp,
       });
       get().setShowPopup(true);
 
-      logger.info(`Bulk update completed: ${ids.length} caddies`, 'CaddieStore');
+      logger.info(`Bulk update completed: ${result.dispatched.length} caddies`, 'CaddieStore');
     } catch (error) {
-      logger.error('Failed to bulk update caddies', error as Error, 'CaddieStore');
+      const errorMessage = error instanceof Error ? error.message : 'Failed to bulk update caddies';
+      set({ error: errorMessage });
+      logger.serviceError('BULK_UPDATE_ERROR', errorMessage, error, 'CaddieStore');
     }
   },
 
@@ -267,16 +215,21 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
     });
   },
 
-  // Reset caddies to initial state
-  resetCaddies: () => {
+  // Reset caddies - refetch from API
+  resetCaddies: async () => {
     logger.action('resetCaddies', undefined, 'CaddieStore');
 
-    set({
-      caddies: generateInitialCaddies(),
-      error: null,
-    });
+    try {
+      set({ loading: true });
+      const caddies = await caddieApiService.fetchCaddies();
+      set({ caddies, loading: false, error: null });
 
-    logger.info('Caddies reset to initial state', 'CaddieStore');
+      logger.info('Caddies reset and refetched from API', 'CaddieStore');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to reset caddies';
+      set({ loading: false, error: errorMessage });
+      logger.serviceError('RESET_ERROR', errorMessage, error, 'CaddieStore');
+    }
   },
 
 }));

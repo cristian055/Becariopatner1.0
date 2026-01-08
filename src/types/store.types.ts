@@ -33,6 +33,7 @@ export interface CaddieFilters {
   activeStatus?: 'All' | 'Active' | 'Inactive';
   location?: CaddieLocation;
   role?: CaddieRole;
+  includeInactive?: boolean;
 }
 
 export interface ValidationResult {
