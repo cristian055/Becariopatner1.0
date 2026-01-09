@@ -79,7 +79,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onBackToPublic }) => {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Enter your password"
-                  defaultValue="admin123"
+                  defaultValue=""
                   className="login__input login__password-input"
                   required
                 />
