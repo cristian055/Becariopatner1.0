@@ -15,7 +15,8 @@ interface ListStore extends ListState {
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   fetchLists: () => Promise<void>;
-  updateList: (input: UpdateListInput) => void;
+  updateList: (input: UpdateListInput) => Promise<void>;
+  handleListUpdated: (list: ListConfig) => void;
   randomizeList: (listId: string) => void;
   setListOrder: (listId: string, order: typeof LIST_ORDER_TYPES[keyof typeof LIST_ORDER_TYPES]) => void;
   resetLists: () => void;
@@ -63,10 +64,14 @@ export const useListStore = create<ListStore>((set, get) => ({
   },
 
   // Update list configuration
-  updateList: (input) => {
+  updateList: async (input) => {
     logger.action('updateList', input, 'ListStore');
 
     try {
+      // Call backend API
+      await listApiService.updateList(input);
+
+      // Update local state
       set(state => ({
         lists: state.lists.map(l =>
           l.id === input.id ? { ...l, ...input.updates } : l
@@ -75,8 +80,29 @@ export const useListStore = create<ListStore>((set, get) => ({
 
       logger.info(`List updated: ${input.id}`, 'ListStore');
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to update list';
+      set({ error: errorMessage });
       logger.error('Failed to update list', error as Error, 'ListStore');
     }
+  },
+
+  // Handle list updated WebSocket event
+  handleListUpdated: (list) => {
+    logger.action('handleListUpdated', list, 'ListStore');
+
+    set(state => ({
+      lists: state.lists.map(l =>
+        l.id === list.id ? {
+          ...l,
+          rangeStart: list.rangeStart,
+          rangeEnd: list.rangeEnd,
+          order: list.order,
+          name: list.name,
+        } : l
+      ),
+    }));
+
+    logger.info(`List updated via WebSocket: ${list.id}`, 'ListStore');
   },
 
   // Randomize list (set order to RANDOM)

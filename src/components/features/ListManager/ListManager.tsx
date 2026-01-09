@@ -30,10 +30,12 @@ const ListManager: React.FC<ListManagerProps> = () => {
     const list = lists.find(l => l.id === listId)
     if (!list) return []
     return caddies
-      .filter(c => 
-        c.isActive && 
+      .filter(c =>
+        c.isActive &&
         c.category === list.category &&
-        (c.status === CaddieStatus.AVAILABLE || c.status === CaddieStatus.LATE)
+        (c.status === CaddieStatus.AVAILABLE || c.status === CaddieStatus.LATE) &&
+        c.number >= list.rangeStart &&
+        c.number <= list.rangeEnd
       )
       .sort((a, b) => {
         if (a.status !== b.status) return a.status === CaddieStatus.AVAILABLE ? -1 : 1

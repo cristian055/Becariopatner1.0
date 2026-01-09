@@ -4,17 +4,19 @@ import MonitorPage from './pages/MonitorPage'
 import LoginPage from './pages/LoginPage'
 import AdminPage from './pages/AdminPage'
 import { ProtectedRoute } from './routes/ProtectedRoute'
-import { useCaddieStore, useScheduleStore, usePublicStore } from './stores'
+import { useCaddieStore, useScheduleStore, usePublicStore, useListStore } from './stores'
 import { isAuthenticated, logout, getUserLocation } from './services/authService'
 import { socketService } from './services/socketService'
 import type { DispatchCaddie } from './stores/publicStore'
 import type { PublicCaddie } from './services/publicApiService'
+import type { ListConfig } from './types'
 
 const App: React.FC = () => {
   const [isAdmin, setIsAdmin] = useState(false)
   const { fetchCaddies } = useCaddieStore()
   const { fetchShifts, fetchAssignments } = useScheduleStore()
   const { fetchPublicQueue, handleCaddieDispatched, handleQueueUpdated, handleCaddieStatusChanged } = usePublicStore()
+  const { fetchLists, handleListUpdated } = useListStore()
 
   // Initialize app on mount
   useEffect(() => {
@@ -28,6 +30,7 @@ const App: React.FC = () => {
       fetchCaddies()
       fetchShifts()
       fetchAssignments()
+      fetchLists()
     } else {
       // Public: Use public API endpoints (no auth required)
       fetchPublicQueue()
@@ -69,11 +72,18 @@ const App: React.FC = () => {
       handleQueueUpdated(data as { category: 'Primera' | 'Segunda' | 'Tercera'; queue: PublicCaddie[] })
     })
 
+    const unsubscribeListUpdated = socketService.onListUpdated((data): void => {
+      if (data.list) {
+        handleListUpdated(data.list as ListConfig);
+      }
+    })
+
     // Cleanup on unmount
     return () => {
       unsubscribeDispatched()
       unsubscribeStatusChanged()
       unsubscribeQueueUpdated()
+      unsubscribeListUpdated()
       socketService.disconnect()
     }
   }, [])
@@ -84,6 +94,7 @@ const App: React.FC = () => {
     fetchCaddies()
     fetchShifts()
     fetchAssignments()
+    fetchLists()
 
     // Reconnect socket as admin
     const userLocation = getUserLocation()

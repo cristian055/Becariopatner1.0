@@ -29,10 +29,12 @@ const QueueGrid: React.FC<QueueGridProps> = ({
   const queue = useMemo(() => {
     if (!activeList) return []
     return caddies
-      .filter(c => 
-        c.isActive && 
+      .filter(c =>
+        c.isActive &&
         c.category === activeList.category &&
-        (c.status === CaddieStatus.AVAILABLE || c.status === CaddieStatus.LATE)
+        (c.status === CaddieStatus.AVAILABLE || c.status === CaddieStatus.LATE) &&
+        c.number >= activeList.rangeStart &&
+        c.number <= activeList.rangeEnd
       )
       .sort((a, b) => {
         if (a.status !== b.status) return a.status === CaddieStatus.AVAILABLE ? -1 : 1
