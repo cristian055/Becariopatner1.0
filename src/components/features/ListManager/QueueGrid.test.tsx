@@ -239,4 +239,51 @@ describe('QueueGrid', () => {
       status: 'LATE' 
     })
   })
+
+  it('shows active state on late button when caddie is LATE', () => {
+    const lateCaddies: Caddie[] = [
+      {
+        ...mockCaddies[0],
+        status: 'LATE' as any
+      }
+    ]
+
+    const onUpdateCaddie = vi.fn()
+    render(
+      <QueueGrid
+        caddies={lateCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={onUpdateCaddie}
+        isManualReorderMode={false}
+      />
+    )
+
+    const lateButton = screen.getAllByText('Late')[0].closest('.queue-grid__quick-btn')
+    expect(lateButton).toHaveClass('queue-grid__quick-btn--late-active')
+  })
+
+  it('removes active state from late button when toggled back to AVAILABLE', () => {
+    const onUpdateCaddie = vi.fn()
+    render(
+      <QueueGrid
+        caddies={mockCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={onUpdateCaddie}
+        isManualReorderMode={false}
+      />
+    )
+
+    const lateButton = screen.getAllByText('Late')[0].closest('.queue-grid__quick-btn')
+    expect(lateButton).not.toHaveClass('queue-grid__quick-btn--late-active')
+  })
 })
