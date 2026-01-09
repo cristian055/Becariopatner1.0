@@ -53,6 +53,15 @@ const ListManager: React.FC<ListManagerProps> = () => {
     )
   }, [caddies, activeList])
 
+  const getUnavailable = useMemo(() => {
+    if (!activeList) return []
+    return caddies.filter(c => 
+      c.isActive && 
+      c.category === activeList.category &&
+      (c.status === CaddieStatus.ABSENT || c.status === CaddieStatus.ON_LEAVE)
+    )
+  }, [caddies, activeList])
+
   const handleBulkDispatch = () => {
     const updates: { id: string, status: CaddieStatus, listId?: string }[] = []
     lists.forEach(list => {
@@ -161,6 +170,40 @@ const ListManager: React.FC<ListManagerProps> = () => {
                 ))}
               </div>
             </div>
+
+            {getUnavailable.length > 0 && (
+              <div className="list-manager__returns">
+                <div className="list-manager__returns-header">
+                  <RotateCcw size={12} className="list-manager__returns-icon" />
+                  Unavailable Caddies
+                </div>
+                <div className="list-manager__returns-grid">
+                  {getUnavailable.map((caddie: Caddie) => (
+                    <div key={caddie.id} className="list-manager__return-card">
+                      <div className="list-manager__return-circle">
+                        <span className="list-manager__return-number">{caddie.number}</span>
+                        <div className="list-manager__return-badge">ID</div>
+                        <span className={`list-manager__return-indicator ${
+                          caddie.status === CaddieStatus.ABSENT 
+                            ? 'list-manager__return-indicator--absent' 
+                            : 'list-manager__return-indicator--leave'
+                        }`}></span>
+                      </div>
+                      <p className="list-manager__return-name">{caddie.name}</p>
+                      <div className="list-manager__status-badge">
+                        {caddie.status === CaddieStatus.ABSENT ? 'Absent' : 'On Leave'}
+                      </div>
+                      <button 
+                        onClick={() => updateCaddie({ id: caddie.id, updates: { status: CaddieStatus.AVAILABLE } })} 
+                        className="list-manager__return-btn"
+                      >
+                        Restore to Available
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </>
         )}
       </div>

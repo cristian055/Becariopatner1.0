@@ -105,7 +105,36 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
     logger.action('updateCaddie', input as unknown as Record<string, unknown>, 'CaddieStore');
 
     try {
-      const updatedCaddie = await caddieApiService.updateCaddie(input);
+      // Check if we need to increment counters based on status change
+      const currentCaddie = get().caddies.find(c => c.id === input.id);
+      const updatedInput = { ...input };
+      
+      if (currentCaddie && input.updates?.status) {
+        const oldStatus = currentCaddie.status;
+        const newStatus = input.updates.status;
+        
+        // Increment counters when transitioning TO these statuses (not FROM)
+        if (oldStatus !== newStatus) {
+          if (newStatus === CaddieStatus.ABSENT) {
+            updatedInput.updates = { 
+              ...updatedInput.updates, 
+              absencesCount: currentCaddie.absencesCount + 1 
+            };
+          } else if (newStatus === CaddieStatus.ON_LEAVE) {
+            updatedInput.updates = { 
+              ...updatedInput.updates, 
+              leaveCount: currentCaddie.leaveCount + 1 
+            };
+          } else if (newStatus === CaddieStatus.LATE && oldStatus !== CaddieStatus.LATE) {
+            updatedInput.updates = { 
+              ...updatedInput.updates, 
+              lateCount: currentCaddie.lateCount + 1 
+            };
+          }
+        }
+      }
+
+      const updatedCaddie = await caddieApiService.updateCaddie(updatedInput);
 
       set(state => ({
         caddies: state.caddies.map(c => {
