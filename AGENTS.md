@@ -63,6 +63,13 @@ src/
 - Arrow parens always, bracket spacing enabled.
 - CSS uses double quotes, 2-space indentation.
 
+### ESLint Rules
+- No `console.log` (use logger instead), `console.warn` and `console.error` allowed.
+- No `debugger` statements.
+- Avoid `alert()` - prefer UI notifications.
+- Use `const`/`let`, no `var`.
+- Prefer arrow functions for callbacks.
+
 ### Import Order (Enforced by ESLint)
 1. React imports (`import * as React from 'react'`)
 2. Third-party libraries (Radix UI, lucide-react, recharts, etc.)
@@ -88,19 +95,19 @@ src/
 - Wrap complex handlers in `useCallback` to prevent re-renders.
 - Use `useMemo` for derived data (filtered lists, computed statistics).
 - Hooks return `{ data, loading, error, ...actions }` object.
+- Hooks must expose `error: string | null` and `loading: boolean` states.
 
 ## Error Handling & Logging
 
 - Use central `logger` utility (`src/utils/logger.ts`) for all logging.
 - Logger methods: `debug()`, `info()`, `warn()`, `error()`, `serviceError()`, `apiCall()`, `apiResponse()`, `apiError()`, `action()`, `stateChange()`, `performance()`.
 - Services throw `ServiceError(message, code, details)` from `src/types/store.types.ts`.
-- Hooks must expose `error: string | null` and `loading: boolean` states.
 - Validation utils return `{ valid: boolean, errors: string[] }`.
 
 ## TypeScript Rules (Strict Mode)
 
 - `interface` for object shapes, `type` for unions/aliases/primitives.
-- Unused vars prefixed with `_` are allowed (argsIgnorePattern, varsIgnorePattern).
+- Unused vars prefixed with `_` are allowed.
 - No non-null assertions (`!`) without justification.
 - Explicit function return types recommended (ESLint warn).
 - `noUncheckedIndexedAccess` enabled - handle undefined from array/object access.
@@ -110,13 +117,14 @@ src/
 
 ### Unit Tests (Vitest + RTL)
 - Test files: `ComponentName.test.tsx` alongside component.
+- Setup file: `src/tests/setup.ts` (runs before all tests).
 - Use `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`.
 - Structure: `describe('Component Name', () => { it('should...', () => {}) })`
 - Mock external dependencies with `vi.fn()`, `vi.mock()`.
 - Clean DOM in `beforeEach` if needed.
 
 ### Coverage (80% Threshold)
-- Lines, functions, branches, statements all require 80%+ coverage.
+- All metrics (lines, functions, branches, statements) require 80%+ coverage.
 - Excludes: `node_modules/`, `src/tests/`, `*.config.ts/js`, `*.test.tsx`.
 - Run: `npm run test:coverage` (generates text, json, html reports).
 
@@ -133,9 +141,33 @@ src/
 - **ScheduleStore**: Weekly shifts and assignments management.
 - **UIStore**: Modals, notifications, global UI state.
 - All stores export typed interfaces for type safety.
+- Use selector pattern: `const { caddies } = useCaddieStore(s => ({ caddies: s.caddies }))`
 
-## Path Aliases
+## Environment Variables
 
-- Use `@/` alias for imports within code (configured in vite.config.ts).
-- Map: `@/*` → `./src/*`
-- Never use `@/` with file tools (Read, Write, Edit, Glob) - use relative/absolute paths.
+```bash
+# Local Development (.env)
+VITE_API_URL=http://localhost:3000/api
+VITE_WS_URL=http://localhost:3000
+VITE_APP_NAME=CaddiePro
+VITE_APP_ENV=development
+
+# Production (.env.production)
+VITE_API_URL=https://backend-caddiepro-production.up.railway.app/api
+VITE_WS_URL=https://backend-caddiepro-production.up.railway.app
+```
+
+- Use `import.meta.env.VITE_*` to access environment variables.
+- Backend expects port 3000, NOT 3001.
+
+## Git Commits
+
+Format: `type(scope): description` - Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`, `style`
+
+Examples: `feat(caddie-manager): add bulk edit functionality` | `fix(api): resolve WebSocket connection timeout` | `refactor(stores): simplify state update logic` | `test(public-queue): add coverage`
+
+## WebSocket & Common Issues
+
+**WebSocket**: Use `socketService`. Backend sends `{ event, data: {...}, timestamp }`. Extract with `(rawData as { data?: unknown }).data || rawData`. Events: `caddie:dispatched`, `caddie:status_changed`, `queue:updated`.
+
+**Common Issues**: 1) Import errors - include `.ts`/`.tsx` extensions | 2) Build fails - run `npm run type-check` first | 3) Test coverage < 80% - check exclusions in vite.config.ts | 4) WebSocket not connecting - verify `VITE_WS_URL` protocol (http/ws or https/wss) | 5) Tailwind not working - ensure PostCSS config includes tailwindcss | 6) State not updating - use Zustand selector patterns and `set((state) => ...)`
