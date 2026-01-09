@@ -125,7 +125,7 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
               ...updatedInput.updates, 
               leaveCount: currentCaddie.leaveCount + 1 
             };
-          } else if (newStatus === CaddieStatus.LATE && oldStatus !== CaddieStatus.LATE) {
+          } else if (newStatus === CaddieStatus.LATE) {
             updatedInput.updates = { 
               ...updatedInput.updates, 
               lateCount: currentCaddie.lateCount + 1 
