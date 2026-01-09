@@ -7,7 +7,7 @@
 import { io, Socket } from 'socket.io-client'
 import { getToken, getUserLocation } from './authService'
 
-const WS_URL = import.meta.env.VITE_WS_URL || 'http://localhost:3001'
+const WS_URL = import.meta.env.VITE_WS_URL || 'http://localhost:3000'
 
 type EventCallback = (data: unknown) => void
 
@@ -70,7 +70,7 @@ class SocketService {
    *
    * For public connections (monitor):
    * - No token required
-   * - Uses location from getUserLocation() or default
+   * - Location is optional (uses default if not provided)
    * - Subscribes to all lists by default (1,2,3)
    *
    * For admin connections:
@@ -93,10 +93,10 @@ class SocketService {
       return
     }
 
-    // Get location (required for both admin and public)
+    // Get location (optional for public, required for admin)
     const location = locationOverride || getUserLocation()
-    if (!location) {
-      console.error('Location required for connection')
+    if (isAdmin && !location) {
+      console.error('Location required for admin connection')
       return
     }
 
@@ -105,9 +105,12 @@ class SocketService {
     // Build socket options
     const socketOptions: Record<string, unknown> = {
       transports: ['websocket', 'polling'],
-      query: {
-        location,
-      },
+      query: {} as Record<string, string>,
+    }
+
+    // Add location if available
+    if (location) {
+      ;(socketOptions.query as Record<string, string>).location = location
     }
 
     // Add auth token for admin connections
@@ -117,7 +120,7 @@ class SocketService {
 
     // Add list subscription for public connections
     if (!isAdmin && listNumbers.length > 0) {
-      socketOptions.query.lists = listNumbers.join(',')
+      ;(socketOptions.query as Record<string, string>).lists = listNumbers.join(',')
     }
 
     this.socket = io(WS_URL, socketOptions)

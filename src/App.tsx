@@ -52,8 +52,17 @@ const App: React.FC = () => {
 
     const unsubscribeStatusChanged = socketService.onCaddieStatusChanged((data): void => {
       // Handle nested data structure from backend
+      // Backend sends: { event, data: { caddieId, name, number, category, newStatus, ... }, timestamp }
       const eventData = (data as { data?: unknown }).data || data
-      handleCaddieStatusChanged(eventData as { caddieId: string; newStatus: string; caddie?: DispatchCaddie })
+      handleCaddieStatusChanged(eventData as { 
+        caddieId: string
+        newStatus: string
+        name?: string
+        number?: number
+        category?: 'Primera' | 'Segunda' | 'Tercera'
+        previousStatus?: string
+        caddie?: DispatchCaddie 
+      })
     })
 
     const unsubscribeQueueUpdated = socketService.onQueueUpdated((data): void => {
