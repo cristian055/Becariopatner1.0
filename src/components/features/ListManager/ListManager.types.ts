@@ -37,6 +37,7 @@ export interface ListControlsProps {
   isManualMode: boolean
   onToggleManualMode: () => void
   onRandomizeList?: (listId: string) => void
+  onReverseList?: (listId: string) => void
   onOpenEdit: () => void
 }
 

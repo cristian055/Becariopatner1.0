@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import type { ListConfig } from '../types'
-import { useListStore } from '../stores'
+import { useListStore, useCaddieStore } from '../stores'
 import {
   LIST_ORDER_TYPES,
 } from '../constants/app.constants'
@@ -15,6 +15,7 @@ interface UseListsProps {
 
 export const useLists = (props: UseListsProps = {}) => {
   const { lists, updateList, randomizeList, setListOrder: setListOrderStore } = useListStore();
+  const { caddies, bulkUpdateCaddies } = useCaddieStore();
 
   /**
    * Get lists by category
@@ -60,6 +61,27 @@ export const useLists = (props: UseListsProps = {}) => {
   const randomizeCategoryList = useCallback((id: string) => {
     randomizeList(id);
   }, [randomizeList]);
+
+  /**
+   * Reverse list order (manual mode only)
+   */
+  const reverseCategoryList = useCallback((listId: string) => {
+    const list = getListById(listId);
+    if (!list || list.category === undefined) return;
+
+    const categoryCaddies = caddies.filter(
+      c => c.isActive && c.category === list.category
+    ).sort((a, b) => a.weekendPriority - b.weekendPriority);
+
+    const reversedPriorities = categoryCaddies.reverse().map((_, idx) => idx + 1);
+
+    const updates = categoryCaddies.map((c, idx) => ({
+      id: c.id,
+      updates: { weekendPriority: reversedPriorities[idx] }
+    }));
+
+    bulkUpdateCaddies({ updates });
+  }, [getListById, caddies, bulkUpdateCaddies]);
 
   /**
    * Set list order
@@ -108,6 +130,7 @@ export const useLists = (props: UseListsProps = {}) => {
     updateList,
     updateListRange,
     randomizeCategoryList,
+    reverseCategoryList,
     setListOrder,
 
     // Getters

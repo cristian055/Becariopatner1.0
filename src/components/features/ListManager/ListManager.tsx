@@ -16,7 +16,7 @@ import './ListManager.css'
 const ListManager: React.FC<ListManagerProps> = () => {
   const { caddies, updateCaddie, bulkUpdateCaddies, reorderCaddie } = useCaddieStore()
   const { lists } = useListStore()
-  const { randomizeCategoryList, updateList } = useLists()
+  const { randomizeCategoryList, reverseCategoryList, updateList } = useLists()
 
   const [activeTabId, setActiveTabId] = useState<string>(lists[0]?.id || 'list-1')
   const [isManualMode, setIsManualMode] = useState(false)
@@ -112,6 +112,21 @@ const ListManager: React.FC<ListManagerProps> = () => {
     reorderCaddie(activeTabId, caddieId, newIndex)
   }
 
+  const handleReverseList = (listId: string) => {
+    const list = lists.find(l => l.id === listId)
+    if (!list) return
+
+    if (list.order === 'ASC') {
+      updateList({ id: listId, updates: { order: 'DESC' } })
+    } else if (list.order === 'DESC') {
+      updateList({ id: listId, updates: { order: 'ASC' } })
+    } else if (list.order === 'MANUAL') {
+      reverseCategoryList(listId)
+    } else if (list.order === 'RANDOM') {
+      updateList({ id: listId, updates: { order: 'DESC' } })
+    }
+  }
+
   return (
     <div className="list-manager">
       <BulkDispatch 
@@ -129,11 +144,12 @@ const ListManager: React.FC<ListManagerProps> = () => {
       <div className="list-manager__content">
         {activeList && (
           <>
-            <ListControls 
+            <ListControls
               activeList={activeList}
               isManualMode={isManualMode}
               onToggleManualMode={() => setIsManualMode(!isManualMode)}
               onRandomizeList={randomizeCategoryList}
+              onReverseList={handleReverseList}
               onOpenEdit={() => setEditingListId(editingListId === activeList.id ? null : activeList.id)}
             />
 

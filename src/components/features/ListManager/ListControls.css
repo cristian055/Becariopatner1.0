@@ -94,6 +94,17 @@
   box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
 }
 
+.list-controls__btn--reverse {
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  border: none;
+  color: white;
+}
+
+.list-controls__btn--reverse:hover {
+  background: linear-gradient(135deg, #f97316 0%, #e85d04 100%);
+  transform: translateY(-1px);
+}
+
 .list-controls__btn--randomize {
   background-color: theme('colors.indigo.50');
   color: theme('colors.indigo.600');

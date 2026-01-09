@@ -1,8 +1,9 @@
 import React from 'react'
-import { 
-  MoveVertical, 
-  Dices, 
-  SlidersHorizontal 
+import {
+  ArrowUpDown,
+  MoveVertical,
+  Dices,
+  SlidersHorizontal
 } from 'lucide-react'
 import type { ListControlsProps } from './ListManager.types'
 import './ListControls.css'
@@ -12,6 +13,7 @@ const ListControls: React.FC<ListControlsProps> = ({
   isManualMode,
   onToggleManualMode,
   onRandomizeList,
+  onReverseList,
   onOpenEdit
 }) => {
   if (!activeList) return null
@@ -45,7 +47,16 @@ const ListControls: React.FC<ListControlsProps> = ({
       </div>
       
       <div className="list-controls__actions">
-        <button 
+        <button
+          onClick={() => onReverseList?.(activeList.id)}
+          className="list-controls__btn list-controls__btn--reverse"
+          title="Reverse Order"
+        >
+          <ArrowUpDown size={14} />
+          Reverse
+        </button>
+
+        <button
           onClick={onToggleManualMode}
           className={`list-controls__btn list-controls__btn--reorder ${isManualMode ? 'list-controls__btn--reorder-active' : ''}`}
           title="Toggle Manual Reorder"
@@ -53,8 +64,8 @@ const ListControls: React.FC<ListControlsProps> = ({
           <MoveVertical size={14} />
           Reorder
         </button>
-        
-        <button 
+
+        <button
           onClick={() => onRandomizeList?.(activeList.id)}
           className="list-controls__btn list-controls__btn--randomize"
           title="Randomize List"
@@ -62,8 +73,8 @@ const ListControls: React.FC<ListControlsProps> = ({
           <Dices size={14} />
           Shuffle
         </button>
-        
-        <button 
+
+        <button
           onClick={onOpenEdit}
           className="list-controls__btn list-controls__btn--edit"
           title="List Settings"
