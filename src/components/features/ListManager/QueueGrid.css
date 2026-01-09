@@ -307,6 +307,16 @@
   background-color: theme('colors.amber.50');
 }
 
+.queue-grid__quick-btn--late-active {
+  background-color: theme('colors.amber.100');
+  border-color: theme('colors.amber.400');
+  color: theme('colors.amber.700');
+}
+
+.queue-grid__quick-btn--late-active:hover {
+  background-color: theme('colors.amber.200');
+}
+
 .queue-grid__quick-btn-label {
   font-size: 0.5625rem;
   font-weight: 900;

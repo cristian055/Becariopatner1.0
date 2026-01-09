@@ -152,7 +152,7 @@ const QueueGrid: React.FC<QueueGridProps> = ({
                   </button>
                   <button 
                     onClick={() => onUpdateCaddie?.(caddie.id, { status: caddie.status === CaddieStatus.LATE ? CaddieStatus.AVAILABLE : CaddieStatus.LATE })} 
-                    className="queue-grid__quick-btn queue-grid__quick-btn--late"
+                    className={`queue-grid__quick-btn queue-grid__quick-btn--late ${caddie.status === CaddieStatus.LATE ? 'queue-grid__quick-btn--late-active' : ''}`}
                   >
                     <ClockAlert size={20} />
                     <span className="queue-grid__quick-btn-label">Late</span>
