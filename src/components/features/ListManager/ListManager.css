@@ -299,6 +299,23 @@
   background-color: theme('colors.amber.400');
 }
 
+.list-manager__return-indicator--absent {
+  background-color: theme('colors.rose.500');
+}
+
+.list-manager__return-indicator--leave {
+  background-color: theme('colors.sky.500');
+}
+
+.list-manager__status-badge {
+  font-size: 0.5rem;
+  font-weight: 800;
+  color: theme('colors.campestre.500');
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
 .list-manager__return-name {
   font-size: 0.5625rem;
   font-weight: 800;

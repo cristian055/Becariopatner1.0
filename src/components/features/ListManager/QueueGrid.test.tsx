@@ -171,4 +171,72 @@ describe('QueueGrid', () => {
 
     expect(onPositionChange).toHaveBeenCalledWith('1', 2)
   })
+
+  it('calls onUpdateCaddie with ABSENT status when absence button clicked', () => {
+    const onUpdateCaddie = vi.fn()
+    render(
+      <QueueGrid
+        caddies={mockCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={onUpdateCaddie}
+        isManualReorderMode={false}
+      />
+    )
+
+    const absenceButton = screen.getAllByText('Absence')[0]
+    fireEvent.click(absenceButton)
+
+    expect(onUpdateCaddie).toHaveBeenCalledWith('1', { status: 'ABSENT' })
+  })
+
+  it('calls onUpdateCaddie with ON_LEAVE status when permission button clicked', () => {
+    const onUpdateCaddie = vi.fn()
+    render(
+      <QueueGrid
+        caddies={mockCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={onUpdateCaddie}
+        isManualReorderMode={false}
+      />
+    )
+
+    const permissionButton = screen.getAllByText('Permission')[0]
+    fireEvent.click(permissionButton)
+
+    expect(onUpdateCaddie).toHaveBeenCalledWith('1', { status: 'ON_LEAVE' })
+  })
+
+  it('toggles LATE status when late button clicked', () => {
+    const onUpdateCaddie = vi.fn()
+    render(
+      <QueueGrid
+        caddies={mockCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={onUpdateCaddie}
+        isManualReorderMode={false}
+      />
+    )
+
+    const lateButton = screen.getAllByText('Late')[0]
+    fireEvent.click(lateButton)
+
+    expect(onUpdateCaddie).toHaveBeenCalledWith('1', { 
+      status: 'LATE' 
+    })
+  })
 })
