@@ -27,3 +27,7 @@ export type { TableProps, TableColumn, TableVariant } from './Table/Table.types'
 // Select
 export { default as Select } from './Select/Select';
 export type { SelectProps, SelectOption } from './Select/Select.types';
+
+// NumberInput
+export { default as NumberInput } from './NumberInput/NumberInput';
+export type { NumberInputProps } from './NumberInput/NumberInput.types';
