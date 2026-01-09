@@ -1,10 +1,12 @@
 import React, { useState, useMemo, useCallback } from 'react'
 import { RotateCcw } from 'lucide-react'
+
 import { CaddieStatus } from '../../../types'
 import type { Caddie } from '../../../types'
 import { useCaddieStore, useListStore } from '../../../stores'
 import { useLists } from '../../../hooks/useLists'
 import type { ListManagerProps } from './ListManager.types'
+import { NumberInput } from '../../ui'
 import ListTabs from './ListTabs'
 import QueueGrid from './QueueGrid'
 import ListControls from './ListControls'
@@ -137,14 +139,19 @@ const ListManager: React.FC<ListManagerProps> = () => {
 
             {editingListId === activeList.id && (
               <div className="list-manager__edit-panel">
-                <div className="list-manager__field">
-                  <label className="list-manager__label">Range Start</label>
-                  <input type="number" value={activeList.rangeStart} onChange={e => updateList({id: activeList.id, updates: {rangeStart: parseInt(e.target.value, 10) || 0}})} className="w-full p-3 bg-arena border border-campestre-100 rounded-xl font-bold outline-none" />
-                </div>
-                <div className="list-manager__field">
-                  <label className="list-manager__label">Range End</label>
-                  <input type="number" value={activeList.rangeEnd} onChange={e => updateList({id: activeList.id, updates: {rangeEnd: parseInt(e.target.value, 10) || 0}})} className="w-full p-3 bg-arena border border-campestre-100 rounded-xl font-bold outline-none" />
-                </div>
+                <NumberInput
+                  label="Range Start"
+                  value={activeList.rangeStart}
+                  onChange={(value) => updateList({id: activeList.id, updates: {rangeStart: value}})}
+                  min={0}
+                  max={activeList.rangeEnd}
+                />
+                <NumberInput
+                  label="Range End"
+                  value={activeList.rangeEnd}
+                  onChange={(value) => updateList({id: activeList.id, updates: {rangeEnd: value}})}
+                  min={activeList.rangeStart}
+                />
               </div>
             )}
 

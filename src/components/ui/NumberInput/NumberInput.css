@@ -1,0 +1,94 @@
+.number-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.number-input__label {
+  font-size: 0.5625rem;
+  font-weight: 900;
+  color: theme('colors.campestre.400');
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0 0.25rem;
+}
+
+.number-input__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.number-input__button {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: theme('boxShadow.sm');
+  border: 1px solid theme('colors.campestre.100');
+  transition: all 0.2s;
+  cursor: pointer;
+  color: theme('colors.campestre.600');
+  font-weight: 800;
+  font-size: 1.125rem;
+}
+
+.number-input__button:hover:not(:disabled) {
+  background-color: theme('colors.campestre.50');
+  border-color: theme('colors.campestre.200');
+  transform: translateY(-1px);
+}
+
+.number-input__button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.number-input__button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.number-input__field {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background-color: theme('colors.arena');
+  border: 1px solid theme('colors.campestre.100');
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s;
+  color: theme('colors.campestre.800');
+}
+
+.number-input__field:focus {
+  border-color: theme('colors.campestre.500');
+  box-shadow: 0 0 0 3px rgba(4, 55, 48, 0.1);
+}
+
+.number-input__field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.number-input--error .number-input__field {
+  border-color: theme('colors.rose.500');
+  background-color: theme('colors.rose.50');
+}
+
+.number-input__error-message {
+  font-size: 0.75rem;
+  color: theme('colors.rose.600');
+  font-weight: 600;
+  padding: 0 0.25rem;
+}
+
+.number-input__helper-text {
+  font-size: 0.75rem;
+  color: theme('colors.campestre.400');
+  padding: 0 0.25rem;
+}
