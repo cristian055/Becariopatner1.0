@@ -32,8 +32,7 @@ const ListManager: React.FC<ListManagerProps> = () => {
     return caddies
       .filter(c => 
         c.isActive && 
-        c.number >= list.rangeStart && 
-        c.number <= list.rangeEnd && 
+        c.category === list.category &&
         (c.status === CaddieStatus.AVAILABLE || c.status === CaddieStatus.LATE)
       )
       .sort((a, b) => {
@@ -49,8 +48,7 @@ const ListManager: React.FC<ListManagerProps> = () => {
     if (!activeList) return []
     return caddies.filter(c => 
       c.isActive && 
-      c.number >= activeList.rangeStart && 
-      c.number <= activeList.rangeEnd && 
+      c.category === activeList.category &&
       (c.status === CaddieStatus.IN_FIELD || c.status === CaddieStatus.IN_PREP)
     )
   }, [caddies, activeList])

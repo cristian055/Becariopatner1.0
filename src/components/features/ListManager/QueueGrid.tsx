@@ -31,8 +31,7 @@ const QueueGrid: React.FC<QueueGridProps> = ({
     return caddies
       .filter(c => 
         c.isActive && 
-        c.number >= activeList.rangeStart && 
-        c.number <= activeList.rangeEnd && 
+        c.category === activeList.category &&
         (c.status === CaddieStatus.AVAILABLE || c.status === CaddieStatus.LATE)
       )
       .sort((a, b) => {
