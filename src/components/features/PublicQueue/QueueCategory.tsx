@@ -12,7 +12,7 @@ const QueueCategory: React.FC<QueueCategoryProps> = ({ category, topCaddies }) =
       <div className={`queue-category__header ${color}`}>
         <div className="queue-category__header-content">
           <h2 className="queue-category__title">{name}</h2>
-          <p className="queue-category__subtitle">Waiting Queue</p>
+          <p className="queue-category__subtitle">Lista de caddies</p>
         </div>
         <Icon className="queue-category__icon" />
       </div>

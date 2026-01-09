@@ -122,7 +122,7 @@ const QueueGrid: React.FC<QueueGridProps> = ({
                   </div>
                 </div>
                 <p className={`queue-grid__status-text ${idx === 0 ? 'queue-grid__status-text--ready' : 'queue-grid__status-text--waiting'}`}>
-                  {idx === 0 ? 'READY FOR DISPATCH' : `TURN #${idx + 1} IN QUEUE`}
+                  {idx === 0 ? 'En turno' : `TURNO #${idx + 1} `}
                 </p>
               </div>
             </div>
@@ -134,7 +134,7 @@ const QueueGrid: React.FC<QueueGridProps> = ({
                   className="queue-grid__main-action"
                 >
                   <ArrowUpCircle size={18} />
-                  Authorize Dispatch
+                  Salir a Cargar
                 </button>
                 
                 <div className="queue-grid__quick-actions">
@@ -143,21 +143,21 @@ const QueueGrid: React.FC<QueueGridProps> = ({
                     className="queue-grid__quick-btn queue-grid__quick-btn--absent"
                   >
                     <CalendarX size={20} />
-                    <span className="queue-grid__quick-btn-label">Absence</span>
+                    <span className="queue-grid__quick-btn-label">No vino</span>
                   </button>
                   <button 
                     onClick={() => onUpdateCaddie?.(caddie.id, { status: CaddieStatus.ON_LEAVE })} 
                     className="queue-grid__quick-btn queue-grid__quick-btn--leave"
                   >
                     <FileText size={20} />
-                    <span className="queue-grid__quick-btn-label">Permission</span>
+                    <span className="queue-grid__quick-btn-label">Permiso</span>
                   </button>
                   <button 
                     onClick={() => onUpdateCaddie?.(caddie.id, { status: caddie.status === CaddieStatus.LATE ? CaddieStatus.AVAILABLE : CaddieStatus.LATE })} 
                     className={`queue-grid__quick-btn queue-grid__quick-btn--late ${caddie.status === CaddieStatus.LATE ? 'queue-grid__quick-btn--late-active' : ''}`}
                   >
                     <ClockAlert size={20} />
-                    <span className="queue-grid__quick-btn-label">Late</span>
+                    <span className="queue-grid__quick-btn-label">Tarde</span>
                   </button>
                 </div>
               </div>

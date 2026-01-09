@@ -77,9 +77,8 @@ const PublicQueue: React.FC<PublicQueueProps> = ({ onBack }) => {
         <div className="public-queue__footer-status">
           <div className="public-queue__sync-indicator">
             <div className="public-queue__sync-dot"></div>
-            <span className="public-queue__sync-text">Synchronized</span>
           </div>
-          <p className="public-queue__notice">Please watch the screen for your turn</p>
+          <p className="public-queue__notice">Por favor, observe la pantalla para su turno</p>
         </div>
 
         <div className="public-queue__credits">

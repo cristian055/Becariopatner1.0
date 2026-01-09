@@ -17,7 +17,7 @@ const CaddieRow: React.FC<CaddieRowProps> = ({ caddie, index }) => {
             {caddie.name}
           </p>
           <p className={`caddie-row__status ${isNext ? 'caddie-row__status--active' : 'caddie-row__status--idle'}`}>
-            {isNext ? 'NEXT IN TURN' : `POSITION #${index + 1}`}
+            {isNext ? 'Siguiente en turno' : `POSITION #${index + 1}`}
           </p>
         </div>
       </div>

@@ -14,7 +14,7 @@ const DispatchPopup: React.FC<DispatchPopupProps> = ({ callingCaddies, layout })
               Called
             </h2>
           </div>
-          <p className="dispatch-popup__subtitle">Please report to Starter now</p>
+          <p className="dispatch-popup__subtitle">Por favor, preséntese con caddie master</p>
         </div>
 
         <div className={`dispatch-popup__grid ${layout.grid}`}>

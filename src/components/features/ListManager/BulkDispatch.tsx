@@ -22,7 +22,7 @@ const BulkDispatch: React.FC<BulkDispatchProps> = ({
       >
         <div className="bulk-dispatch__label-container">
           <Zap size={18} className="bulk-dispatch__icon" />
-          <span className="bulk-dispatch__label">Bulk Dispatch</span>
+          <span className="bulk-dispatch__label">Pedir Caddies</span>
         </div>
         {isOpen ? (
           <ChevronUp size={20} className="bulk-dispatch__chevron" />
@@ -62,7 +62,7 @@ const BulkDispatch: React.FC<BulkDispatchProps> = ({
             disabled={!hasSelected}
             className="bulk-dispatch__confirm"
           >
-            Confirm Dispatch
+            Confirmar cantidad caddies
           </button>
         </div>
       )}
