@@ -16,6 +16,11 @@ export interface DispatchCaddie {
   category: 'Primera' | 'Segunda' | 'Tercera'
 }
 
+// Accumulator for batching multiple status_changed events
+let pendingDispatchCaddies: DispatchCaddie[] = []
+let dispatchBatchTimer: ReturnType<typeof setTimeout> | null = null
+const BATCH_ACCUMULATION_TIME = 500 // ms to wait for more events before showing popup
+
 interface PublicQueueState {
   primera: PublicCaddie[]
   segunda: PublicCaddie[]
@@ -87,14 +92,37 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
     set({ showPopup: show })
   },
 
-  // Handle caddie dispatched WebSocket event
-  handleCaddieDispatched: (data) => {
-    logger.info(`Caddie dispatched event received: ${data.ids.length} caddies`, 'PublicStore')
+  // Handle caddie dispatched WebSocket event (batch dispatch from admin)
+  handleCaddieDispatched: (rawData) => {
+    // Backend sends: { event, data: { ids, caddies, timestamp }, timestamp }
+    // Extract the actual data from nested structure
+    const data = (rawData as { data?: unknown }).data || rawData
+    const { ids = [], caddies = [], timestamp = Date.now() } = data as { 
+      ids?: string[]
+      caddies?: DispatchCaddie[]
+      timestamp?: number 
+    }
+    
+    logger.info(`Caddie dispatched event received: ${ids.length} caddies`, 'PublicStore')
+    
+    // Skip if no caddies
+    if (caddies.length === 0) {
+      logger.warn('Received dispatch event with no caddies', 'PublicStore')
+      return
+    }
+    
+    // Clear any pending accumulation since we got the full batch
+    if (dispatchBatchTimer) {
+      clearTimeout(dispatchBatchTimer)
+      dispatchBatchTimer = null
+    }
+    pendingDispatchCaddies = []
+    
     set({
       lastDispatchBatch: {
-        ids: data.ids,
-        caddies: data.caddies,
-        timestamp: data.timestamp,
+        ids,
+        caddies,
+        timestamp,
       },
       showPopup: true,
     })
@@ -103,29 +131,52 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
   },
 
   // Handle queue updated WebSocket event
-  handleQueueUpdated: (data) => {
-    logger.info(`Queue updated event received for category: ${data.category}`, 'PublicStore')
-    const updates: Partial<PublicQueueState> = {}
-    switch (data.category) {
-      case 'Primera':
-        updates.primera = data.queue
-        break
-      case 'Segunda':
-        updates.segunda = data.queue
-        break
-      case 'Tercera':
-        updates.tercera = data.queue
-        break
+  handleQueueUpdated: (rawData) => {
+    // Backend sends: { event, data: { category, ... }, timestamp }
+    // Extract the actual data from nested structure
+    const data = (rawData as { data?: unknown }).data || rawData
+    const { category, queue } = data as { 
+      category: 'Primera' | 'Segunda' | 'Tercera'
+      queue?: PublicCaddie[] 
     }
+    
+    logger.info(`Queue updated event received for category: ${category}`, 'PublicStore')
+    
+    // If no category, skip update
+    if (!category) {
+      logger.warn('Queue update missing category', 'PublicStore')
+      return
+    }
+    
+    const updates: Partial<PublicQueueState> = {}
+    
+    // If queue data is provided, use it; otherwise just mark as updated
+    if (queue) {
+      switch (category) {
+        case 'Primera':
+          updates.primera = queue
+          break
+        case 'Segunda':
+          updates.segunda = queue
+          break
+        case 'Tercera':
+          updates.tercera = queue
+          break
+      }
+    }
+    
     updates.lastUpdate = new Date().toISOString()
     set(updates)
+    
+    // Also refresh from server to get latest data
+    get().fetchPublicQueue()
   },
 
   // Handle caddie status changed WebSocket event
-  handleCaddieStatusChanged: (data) => {
-    logger.info(`Caddie status changed: ${data.caddieId} -> ${data.newStatus}`, 'PublicStore')
-    
-    // Extract caddie info from event data
+  handleCaddieStatusChanged: (rawData) => {
+    // Backend sends: { event, data: { caddieId, name, ... }, timestamp }
+    // Extract the actual data from nested structure
+    const data = (rawData as { data?: unknown }).data || rawData
     const caddieData = data as { 
       caddieId: string
       name?: string
@@ -136,7 +187,9 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
       caddie?: DispatchCaddie 
     }
     
-    // If status changed to IN_PREP (authorize dispatch), show popup
+    logger.info(`Caddie status changed: ${caddieData.caddieId} -> ${caddieData.newStatus}`, 'PublicStore')
+    
+    // If status changed to IN_PREP (authorize dispatch), accumulate for popup
     if (caddieData.newStatus === 'IN_PREP') {
       // Build caddie info for popup
       const caddieForPopup: DispatchCaddie = caddieData.caddie || {
@@ -146,14 +199,40 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
         category: caddieData.category || 'Primera',
       }
       
-      set({
-        lastDispatchBatch: {
-          ids: [caddieData.caddieId],
-          caddies: [caddieForPopup],
-          timestamp: Date.now(),
-        },
-        showPopup: true,
-      })
+      // Check if this caddie is already in pending list (avoid duplicates)
+      const alreadyPending = pendingDispatchCaddies.some(c => c.id === caddieForPopup.id)
+      if (!alreadyPending) {
+        pendingDispatchCaddies.push(caddieForPopup)
+        logger.info(`Accumulated ${pendingDispatchCaddies.length} caddies for dispatch popup`, 'PublicStore')
+      }
+      
+      // Clear existing timer
+      if (dispatchBatchTimer) {
+        clearTimeout(dispatchBatchTimer)
+      }
+      
+      // Set timer to show popup after accumulation period
+      dispatchBatchTimer = setTimeout(() => {
+        if (pendingDispatchCaddies.length > 0) {
+          const caddies = [...pendingDispatchCaddies]
+          const ids = caddies.map(c => c.id)
+          
+          logger.info(`Showing dispatch popup with ${caddies.length} caddies`, 'PublicStore')
+          
+          set({
+            lastDispatchBatch: {
+              ids,
+              caddies,
+              timestamp: Date.now(),
+            },
+            showPopup: true,
+          })
+          
+          // Clear the pending list
+          pendingDispatchCaddies = []
+        }
+        dispatchBatchTimer = null
+      }, BATCH_ACCUMULATION_TIME)
     }
     
     // Update local state based on the status change

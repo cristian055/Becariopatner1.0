@@ -52,30 +52,73 @@ export const usePublicDispatchMonitor = (): UsePublicDispatchMonitorReturn => {
   }, [])
 
   const getPopupLayout = (count: number): PopupLayout => {
+    // Single caddie - full prominence
     if (count === 1) {
       return {
-        grid: 'grid-cols-1',
-        card: 'p-6 md:p-14 gap-6 md:gap-20',
-        circle: 'w-28 h-28 md:w-72 md:h-72 text-5xl md:text-[160px]',
-        name: 'text-3xl md:text-9xl',
-        badge: 'text-lg md:text-5xl',
+        grid: 'dispatch-grid--1',
+        card: 'dispatch-card--xl',
+        circle: 'dispatch-circle--xl',
+        name: 'dispatch-name--xl',
+        badge: 'dispatch-badge--xl',
       }
     }
+    // Two caddies - side by side on larger screens
     if (count === 2) {
       return {
-        grid: 'grid-cols-1 lg:grid-cols-2',
-        card: 'p-4 md:p-10 gap-4 md:gap-10',
-        circle: 'w-20 h-20 md:w-48 md:h-48 text-3xl md:text-[100px]',
-        name: 'text-2xl md:text-6xl',
-        badge: 'text-sm md:text-3xl',
+        grid: 'dispatch-grid--2',
+        card: 'dispatch-card--lg',
+        circle: 'dispatch-circle--lg',
+        name: 'dispatch-name--lg',
+        badge: 'dispatch-badge--lg',
       }
     }
+    // Three caddies - row of 3
+    if (count === 3) {
+      return {
+        grid: 'dispatch-grid--3',
+        card: 'dispatch-card--md',
+        circle: 'dispatch-circle--md',
+        name: 'dispatch-name--md',
+        badge: 'dispatch-badge--md',
+      }
+    }
+    // Four caddies - 2x2 grid
+    if (count === 4) {
+      return {
+        grid: 'dispatch-grid--4',
+        card: 'dispatch-card--md',
+        circle: 'dispatch-circle--md',
+        name: 'dispatch-name--md',
+        badge: 'dispatch-badge--md',
+      }
+    }
+    // Five to six caddies - 3x2 grid
+    if (count <= 6) {
+      return {
+        grid: 'dispatch-grid--6',
+        card: 'dispatch-card--sm',
+        circle: 'dispatch-circle--sm',
+        name: 'dispatch-name--sm',
+        badge: 'dispatch-badge--sm',
+      }
+    }
+    // Seven to nine caddies - 3x3 grid
+    if (count <= 9) {
+      return {
+        grid: 'dispatch-grid--9',
+        card: 'dispatch-card--xs',
+        circle: 'dispatch-circle--xs',
+        name: 'dispatch-name--xs',
+        badge: 'dispatch-badge--xs',
+      }
+    }
+    // Ten or more - 4 column grid, compact
     return {
-      grid: 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
-      card: 'p-3 md:p-6 gap-3 md:gap-6',
-      circle: 'w-16 h-16 md:w-28 md:h-28 text-2xl md:text-[50px]',
-      name: 'text-xl md:text-3xl',
-      badge: 'text-[10px] md:text-xl',
+      grid: 'dispatch-grid--many',
+      card: 'dispatch-card--xs',
+      circle: 'dispatch-circle--xs',
+      name: 'dispatch-name--xs',
+      badge: 'dispatch-badge--xs',
     }
   }
 
