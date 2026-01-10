@@ -10,7 +10,7 @@
 }
 
 /* Add horizontal scroll on mobile */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .caddie-table__wrapper {
     overflow-x: auto;
     border-radius: 1.5rem;
@@ -91,7 +91,7 @@
   padding: 1.25rem 2rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .caddie-table__cell {
     padding: 0.875rem 1rem;
     font-size: 0.875rem;
