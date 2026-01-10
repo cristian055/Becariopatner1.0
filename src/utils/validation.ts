@@ -128,8 +128,11 @@ export const validateCreateCaddieInput = (
   }
 
   // Validate category
+  const validCategories = ['Primera', 'Segunda', 'Tercera'];
   if (!input.category) {
     errors.push('Category is required');
+  } else if (!validCategories.includes(input.category)) {
+    errors.push('Category must be Primera, Segunda, or Tercera');
   }
 
   // Validate location

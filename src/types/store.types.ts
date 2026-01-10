@@ -53,7 +53,16 @@ export interface CreateCaddieInput {
 
 export interface UpdateCaddieInput {
   id: string;
-  updates: Partial<Caddie>;
+  updates: Partial<Omit<Caddie, 'id' | 'historyCount' | 'absencesCount' | 'lateCount' | 'leaveCount' | 'lastActionTime'>> & {
+    category?: 'Primera' | 'Segunda' | 'Tercera';
+    location?: CaddieLocation;
+    role?: CaddieRole;
+    weekendPriority?: number;
+    historyCount?: number;
+    absencesCount?: number;
+    lateCount?: number;
+    leaveCount?: number;
+  };
 }
 
 export interface BulkUpdateInput {

@@ -1,4 +1,4 @@
-import type { Caddie, DayAvailability } from '@/types'
+import type { Caddie, DayAvailability } from '../../../types'
 
 /**
  * Props for the main CaddieManager component

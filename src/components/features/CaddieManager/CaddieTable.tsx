@@ -146,12 +146,26 @@ const CaddieTable: React.FC<CaddieTableProps> = ({
       }
     },
     {
-      key: 'services',
-      title: 'Services',
+      key: 'priority',
+      title: 'Priority',
       render: (caddie: typeof caddies[0]) => (
-        <span className="caddie-table__services-count">
-          {caddie.historyCount}
-        </span>
+        <div
+          className="caddie-table__priority-wrapper"
+          title={`Priority: ${caddie.weekendPriority}\nHistory: ${caddie.historyCount}\nAbsences: ${caddie.absencesCount}\nLate: ${caddie.lateCount}\nLeave: ${caddie.leaveCount}`}
+        >
+          <div className="caddie-table__priority-badge">
+            <span className="caddie-table__priority-number">
+              {caddie.weekendPriority}
+            </span>
+            <div
+              className="caddie-table__priority-bar"
+              style={{
+                width: `${Math.min(caddie.weekendPriority * 5, 100)}%`,
+                opacity: 1 - (caddie.weekendPriority / 50)
+              }}
+            />
+          </div>
+        </div>
       )
     },
     {

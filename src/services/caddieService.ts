@@ -80,6 +80,16 @@ class CaddieService {
       );
     }
 
+    // Calcular weekendPriority si no se proporcionó
+    let weekendPriority = input.weekendPriority;
+    if (!weekendPriority) {
+      const categoryCaddies = existingCaddies.filter(c => c.category === input.category);
+      const maxPriority = categoryCaddies.length > 0
+        ? Math.max(...categoryCaddies.map(c => c.weekendPriority || 0))
+        : 0;
+      weekendPriority = maxPriority + 1;
+    }
+
     // Simulate async operation (for future API integration)
     await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -99,7 +109,7 @@ class CaddieService {
       lateCount: 0,
       leaveCount: 0,
       lastActionTime: time,
-      weekendPriority: input.weekendPriority || input.number,
+      weekendPriority,
       isActive: false
     };
 

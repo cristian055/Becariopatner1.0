@@ -1,9 +1,17 @@
 import React from 'react'
-import { X, User, Calendar, Save, Power, AlertCircle } from 'lucide-react'
-import { Modal, Button, Input, Badge } from '../../ui'
+import { X, User, Calendar, Save, Power, AlertCircle, Zap } from 'lucide-react'
+import { Modal, Button, Input, Badge, Select } from '../../ui'
 import CaddieAvailabilityEditor from './CaddieAvailabilityEditor'
 import type { CaddieEditModalProps } from './CaddieManager.types'
+import type { CaddieLocation, CaddieRole } from '../../../types'
 import './CaddieEditModal.css'
+
+// Category options
+const CATEGORY_OPTIONS = [
+  { value: 'Primera', label: 'Primera' },
+  { value: 'Segunda', label: 'Segunda' },
+  { value: 'Tercera', label: 'Tercera' }
+] as const
 
 const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
   isOpen,
@@ -23,7 +31,7 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
     }
   }, [caddie])
 
-  const handleSave = () => {
+  const handleSave = (): void => {
     if (!localCaddie) return
 
     // Validate name
@@ -32,13 +40,30 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
       return
     }
 
-    // Validate number uniqueness
+    // Validate category
+    const validCategories = ['Primera', 'Segunda', 'Tercera']
+    if (localCaddie.category && !validCategories.includes(localCaddie.category)) {
+      onErrorChange('Category must be Primera, Segunda, or Tercera')
+      return
+    }
+
+    // Validate number uniqueness within same category
     const isDuplicate = allCaddies.some(
-      c => c.number === localCaddie.number && c.id !== localCaddie.id
+      c => c.number === localCaddie.number && 
+             c.category === localCaddie.category &&
+             c.id !== localCaddie.id
     )
     if (isDuplicate) {
-      onErrorChange(`Caddie number ${localCaddie.number} is already assigned`)
+      onErrorChange(`Caddie number ${localCaddie.number} already exists in ${localCaddie.category}`)
       return
+    }
+
+    // Validate weekendPriority (1-999, no 0)
+    if (localCaddie.weekendPriority !== undefined) {
+      if (localCaddie.weekendPriority < 1 || localCaddie.weekendPriority > 999) {
+        onErrorChange('Weekend priority must be between 1 and 999')
+        return
+      }
     }
 
     onSave(localCaddie)
@@ -64,22 +89,12 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
         <div className="caddie-edit-modal__header">
           <div>
             <h2 className="caddie-edit-modal__title">
-              {isAdding ? 'New Record' : 'Edit Profile'}
+              {isAdding ? 'Nuevo Registro' : 'Editar información del caddie'}
             </h2>
             <p className="caddie-edit-modal__subtitle">
-              Club Campestre Operations
+              Funfación Club Campestre 
             </p>
-          </div>
-          <button
-            onClick={() => {
-              onClose()
-              onErrorChange(null)
-            }}
-            className="caddie-edit-modal__close"
-            aria-label="Close modal"
-          >
-            <X size={20} />
-          </button>
+          </div>  
         </div>
 
         <div className="caddie-edit-modal__content">
@@ -103,9 +118,6 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
                   <Power size={24} />
                 </div>
                 <div>
-                  <p className="caddie-edit-modal__status-label">
-                    Master Status
-                  </p>
                   <p
                     className={`caddie-edit-modal__status-text ${
                       localCaddie.isActive
@@ -114,8 +126,8 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
                     }`}
                   >
                     {localCaddie.isActive
-                      ? 'Caddie Active in System'
-                      : 'Caddie Inactive (Hidden)'}
+                      ? 'Caddie activo'
+                      : 'Caddie inactivo (Oculto)'}
                   </p>
                 </div>
               </div>
@@ -126,7 +138,7 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
                 }
                 size="sm"
               >
-                {localCaddie.isActive ? 'Deactivate' : 'Activate'}
+                {localCaddie.isActive ? 'Desactivar' : 'Activar'}
               </Button>
             </div>
           )}
@@ -138,13 +150,13 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
                 className="caddie-edit-modal__section-icon"
               />
               <h3 className="caddie-edit-modal__section-title">
-                General Information
+                Información del Caddie
               </h3>
             </div>
 
             <div className="caddie-edit-modal__form-grid">
               <Input
-                label="Full Name"
+                label="NOMBRE DEL CADDIE"
                 placeholder="Ex: Juan Pérez"
                 value={localCaddie.name}
                 onChange={e => handleFieldChange('name', e.target.value)}
@@ -161,7 +173,106 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
                 required
               />
             </div>
+
+            <div className="caddie-edit-modal__form-grid">
+              <div className="caddie-edit-modal__readonly-field">
+                <label className="caddie-edit-modal__readonly-label">SEDE</label>
+                <Select
+                  label=""
+                  options={[
+                    { value: 'Llanogrande', label: 'Llanogrande' },
+                    { value: 'Medellín', label: 'Medellín' }
+                  ]}
+                  value={localCaddie.location}
+                  onChange={value => handleFieldChange('location', value as CaddieLocation)}
+                  disabled={!isAdding}
+                  className="caddie-edit-modal__readonly-select"
+                />
+              </div>
+
+              <div className="caddie-edit-modal__readonly-field">
+                <label className="caddie-edit-modal__readonly-label">Rol</label>
+                <Select
+                  label=""
+                  options={[
+                    { value: 'Golf', label: 'Golf' },
+                    { value: 'Tennis', label: 'Tennis' },
+                    { value: 'Hybrid', label: 'Hybrid' }
+                  ]}
+                  value={localCaddie.role}
+                  onChange={value => handleFieldChange('role', value as CaddieRole)}
+                  disabled={!isAdding}
+                  className="caddie-edit-modal__readonly-select"
+                />
+              </div>
+            </div>
+
+
+            <div className="caddie-edit-modal__form-grid">
+              <div className="caddie-edit-modal__readonly-field">
+                <label className="caddie-edit-modal__readonly-label">Categoria</label>
+                <Select
+                  label=""
+                  options={CATEGORY_OPTIONS}
+                  value={localCaddie.category || 'Primera'}
+                  onChange={value => handleFieldChange('category', value as 'Primera' | 'Segunda' | 'Tercera')}
+                  required
+                />
+              </div>
+            </div>
+
+            <Input
+              label="Weekend Priority"
+              type="number"
+              min={1}
+              max={999}
+              value={localCaddie.weekendPriority || 0}
+              onChange={e => {
+                const value = parseInt(e.target.value)
+                if (value >= 1 && value <= 999) {
+                  handleFieldChange('weekendPriority', value)
+                }
+              }}
+              placeholder="Auto-calculated if empty"
+              helperText="Lower number = higher priority (1 is first)"
+            />
           </div>
+
+          {!isAdding && (
+            <div className="caddie-edit-modal__section">
+              <div className="caddie-edit-modal__section-header">
+                <Zap
+                  size={18}
+                  className="caddie-edit-modal__section-icon"
+                />
+                <h3 className="caddie-edit-modal__section-title">
+                  Estadísticas del Caddie
+                </h3>
+              </div>
+
+              <div className="caddie-edit-modal__stats-grid">
+                <div className="caddie-edit-modal__stat-item">
+                  <span className="caddie-edit-modal__stat-label">Historial</span>
+                  <span className="caddie-edit-modal__stat-value">{localCaddie.historyCount}</span>
+                </div>
+                <div className="caddie-edit-modal__stat-item">
+                  <span className="caddie-edit-modal__stat-label">Ausencias</span>
+                  <span className="caddie-edit-modal__stat-value">{localCaddie.absencesCount}</span>
+                </div>
+                <div className="caddie-edit-modal__stat-item">
+                  <span className="caddie-edit-modal__stat-label">Tardanzas</span>
+                  <span className="caddie-edit-modal__stat-value">{localCaddie.lateCount}</span>
+                </div>
+                <div className="caddie-edit-modal__stat-item">
+                  <span className="caddie-edit-modal__stat-label">Permisos</span>
+                  <span className="caddie-edit-modal__stat-value">{localCaddie.leaveCount}</span>
+                </div>
+              </div>
+              <p className="caddie-edit-modal__stat-note">
+                Estadísticas de solo lectura rastreadas automáticamente por el sistema
+              </p>
+            </div>
+          )}
 
           <div className="caddie-edit-modal__section">
             <div className="caddie-edit-modal__section-header">
@@ -170,7 +281,7 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
                 className="caddie-edit-modal__section-icon"
               />
               <h3 className="caddie-edit-modal__section-title">
-                Weekly Availability
+                Disponibilidad de semana
               </h3>
             </div>
 
@@ -190,7 +301,7 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
             }}
             className="caddie-edit-modal__cancel"
           >
-            Cancel
+            Cancelar
           </Button>
           <Button
             variant="primary"
@@ -198,7 +309,7 @@ const CaddieEditModal: React.FC<CaddieEditModalProps> = ({
             icon={Save}
             className="caddie-edit-modal__save"
           >
-            {isAdding ? 'Create Caddie' : 'Update Profile'}
+            {isAdding ? 'Crear Caddie' : 'Actualizar Perfil'}
           </Button>
         </div>
       </div>

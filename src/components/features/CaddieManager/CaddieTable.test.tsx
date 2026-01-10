@@ -67,7 +67,7 @@ describe('CaddieTable', () => {
     )
 
     expect(screen.getByText('Juan Pérez')).toBeInTheDocument()
-    expect(screen.getByText('1')).toBeInTheDocument()
+    expect(screen.getAllByText('1')).toHaveLength(2)
   })
 
   it('shows correct status badge for each caddie', () => {

@@ -40,10 +40,20 @@ const CaddieManager: React.FC<CaddieManagerProps> = () => {
   React.useEffect(() => {
     if (isAddingCaddie) {
       const nextNum = caddies.length > 0 ? Math.max(...caddies.map((c: Caddie) => c.number)) + 1 : 1
-      setNewCaddie(prev => ({ ...prev, number: nextNum }))
+
+      const categoryCaddies = caddies.filter(c => c.category === newCaddie.category)
+      const maxPriority = categoryCaddies.length > 0
+        ? Math.max(...categoryCaddies.map(c => c.weekendPriority || 0))
+        : 0
+
+      setNewCaddie(prev => ({
+        ...prev,
+        number: nextNum,
+        weekendPriority: maxPriority + 1
+      }))
       setError(null)
     }
-  }, [isAddingCaddie, caddies])
+  }, [isAddingCaddie, caddies, newCaddie.category])
 
   const handleSaveEdit = (caddie: Caddie): void => {
     const validation = caddieService.validateCaddieNumberUniqueness(
@@ -108,11 +118,11 @@ const CaddieManager: React.FC<CaddieManagerProps> = () => {
   }
 
   const handleCategoryChange = (value: string): void => {
-    setFilters((prev) => ({ ...prev, category: value === 'All' ? undefined : value as any }))
+    setFilters((prev) => ({ ...prev, category: value === 'All' ? undefined : value as 'All' | 'Primera' | 'Segunda' | 'Tercera' | undefined }))
   }
 
   const handleActiveChange = (value: string): void => {
-    setFilters((prev) => ({ ...prev, activeStatus: value === 'All' ? undefined : value as any }))
+    setFilters((prev) => ({ ...prev, activeStatus: value === 'All' ? undefined : value as 'All' | 'Active' | 'Inactive' | undefined }))
   }
 
   return (
