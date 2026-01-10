@@ -83,28 +83,28 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-20 bg-white border-b border-campestre-100 px-8 flex items-center justify-between shrink-0">
+        <header className="h-16 sm:h-20 bg-white border-b border-campestre-100 px-4 sm:px-8 flex items-center justify-between shrink-0">
           <div className="flex flex-col">
-            <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-campestre-400">
+            <h2 className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-campestre-400">
               Operations Panel
             </h2>
-            <p className="text-sm font-extrabold text-campestre-800">Fundación Club Campestre</p>
+            <p className="text-xs sm:text-sm font-extrabold text-campestre-800">Fundación Club Campestre</p>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-6">
             <button
               onClick={() => navigate('/monitor')}
               className="hidden sm:flex items-center gap-2 px-4 py-2 text-campestre-600 hover:bg-campestre-50 rounded-xl transition-all text-xs font-bold"
             >
               <Monitor size={16} /> Go to Monitor
             </button>
-            <div className="w-px h-6 bg-campestre-100"></div>
-            <div className="flex items-center gap-3">
+            <div className="hidden sm:block w-px h-6 bg-campestre-100"></div>
+            <div className="flex items-center gap-2 sm:gap-3">
               <div className="text-right hidden sm:block">
                 <p className="text-xs font-black text-campestre-800">Administrator</p>
                 <p className="text-[10px] text-campestre-400">Llanogrande Branch</p>
               </div>
-              <div className="w-10 h-10 rounded-full bg-campestre-50 border-2 border-campestre-100 p-0.5">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-campestre-50 border-2 border-campestre-100 p-0.5">
                 <img
                   src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
                   className="rounded-full"
@@ -115,7 +115,7 @@ const AdminPage: React.FC<AdminPageProps> = ({ onLogout }) => {
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-4 md:p-10 bg-arena/50">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-10 bg-arena/50">
           {activeAdminView === 'lists' && <ListManager />}
           {activeAdminView === 'weekly-draw' && <WeeklyDraw />}
           {activeAdminView === 'caddies' && <CaddieManager />}

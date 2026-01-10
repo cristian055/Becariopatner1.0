@@ -9,6 +9,19 @@
   min-height: 25rem;
 }
 
+/* Add horizontal scroll on mobile */
+@media (max-width: 767px) {
+  .caddie-table__wrapper {
+    overflow-x: auto;
+    border-radius: 1.5rem;
+    min-height: 20rem;
+  }
+  
+  .caddie-table__wrapper table {
+    min-width: 600px;
+  }
+}
+
 .caddie-table__empty {
   display: flex;
   flex-direction: column;
@@ -76,6 +89,13 @@
 
 .caddie-table__cell {
   padding: 1.25rem 2rem;
+}
+
+@media (max-width: 767px) {
+  .caddie-table__cell {
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+  }
 }
 
 .caddie-table__cell--center {

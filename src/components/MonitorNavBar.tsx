@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Lock, ShieldCheck, CalendarDays, Monitor, LayoutDashboard } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
 import { Tabs, TabsList, TabsTrigger } from '../components/ui/tabs';
 
 interface MonitorNavBarProps {
@@ -15,22 +14,23 @@ const MonitorNavBar: React.FC<MonitorNavBarProps> = ({ onBack }) => {
   const isWeekly = location.pathname.includes('/weekly');
 
   return (
-    <nav className="sticky top-0 w-full z-[300] bg-white/80 backdrop-blur-md border-b border-border/40 px-4 md:px-10 h-16 flex items-center shadow-sm">
+    <nav className="sticky top-0 w-full z-[300] bg-white/80 backdrop-blur-md border-b border-border/40 px-3 sm:px-4 md:px-10 h-14 sm:h-16 flex items-center shadow-sm">
       <div className="w-full max-w-7xl mx-auto flex items-center justify-between">
         
         {/* Logo & Status */}
-        <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2.5 group cursor-default" onClick={() => navigate('/monitor')}>
-            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
-              <LayoutDashboard size={20} />
+        <div className="flex items-center gap-3 sm:gap-8">
+          <div className="flex items-center gap-2 sm:gap-2.5 group cursor-default" onClick={() => navigate('/monitor')}>
+            <div className="w-8 h-8 sm:w-9 sm:h-9 bg-primary rounded-lg sm:rounded-xl flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
+              <LayoutDashboard size={16} className="sm:hidden" />
+              <LayoutDashboard size={20} className="hidden sm:block" />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-black uppercase tracking-tighter text-foreground leading-none">
+              <span className="text-xs sm:text-sm font-black uppercase tracking-tighter text-foreground leading-none">
                 Caddie<span className="text-primary">Pro</span>
               </span>
-              <div className="flex items-center gap-1.5 mt-0.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                <span className="text-[9px] font-bold uppercase tracking-widest text-emerald-600/70">
+              <div className="flex items-center gap-1 sm:gap-1.5 mt-0.5">
+                <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-emerald-600/70">
                   Sistema Activo
                 </span>
               </div>
@@ -79,10 +79,11 @@ const MonitorNavBar: React.FC<MonitorNavBarProps> = ({ onBack }) => {
             variant="outline"
             size="sm"
             onClick={onBack}
-            className="group h-10 rounded-xl px-5 border-border hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-sm font-bold text-[11px] uppercase tracking-wider"
+            className="group h-8 sm:h-10 rounded-lg sm:rounded-xl px-3 sm:px-5 border-border hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-sm font-bold text-[10px] sm:text-[11px] uppercase tracking-wider"
           >
-            <Lock size={14} className="mr-2 text-muted-foreground group-hover:text-primary-foreground" />
-            Acceso
+            <Lock size={12} className="sm:hidden text-muted-foreground group-hover:text-primary-foreground" />
+            <Lock size={14} className="hidden sm:block mr-2 text-muted-foreground group-hover:text-primary-foreground" />
+            <span className="hidden sm:inline">Acceso</span>
           </Button>
         </div>
 

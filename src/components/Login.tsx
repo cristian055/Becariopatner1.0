@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ShieldCheck, ArrowRight, Monitor, Lock, Eye, EyeOff } from 'lucide-react'
+import { ShieldCheck, ArrowRight, Monitor, Eye, EyeOff } from 'lucide-react'
 import { login } from '../services/authService'
 import { ApiError } from '../services/apiClient'
 import './Login.css'
