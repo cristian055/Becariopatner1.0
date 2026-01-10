@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { usePublicStore } from '../stores'
 import type { DispatchCaddie } from '../stores/publicStore'
+import { soundService } from '../utils'
 
 export interface PopupLayout {
   grid: string
@@ -31,6 +32,9 @@ export const usePublicDispatchMonitor = (): UsePublicDispatchMonitorReturn => {
         if (caddies && caddies.length > 0) {
           setCallingCaddies(caddies)
           lastProcessedTimestampRef.current = timestamp
+
+          // Play notification sound
+          soundService.playNotification()
 
           // Clear any existing timer
           if (timerRef.current) window.clearTimeout(timerRef.current)

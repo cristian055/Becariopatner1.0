@@ -14,3 +14,6 @@ export * from './sorters';
 
 // Logger
 export { logger, type ChildLogger } from './logger';
+
+// Sound service
+export { soundService } from './soundService';
