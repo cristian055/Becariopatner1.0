@@ -51,7 +51,9 @@ class SoundService {
     } catch (error) {
       // Log error but don't throw - sound is nice-to-have, not critical
       logger.warn(`Failed to play sound: ${soundPath}`, 'SoundService')
-      logger.error('Sound playback error details:', error, 'SoundService')
+      if (error instanceof Error) {
+        logger.debug(`Sound playback error details: ${error.message}`, 'SoundService')
+      }
     }
   }
 
@@ -90,5 +92,6 @@ class SoundService {
 // Export singleton instance
 export const soundService = new SoundService()
 
-// Preload notification sound on module load
+// Preload default notification sound when service is first used
+// This is safe to do at module load time as it's a small, static asset
 soundService.preload('/notification.wav')
