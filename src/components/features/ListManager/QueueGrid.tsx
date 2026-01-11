@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { 
-  ArrowUpCircle, 
+import {
+  ArrowUpCircle,
   CalendarX,
   FileText,
   ClockAlert,
@@ -9,8 +9,9 @@ import {
   Activity,
   Hash
 } from 'lucide-react'
-import { CaddieStatus } from '../../../types'
+import { CaddieStatus, DailyAttendanceStatus } from '../../../types'
 import type { QueueGridProps } from './ListManager.types'
+import { attendanceApiService } from '../../../services/attendanceApiService'
 import './QueueGrid.css'
 
 const QueueGrid: React.FC<QueueGridProps> = ({
@@ -25,6 +26,32 @@ const QueueGrid: React.FC<QueueGridProps> = ({
   onUpdateCaddie
 }) => {
   const activeList = useMemo(() => lists.find(l => l.id === activeTabId), [lists, activeTabId])
+
+  const handleStatusChange = (caddieId: string, status: CaddieStatus, attendanceStatus?: DailyAttendanceStatus) => {
+    onUpdateCaddie?.(caddieId, { status })
+    if (attendanceStatus) {
+      const today = new Date().toISOString().split('T')[0]
+      attendanceApiService.createDailyAttendance({
+        caddieId,
+        date: today,
+        status: attendanceStatus
+      }).catch(error => {
+        console.error('Failed to create daily attendance:', error)
+      })
+    }
+  }
+
+  const handleSalirACargar = (caddieId: string, listId: string) => {
+    onUpdateCaddie?.(caddieId, { status: CaddieStatus.IN_PREP, listId })
+    const today = new Date().toISOString().split('T')[0]
+    attendanceApiService.createDailyAttendance({
+      caddieId,
+      date: today,
+      status: DailyAttendanceStatus.PRESENT
+    }).catch(error => {
+      console.error('Failed to create daily attendance:', error)
+    })
+  }
 
   const queue = useMemo(() => {
     if (!activeList) return []
@@ -129,31 +156,35 @@ const QueueGrid: React.FC<QueueGridProps> = ({
 
             {!isManualReorderMode && (
               <div className="queue-grid__actions">
-                <button 
-                  onClick={() => onUpdateCaddie?.(caddie.id, { status: CaddieStatus.IN_PREP, listId: activeList.id })}
+                <button
+                  onClick={() => handleSalirACargar(caddie.id, activeList.id)}
                   className="queue-grid__main-action"
                 >
                   <ArrowUpCircle size={18} />
                   Salir a Cargar
                 </button>
-                
+
                 <div className="queue-grid__quick-actions">
-                  <button 
-                    onClick={() => onUpdateCaddie?.(caddie.id, { status: CaddieStatus.ABSENT })} 
+                  <button
+                    onClick={() => handleStatusChange(caddie.id, CaddieStatus.ABSENT, DailyAttendanceStatus.ABSENT)}
                     className="queue-grid__quick-btn queue-grid__quick-btn--absent"
                   >
                     <CalendarX size={20} />
                     <span className="queue-grid__quick-btn-label">No vino</span>
                   </button>
-                  <button 
-                    onClick={() => onUpdateCaddie?.(caddie.id, { status: CaddieStatus.ON_LEAVE })} 
+                  <button
+                    onClick={() => handleStatusChange(caddie.id, CaddieStatus.ON_LEAVE, DailyAttendanceStatus.ON_LEAVE)}
                     className="queue-grid__quick-btn queue-grid__quick-btn--leave"
                   >
                     <FileText size={20} />
                     <span className="queue-grid__quick-btn-label">Permiso</span>
                   </button>
-                  <button 
-                    onClick={() => onUpdateCaddie?.(caddie.id, { status: caddie.status === CaddieStatus.LATE ? CaddieStatus.AVAILABLE : CaddieStatus.LATE })} 
+                  <button
+                    onClick={() => {
+                      const newStatus = caddie.status === CaddieStatus.LATE ? CaddieStatus.AVAILABLE : CaddieStatus.LATE
+                      const attendanceStatus = newStatus === CaddieStatus.LATE ? DailyAttendanceStatus.LATE : undefined
+                      handleStatusChange(caddie.id, newStatus, attendanceStatus)
+                    }}
                     className={`queue-grid__quick-btn queue-grid__quick-btn--late ${caddie.status === CaddieStatus.LATE ? 'queue-grid__quick-btn--late-active' : ''}`}
                   >
                     <ClockAlert size={20} />

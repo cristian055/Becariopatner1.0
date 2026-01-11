@@ -7,6 +7,13 @@ export enum CaddieStatus {
   ON_LEAVE = 'ON_LEAVE'
 }
 
+export enum DailyAttendanceStatus {
+  PRESENT = 'PRESENT',
+  LATE = 'LATE',
+  ABSENT = 'ABSENT',
+  ON_LEAVE = 'ON_LEAVE'
+}
+
 export type CaddieLocation = 'Llanogrande' | 'Medellín';
 export type CaddieRole = 'Golf' | 'Tennis' | 'Hybrid';
 
@@ -70,6 +77,24 @@ export interface ListConfig {
   rangeStart: number;
   rangeEnd: number;
   category: 'Primera' | 'Segunda' | 'Tercera';
+}
+
+export interface DailyAttendance {
+  id: string;
+  caddieId: string;
+  caddie?: {
+    id: string;
+    name: string;
+    number: number;
+    category: 'Primera' | 'Segunda' | 'Tercera';
+    location: string;
+  };
+  date: string;
+  status: DailyAttendanceStatus;
+  arrivalTime?: string;
+  servicesCount: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export type ViewType = 'public-queue' | 'lists' | 'caddies' | 'reports' | 'weekly-draw' | 'weekly-monitor';

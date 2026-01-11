@@ -219,6 +219,80 @@ const handleUpdate = async (id: string, updates: Partial<Caddie>) => {
 }
 ```
 
+## Daily Attendance Tracking
+
+### Data Model
+```typescript
+export enum DailyAttendanceStatus {
+  PRESENT = 'PRESENT',
+  LATE = 'LATE',
+  ABSENT = 'ABSENT',
+  ON_LEAVE = 'ON_LEAVE'
+}
+
+export interface DailyAttendance {
+  id: string
+  caddieId: string
+  caddie?: {
+    id: string
+    name: string
+    number: number
+    category: 'Primera' | 'Segunda' | 'Tercera'
+    location: string
+  }
+  date: string
+  status: DailyAttendanceStatus
+  arrivalTime?: string
+  servicesCount: number
+  createdAt?: string
+  updatedAt?: string
+}
+```
+
+### Service: attendanceApiService
+Singleton service for daily attendance operations:
+- `createDailyAttendance(input)` - Create attendance record
+- `getDailyAttendance(date)` - Get all records for a date
+- `getDailyAttendanceStats(date)` - Get summary statistics
+- `updateDailyAttendance(id, input)` - Update existing record
+- `getDailyAttendanceReport(date)` - Get detailed report
+- `closeDay(date)` - Close and archive day
+
+### List Manager Integration
+When clicking attendance buttons in QueueGrid:
+- "Salir a Cargar" → Creates `PRESENT` attendance with arrival time
+- "No vino" → Creates `ABSENT` attendance
+- "Permiso" → Creates `ON_LEAVE` attendance
+- "Tarde" → Creates `LATE` attendance with arrival time
+
+### Reports Integration
+Reports view displays daily statistics:
+- **Salieron** (Caddies who worked): `PRESENT` + `LATE`
+- **No Vinieron** (Caddies absent): `ABSENT`
+- **Tienen Permiso** (Caddies on leave): `ON_LEAVE`
+- **Llegaron Tarde** (Caddies late): `LATE`
+
+Real-time updates via `socketService.onDailyAttendanceUpdated()`.
+
+### WebSocket Event Handling
+```typescript
+// In Reports component
+useEffect(() => {
+  const unsubscribe = socketService.onDailyAttendanceUpdated((data) => {
+    setDailyAttendance(prev => {
+      const index = prev.findIndex(a => a.id === data.id)
+      if (index !== -1) {
+        const updated = [...prev]
+        updated[index] = { ...prev[index], ...data }
+        return updated
+      }
+      return [...prev, data as DailyAttendance]
+    })
+  })
+  return unsubscribe
+}, [])
+```
+
 ## Environment Variables
 
 ```bash
@@ -257,6 +331,7 @@ const unsubscribeDispatched = socketService.onCaddieDispatched((data) => {
 - `queue:updated` - Queue refreshed (category + queue data)
 - `list:updated` - List configuration changed
 - `schedule:updated` - Weekly schedule changes
+- `daily_attendance:updated` - Daily attendance record updated (real-time Reports sync)
 
 **Rooms**: `list-1` (Primera), `list-2` (Segunda), `list-3` (Tercera)
 

@@ -113,6 +113,7 @@
   .dispatch-popup__title--small {
     font-size: 2.5rem;
   }
+
   .dispatch-popup__title--large {
     font-size: 4rem;
   }
@@ -290,6 +291,7 @@
   .dispatch-card__id-label {
     top: 0.5rem;
   }
+
   .dispatch-card__id-label span {
     font-size: 8px;
   }
@@ -629,28 +631,52 @@
   height: 100%;
   background-color: #10b981;
   width: 0;
-  animation: timerProgress 15s linear forwards;
+  animation: timerProgress 5s linear forwards;
 }
 
 /* ============================================
    ANIMATIONS
    ============================================ */
 @keyframes timerProgress {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes zoomIn {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15%); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15%);
+  }
 }

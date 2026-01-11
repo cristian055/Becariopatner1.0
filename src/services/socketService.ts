@@ -55,6 +55,17 @@ interface ListUpdatedEvent {
   timestamp: number
 }
 
+interface DailyAttendanceUpdatedEvent {
+  id: string
+  caddieId: string
+  caddie?: unknown
+  date: string
+  status: string
+  arrivalTime?: string
+  servicesCount: number
+  timestamp: number
+}
+
 interface ConnectOptions {
   isAdmin?: boolean
   location?: string
@@ -193,6 +204,12 @@ class SocketService {
       console.log('List updated:', data)
       this.notifyListeners('list:updated', data)
     })
+
+    // Listen for daily attendance events
+    this.socket.on('daily_attendance:updated', (data) => {
+      console.log('Daily attendance updated:', data)
+      this.notifyListeners('daily_attendance:updated', data)
+    })
   }
 
   /**
@@ -306,10 +323,17 @@ class SocketService {
   }
 
   /**
-   * Listen for list updated event
-   */
+    * Listen for list updated event
+    */
   onListUpdated(callback: (data: ListUpdatedEvent) => void): () => void {
     return this.on('list:updated', callback as EventCallback)
+  }
+
+  /**
+    * Listen for daily attendance updated event
+    */
+  onDailyAttendanceUpdated(callback: (data: DailyAttendanceUpdatedEvent) => void): () => void {
+    return this.on('daily_attendance:updated', callback as EventCallback)
   }
 
   /**

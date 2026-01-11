@@ -42,7 +42,7 @@ export const usePublicDispatchMonitor = (): UsePublicDispatchMonitorReturn => {
           // Auto-hide popup after 8 seconds
           timerRef.current = window.setTimeout(() => {
             setShowPopup(false)
-          }, 8000)
+          }, 5000)
         }
       }
     }

@@ -4,9 +4,10 @@ export interface ReportsProps {}
 
 export interface StatsGridProps {
   totalServices: number
-  totalAbsences: number
-  totalLeaves: number
-  totalLates: number
+  worked: number
+  absent: number
+  onLeave: number
+  late: number
 }
 
 export interface ConfirmationModalProps {

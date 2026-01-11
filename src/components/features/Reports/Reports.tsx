@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import type { ReportsProps } from './Reports.types'
 import ReportsHeader from './ReportsHeader'
 import StatsGrid from './StatsGrid'
@@ -14,12 +14,50 @@ import {
 } from 'recharts'
 import { TrendingUp } from 'lucide-react'
 import { useCaddieStore, useScheduleStore } from '../../../stores'
+import { attendanceApiService } from '../../../services/attendanceApiService'
+import { socketService } from '../../../services/socketService'
+import type { DailyAttendance } from '../../../types'
 import './Reports.css'
 
 const Reports: React.FC<ReportsProps> = () => {
   const { caddies } = useCaddieStore()
   const { resetSchedule } = useScheduleStore()
   const [showConfirmReset, setShowConfirmReset] = useState(false)
+  const [dailyAttendance, setDailyAttendance] = useState<DailyAttendance[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0]
+    attendanceApiService.getDailyAttendance(today)
+      .then(data => {
+        setDailyAttendance(data)
+        setLoading(false)
+      })
+      .catch(error => {
+        console.error('Failed to fetch daily attendance:', error)
+        setLoading(false)
+      })
+
+    const unsubscribe = socketService.onDailyAttendanceUpdated((data) => {
+      const today = new Date().toISOString().split('T')[0]
+      if (data.date.startsWith(today)) {
+        setDailyAttendance(prev => {
+          const index = prev.findIndex(a => a.id === data.id)
+          if (index !== -1) {
+            const updated = [...prev]
+            updated[index] = {
+              ...prev[index],
+              ...data
+            }
+            return updated
+          }
+          return [...prev, data as DailyAttendance]
+        })
+      }
+    })
+
+    return unsubscribe
+  }, [])
 
   const onReset = useCallback(() => {
     // Reset global state
@@ -28,13 +66,17 @@ const Reports: React.FC<ReportsProps> = () => {
   }, [resetSchedule])
 
   const stats = useMemo(() => {
-    return {
-      totalAbsences: caddies.reduce((acc, c) => acc + (c.absencesCount || 0), 0),
-      totalLeaves: caddies.reduce((acc, c) => acc + (c.leaveCount || 0), 0),
-      totalLates: caddies.reduce((acc, c) => acc + (c.lateCount || 0), 0),
-      totalServices: caddies.reduce((acc, c) => acc + (c.historyCount || 0), 0),
+    const todayStats = {
+      worked: dailyAttendance.filter(a => a.status === 'PRESENT' || a.status === 'LATE').length,
+      absent: dailyAttendance.filter(a => a.status === 'ABSENT').length,
+      onLeave: dailyAttendance.filter(a => a.status === 'ON_LEAVE').length,
+      late: dailyAttendance.filter(a => a.status === 'LATE').length,
     }
-  }, [caddies])
+    return {
+      totalServices: caddies.reduce((acc, c) => acc + (c.historyCount || 0), 0),
+      ...todayStats
+    }
+  }, [dailyAttendance, caddies])
 
   const handleDownloadReport = useCallback(() => {
     const headers = [
@@ -74,8 +116,14 @@ const Reports: React.FC<ReportsProps> = () => {
     document.body.removeChild(link)
   }, [caddies])
 
-  const handleCloseDay = useCallback(() => {
+  const handleCloseDay = useCallback(async () => {
     handleDownloadReport()
+    const today = new Date().toISOString().split('T')[0]
+    try {
+      await attendanceApiService.closeDay(today)
+    } catch (error) {
+      console.error('Failed to close day:', error)
+    }
     if (onReset) onReset()
     setShowConfirmReset(false)
   }, [handleDownloadReport, onReset])
@@ -123,9 +171,10 @@ const Reports: React.FC<ReportsProps> = () => {
 
       <StatsGrid
         totalServices={stats.totalServices}
-        totalAbsences={stats.totalAbsences}
-        totalLeaves={stats.totalLeaves}
-        totalLates={stats.totalLates}
+        worked={stats.worked}
+        absent={stats.absent}
+        onLeave={stats.onLeave}
+        late={stats.late}
       />
 
       <div className="reports__charts">
