@@ -1,8 +1,17 @@
 .list-controls {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1rem;
   padding: 0 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .list-controls {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+  }
 }
 
 .list-controls__info {
@@ -13,7 +22,7 @@
 .list-controls__title {
   font-size: 1.5rem;
   font-weight: 800;
-  color: theme('colors.campestre.800');
+  color: theme("colors.campestre.800");
   letter-spacing: -0.025em;
   line-height: 1.2;
 }
@@ -28,7 +37,7 @@
 .list-controls__subtitle {
   font-size: 0.5625rem;
   font-weight: 900;
-  color: theme('colors.campestre.300');
+  color: theme("colors.campestre.300");
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
@@ -43,24 +52,31 @@
 }
 
 .list-controls__order-badge--random {
-  background-color: theme('colors.indigo.100');
-  color: theme('colors.indigo.600');
+  background-color: theme("colors.indigo.100");
+  color: theme("colors.indigo.600");
 }
 
 .list-controls__order-badge--manual {
-  background-color: theme('colors.emerald.100');
-  color: theme('colors.emerald.600');
+  background-color: theme("colors.emerald.100");
+  color: theme("colors.emerald.600");
 }
 
 .list-controls__order-badge--numeric {
-  background-color: theme('colors.campestre.100');
-  color: theme('colors.campestre.600');
+  background-color: theme("colors.campestre.100");
+  color: theme("colors.campestre.600");
 }
 
 .list-controls__actions {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 640px) {
+  .list-controls__actions {
+    flex-wrap: nowrap;
+  }
 }
 
 .list-controls__btn {
@@ -78,19 +94,19 @@
 }
 
 .list-controls__btn--reorder {
-  background-color: theme('colors.emerald.50');
-  color: theme('colors.emerald.600');
-  border-color: theme('colors.emerald.100');
+  background-color: theme("colors.emerald.50");
+  color: theme("colors.emerald.600");
+  border-color: theme("colors.emerald.100");
 }
 
 .list-controls__btn--reorder:hover {
-  background-color: theme('colors.emerald.100');
+  background-color: theme("colors.emerald.100");
 }
 
 .list-controls__btn--reorder-active {
-  background-color: theme('colors.emerald.500');
+  background-color: theme("colors.emerald.500");
   color: white;
-  border-color: theme('colors.emerald.600');
+  border-color: theme("colors.emerald.600");
   box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
 }
 
@@ -106,22 +122,22 @@
 }
 
 .list-controls__btn--randomize {
-  background-color: theme('colors.indigo.50');
-  color: theme('colors.indigo.600');
-  border-color: theme('colors.indigo.100');
+  background-color: theme("colors.indigo.50");
+  color: theme("colors.indigo.600");
+  border-color: theme("colors.indigo.100");
 }
 
 .list-controls__btn--randomize:hover {
-  background-color: theme('colors.indigo.100');
+  background-color: theme("colors.indigo.100");
 }
 
 .list-controls__btn--edit {
-  background-color: theme('colors.campestre.50');
-  color: theme('colors.campestre.500');
+  background-color: theme("colors.campestre.50");
+  color: theme("colors.campestre.500");
   padding: 0.75rem;
   border-radius: 1rem;
 }
 
 .list-controls__btn--edit:hover {
-  background-color: theme('colors.campestre.100');
+  background-color: theme("colors.campestre.100");
 }
