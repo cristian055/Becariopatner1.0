@@ -1,5 +1,5 @@
 import type { Caddie, ListConfig, WeeklyShift, WeeklyAssignment, CaddieLocation, CaddieRole, DayAvailability } from './index'
-import { CaddieStatus } from './index'
+import type { CaddieStatus, CaddieCategory } from './index'
 
 // Store Types
 export interface CaddieState {
@@ -67,6 +67,11 @@ export interface UpdateCaddieInput {
 
 export interface BulkUpdateInput {
   updates: Array<{ id: string; status: CaddieStatus; listId?: string }>;
+}
+
+export interface PromoteCaddieInput {
+  caddieId: string;
+  newCategory: CaddieCategory;
 }
 
 export interface CreateListInput {

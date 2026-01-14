@@ -1,4 +1,5 @@
-import { Caddie, ListConfig, CaddieStatus } from '../../../types'
+import type { Caddie, ListConfig} from '../../../types';
+import { CaddieStatus } from '../../../types'
 
 /**
  * Props for main ListManager component

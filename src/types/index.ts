@@ -1,3 +1,6 @@
+export type CaddieOperationalStatus = 'AVAILABLE' | 'IN_PREP' | 'IN_FIELD';
+export type AttendanceStatus = 'PRESENT' | 'LATE' | 'ABSENT' | 'ON_LEAVE';
+
 export enum CaddieStatus {
   AVAILABLE = 'AVAILABLE',
   IN_PREP = 'IN_PREP',
@@ -16,6 +19,7 @@ export enum DailyAttendanceStatus {
 
 export type CaddieLocation = 'Llanogrande' | 'Medellín';
 export type CaddieRole = 'Golf' | 'Tennis' | 'Hybrid';
+export type CaddieCategory = 'PRIMERA' | 'SEGUNDA' | 'TERCERA';
 
 export interface TimeAvailability {
   type: 'before' | 'after' | 'between' | 'full';
@@ -46,7 +50,10 @@ export interface Caddie {
   role: CaddieRole;
   availability: DayAvailability[];
   weekendPriority: number;
-  isSkippedNextWeek?: boolean; 
+  isSkippedNextWeek?: boolean;
+  operationalStatus?: CaddieOperationalStatus;
+  attendanceStatus?: AttendanceStatus;
+  combinedStatus?: string;
 }
 
 export interface WeeklyShiftRequirement {
