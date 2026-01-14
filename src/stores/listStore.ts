@@ -5,7 +5,7 @@ import type { UpdateListInput } from '../types/store.types'
 import { logger } from '../utils'
 import { listApiService } from '../services/listApiService'
 
-interface QueuePosition {
+export interface QueuePosition {
   id: string;
   caddieId: string;
   category: string;

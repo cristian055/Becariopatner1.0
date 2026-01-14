@@ -1,10 +1,12 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { RotateCcw } from 'lucide-react'
 
 import { CaddieStatus } from '../../../types'
 import type { Caddie } from '../../../types'
 import { useCaddieStore, useListStore } from '../../../stores'
 import { useLists } from '../../../hooks/useLists'
+import { socketService } from '../../../services/socketService'
+import { queueApiService } from '../../../services/queueApiService'
 import type { ListManagerProps } from './ListManager.types'
 import { NumberInput } from '../../ui'
 import ListTabs from './ListTabs'
@@ -15,7 +17,7 @@ import './ListManager.css'
 
 const ListManager: React.FC<ListManagerProps> = () => {
   const { caddies, updateCaddie, bulkUpdateCaddies, reorderCaddie } = useCaddieStore()
-  const { lists } = useListStore()
+  const { lists, queues, setQueue, handleQueueUpdated: handleQueueUpdate } = useListStore()
   const { randomizeCategoryList, reverseCategoryList, updateList } = useLists()
 
   const [activeTabId, setActiveTabId] = useState<string>(lists[0]?.id || 'list-1')
@@ -28,9 +30,72 @@ const ListManager: React.FC<ListManagerProps> = () => {
 
   const activeList = useMemo(() => lists.find(l => l.id === activeTabId) || null, [lists, activeTabId])
 
+  const fetchQueuePositions = useCallback(async (category: string) => {
+    try {
+      const queuePositions = await queueApiService.fetchQueueByCategory(
+        category as 'PRIMERA' | 'SEGUNDA' | 'TERCERA'
+      )
+      setQueue(category, queuePositions)
+    } catch (error) {
+      console.error('Failed to fetch queue positions:', error)
+    }
+  }, [setQueue])
+
+  useEffect(() => {
+    if (activeList) {
+      fetchQueuePositions(activeList.category)
+    }
+  }, [activeList, fetchQueuePositions])
+
+  useEffect(() => {
+    if (!activeList) return
+
+    const handleQueueUpdatedEvent = (data: { category: string; queue: any[] }) => {
+      if (data.category === activeList.category) {
+        handleQueueUpdate({
+          category: data.category,
+          queuePositions: data.queue.map(q => ({
+            id: q.id || q.position.toString(),
+            caddieId: q.id,
+            category: q.category,
+            position: q.weekendPriority,
+            operationalStatus: q.status,
+            caddie: {
+              id: q.id,
+              name: q.name,
+              number: q.number,
+              role: q.role || 'Golf',
+            },
+          })),
+        })
+      }
+    }
+
+    const unsubscribe = socketService.onQueueUpdated(handleQueueUpdatedEvent)
+
+    return unsubscribe
+  }, [activeList, handleQueueUpdate])
+
   const getQueue = useCallback((listId: string) => {
     const list = lists.find(l => l.id === listId)
     if (!list) return []
+    
+    const categoryQueue = queues[list.category] || []
+    
+    if (categoryQueue.length > 0) {
+      return categoryQueue
+        .filter(qp => {
+          return qp.operationalStatus === 'AVAILABLE' || qp.operationalStatus === 'LATE'
+        })
+        .slice(0, list.rangeEnd - list.rangeStart + 1)
+        .map(qp => ({
+          ...qp.caddie,
+          id: qp.caddie.id,
+          status: qp.operationalStatus === 'AVAILABLE' ? CaddieStatus.AVAILABLE : CaddieStatus.LATE,
+          weekendPriority: qp.position,
+        }))
+    }
+
     return caddies
       .filter(c =>
         c.isActive &&
@@ -46,7 +111,7 @@ const ListManager: React.FC<ListManagerProps> = () => {
         }
         return list.order === 'ASC' ? a.number - b.number : b.number - a.number
       })
-  }, [caddies, lists])
+  }, [caddies, lists, queues])
 
   const getReturns = useMemo(() => {
     if (!activeList) return []
@@ -177,6 +242,7 @@ const ListManager: React.FC<ListManagerProps> = () => {
               onDragStart={handleDragStart} onDragOver={handleDragOver} onDrop={handleDrop}
               onPositionChange={handlePositionChange} 
               onUpdateCaddie={(id, updates) => updateCaddie({ id, updates })}
+              queuePositions={queues[activeList.category]}
             />
 
             <div className="list-manager__returns">
