@@ -1,7 +1,12 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import QueueGrid from './QueueGrid'
 import type { Caddie, ListConfig } from '../../../types'
+import { caddieApiService } from '../../../services/caddieApiService'
+import { attendanceApiService } from '../../../services/attendanceApiService'
+
+vi.mock('../../../services/caddieApiService')
+vi.mock('../../../services/attendanceApiService')
 
 const mockCaddies: Caddie[] = [
   {
@@ -48,6 +53,9 @@ const mockLists: ListConfig[] = [
 ]
 
 describe('QueueGrid', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
   it('renders queue when caddies available', () => {
     const onDragStart = vi.fn()
     const onDragOver = vi.fn()
@@ -285,5 +293,180 @@ describe('QueueGrid', () => {
 
     const lateButton = screen.getAllByText('Late')[0].closest('.queue-grid__quick-btn')
     expect(lateButton).not.toHaveClass('queue-grid__quick-btn--late-active')
+  })
+
+  it('calls updateCaddieStatus when operational status changes', () => {
+    render(
+      <QueueGrid
+        caddies={mockCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={vi.fn()}
+        isManualReorderMode={false}
+      />
+    )
+
+    const absenceButton = screen.getAllByText('No vino')[0]
+    fireEvent.click(absenceButton)
+
+    expect(caddieApiService.updateCaddieStatus).toHaveBeenCalledWith('1', 'ABSENT')
+  })
+
+  it('calls createDailyAttendance when attendance status changes', () => {
+    const today = new Date().toISOString().split('T')[0]
+    render(
+      <QueueGrid
+        caddies={mockCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={vi.fn()}
+        isManualReorderMode={false}
+      />
+    )
+
+    const absenceButton = screen.getAllByText('No vino')[0]
+    fireEvent.click(absenceButton)
+
+    expect(attendanceApiService.createDailyAttendance).toHaveBeenCalledWith({
+      caddieId: '1',
+      date: today,
+      status: 'ABSENT'
+    })
+  })
+
+  it('calls both APIs when status change includes both operational and attendance', () => {
+    const today = new Date().toISOString().split('T')[0]
+    render(
+      <QueueGrid
+        caddies={mockCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={vi.fn()}
+        isManualReorderMode={false}
+      />
+    )
+
+    const absenceButton = screen.getAllByText('No vino')[0]
+    fireEvent.click(absenceButton)
+
+    expect(caddieApiService.updateCaddieStatus).toHaveBeenCalledWith('1', 'ABSENT')
+    expect(attendanceApiService.createDailyAttendance).toHaveBeenCalledWith({
+      caddieId: '1',
+      date: today,
+      status: 'ABSENT'
+    })
+  })
+
+  it('calls updateCaddieStatus with IN_PREP when Salir a Cargar is clicked', () => {
+    render(
+      <QueueGrid
+        caddies={mockCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={vi.fn()}
+        isManualReorderMode={false}
+      />
+    )
+
+    const salirACargarButton = screen.getAllByText('Salir a Cargar')[0]
+    fireEvent.click(salirACargarButton)
+
+    expect(caddieApiService.updateCaddieStatus).toHaveBeenCalledWith('1', 'IN_PREP')
+  })
+
+  it('calls createDailyAttendance with PRESENT when Salir a Cargar is clicked', () => {
+    const today = new Date().toISOString().split('T')[0]
+    render(
+      <QueueGrid
+        caddies={mockCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={vi.fn()}
+        isManualReorderMode={false}
+      />
+    )
+
+    const salirACargarButton = screen.getAllByText('Salir a Cargar')[0]
+    fireEvent.click(salirACargarButton)
+
+    expect(attendanceApiService.createDailyAttendance).toHaveBeenCalledWith({
+      caddieId: '1',
+      date: today,
+      status: 'PRESENT'
+    })
+  })
+
+  it('toggles LATE status when Tarde button is clicked on AVAILABLE caddie', () => {
+    const today = new Date().toISOString().split('T')[0]
+    render(
+      <QueueGrid
+        caddies={mockCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={vi.fn()}
+        isManualReorderMode={false}
+      />
+    )
+
+    const lateButton = screen.getAllByText('Tarde')[0]
+    fireEvent.click(lateButton)
+
+    expect(attendanceApiService.createDailyAttendance).toHaveBeenCalledWith({
+      caddieId: '1',
+      date: today,
+      status: 'LATE'
+    })
+  })
+
+  it('toggles back to AVAILABLE when Tarde button is clicked on LATE caddie', () => {
+    const lateCaddies: Caddie[] = [
+      {
+        ...mockCaddies[0],
+        status: 'LATE' as any
+      }
+    ]
+
+    render(
+      <QueueGrid
+        caddies={lateCaddies}
+        lists={mockLists}
+        activeTabId="list-1"
+        onDragStart={vi.fn()}
+        onDragOver={vi.fn()}
+        onDrop={vi.fn()}
+        onPositionChange={vi.fn()}
+        onUpdateCaddie={vi.fn()}
+        isManualReorderMode={false}
+      />
+    )
+
+    const lateButton = screen.getAllByText('Tarde')[0]
+    fireEvent.click(lateButton)
+
+    expect(caddieApiService.updateCaddieStatus).toHaveBeenCalledWith('1', 'AVAILABLE')
   })
 })

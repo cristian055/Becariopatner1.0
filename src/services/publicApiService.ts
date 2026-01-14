@@ -4,15 +4,13 @@
  * Used by the monitor view to display caddie queues without login
  */
 
-import type { CaddieStatus } from '../types'
-
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
 
 export interface PublicCaddie {
   id: string
   name: string
   number: number
-  status: CaddieStatus
+  status: 'AVAILABLE' | 'IN_PREP' | 'IN_FIELD'
   category: 'PRIMERA' | 'SEGUNDA' | 'TERCERA'
   weekendPriority: number
   location?: string

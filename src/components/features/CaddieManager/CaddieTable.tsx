@@ -2,7 +2,6 @@ import React from 'react'
 import { MapPin, Activity, Pencil, Power, Search } from 'lucide-react'
 import { Badge, Table } from '../../ui'
 import type { CaddieTableProps, StatusConfig } from './CaddieManager.types'
-import { CaddieStatus } from '../../../types'
 import './CaddieTable.css'
 
 const CaddieTable: React.FC<CaddieTableProps> = ({
@@ -11,7 +10,7 @@ const CaddieTable: React.FC<CaddieTableProps> = ({
   onToggleActive,
   onResetFilters
 }) => {
-  const getStatusConfig = (status: CaddieStatus, isActive: boolean): StatusConfig => {
+  const getStatusConfig = (status: 'AVAILABLE' | 'IN_PREP' | 'IN_FIELD' | 'LATE' | 'ABSENT' | 'ON_LEAVE', isActive: boolean): StatusConfig => {
     if (!isActive) {
       return {
         label: 'Inactive',
@@ -20,20 +19,20 @@ const CaddieTable: React.FC<CaddieTableProps> = ({
     }
 
     switch (status) {
-      case CaddieStatus.AVAILABLE:
+      case 'AVAILABLE':
         return {
           label: 'Available',
           color: 'bg-emerald-100 text-emerald-700 border-emerald-200'
         }
-      case CaddieStatus.IN_FIELD:
+      case 'IN_FIELD':
         return { label: 'In Field', color: 'bg-amber-100 text-amber-700 border-amber-200' }
-      case CaddieStatus.IN_PREP:
+      case 'IN_PREP':
         return { label: 'In Prep', color: 'bg-indigo-100 text-indigo-700 border-indigo-200' }
-      case CaddieStatus.LATE:
+      case 'LATE':
         return { label: 'Late', color: 'bg-amber-100 text-amber-600 border-amber-200' }
-      case CaddieStatus.ABSENT:
+      case 'ABSENT':
         return { label: 'No Show', color: 'bg-rose-100 text-rose-700 border-rose-200' }
-      case CaddieStatus.ON_LEAVE:
+      case 'ON_LEAVE':
         return { label: 'On Leave', color: 'bg-sky-100 text-sky-700 border-sky-200' }
       default:
         return { label: 'Inactive', color: 'bg-slate-100 text-slate-500 border-slate-200' }
@@ -126,22 +125,22 @@ const CaddieTable: React.FC<CaddieTableProps> = ({
       render: (caddie: typeof caddies[0]) => {
         const status = getStatusConfig(caddie.status, caddie.isActive)
         return (
-          <Badge
-            variant={
-              caddie.isActive
-                ? caddie.status === CaddieStatus.AVAILABLE
-                  ? 'success'
-                  : caddie.status === CaddieStatus.IN_FIELD ||
-                      caddie.status === CaddieStatus.IN_PREP ||
-                      caddie.status === CaddieStatus.LATE
-                    ? 'warning'
-                    : 'danger'
-                : 'secondary'
-            }
-            size="sm"
-          >
-            {status.label}
-          </Badge>
+            <Badge
+              variant={
+                caddie.isActive
+                  ? caddie.status === 'AVAILABLE'
+                    ? 'success'
+                    : caddie.status === 'IN_FIELD' ||
+                        caddie.status === 'IN_PREP' ||
+                        caddie.status === 'LATE'
+                      ? 'warning'
+                      : 'danger'
+                  : 'secondary'
+              }
+              size="sm"
+            >
+              {status.label}
+            </Badge>
         )
       }
     },

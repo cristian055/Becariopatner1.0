@@ -1,5 +1,4 @@
 import type { Caddie, CaddieLocation, CaddieRole } from '../types'
-import { CaddieStatus } from '../types'
 import type { CaddieFilters } from '../types/store.types'
 import { sanitizeSearchTerm, isValidTimeFormat } from './validation';
 
@@ -165,8 +164,8 @@ export const filterForQueue = (caddies: Caddie[]): Caddie[] => {
   return caddies.filter(
     caddie =>
       caddie.isActive &&
-      (caddie.status === CaddieStatus.AVAILABLE ||
-        caddie.status === CaddieStatus.LATE)
+      (caddie.status === 'AVAILABLE' ||
+        caddie.status === 'LATE')
   );
 };
 
@@ -179,8 +178,8 @@ export const filterForReturns = (caddies: Caddie[]): Caddie[] => {
   return caddies.filter(
     caddie =>
       caddie.isActive &&
-      (caddie.status === CaddieStatus.IN_FIELD ||
-        caddie.status === CaddieStatus.IN_PREP)
+      (caddie.status === 'IN_FIELD' ||
+        caddie.status === 'IN_PREP')
   );
 };
 

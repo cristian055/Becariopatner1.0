@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { useCaddieStore } from './caddieStore'
-import { CaddieStatus } from '../types'
 import type { Caddie } from '../types'
 import { caddieApiService } from '../services/caddieApiService'
 
@@ -23,7 +22,7 @@ describe('CaddieStore - Counter Increments', () => {
     id: '1',
     name: 'Juan Pérez',
     number: 1,
-    status: CaddieStatus.AVAILABLE,
+    status: 'AVAILABLE',
     isActive: true,
     location: 'Medellín',
     role: 'Golf',
@@ -44,7 +43,7 @@ describe('CaddieStore - Counter Increments', () => {
 
     const updatedCaddie = {
       ...mockCaddie,
-      status: CaddieStatus.ABSENT,
+      status: 'ABSENT',
       absencesCount: 1,
     }
 
@@ -52,13 +51,13 @@ describe('CaddieStore - Counter Increments', () => {
 
     await updateCaddie({
       id: '1',
-      updates: { status: CaddieStatus.ABSENT },
+      updates: { status: 'ABSENT' },
     })
 
     expect(caddieApiService.updateCaddie).toHaveBeenCalledWith({
       id: '1',
       updates: {
-        status: CaddieStatus.ABSENT,
+        status: 'ABSENT',
         absencesCount: 1,
       },
     })
@@ -70,7 +69,7 @@ describe('CaddieStore - Counter Increments', () => {
 
     const updatedCaddie = {
       ...mockCaddie,
-      status: CaddieStatus.ON_LEAVE,
+      status: 'ON_LEAVE',
       leaveCount: 1,
     }
 
@@ -78,13 +77,13 @@ describe('CaddieStore - Counter Increments', () => {
 
     await updateCaddie({
       id: '1',
-      updates: { status: CaddieStatus.ON_LEAVE },
+      updates: { status: 'ON_LEAVE' },
     })
 
     expect(caddieApiService.updateCaddie).toHaveBeenCalledWith({
       id: '1',
       updates: {
-        status: CaddieStatus.ON_LEAVE,
+        status: 'ON_LEAVE',
         leaveCount: 1,
       },
     })
@@ -96,7 +95,7 @@ describe('CaddieStore - Counter Increments', () => {
 
     const updatedCaddie = {
       ...mockCaddie,
-      status: CaddieStatus.LATE,
+      status: 'LATE',
       lateCount: 1,
     }
 
@@ -104,13 +103,13 @@ describe('CaddieStore - Counter Increments', () => {
 
     await updateCaddie({
       id: '1',
-      updates: { status: CaddieStatus.LATE },
+      updates: { status: 'LATE' },
     })
 
     expect(caddieApiService.updateCaddie).toHaveBeenCalledWith({
       id: '1',
       updates: {
-        status: CaddieStatus.LATE,
+        status: 'LATE',
         lateCount: 1,
       },
     })
@@ -119,7 +118,7 @@ describe('CaddieStore - Counter Increments', () => {
   it('does not increment lateCount when toggling from LATE back to AVAILABLE', async () => {
     const lateCaddie: Caddie = {
       ...mockCaddie,
-      status: CaddieStatus.LATE,
+      status: 'LATE',
       lateCount: 1,
     }
 
@@ -128,21 +127,21 @@ describe('CaddieStore - Counter Increments', () => {
 
     const updatedCaddie = {
       ...lateCaddie,
-      status: CaddieStatus.AVAILABLE,
+      status: 'AVAILABLE',
     }
 
     vi.mocked(caddieApiService.updateCaddie).mockResolvedValue(updatedCaddie)
 
     await updateCaddie({
       id: '1',
-      updates: { status: CaddieStatus.AVAILABLE },
+      updates: { status: 'AVAILABLE' },
     })
 
     // Should NOT increment lateCount when going back to AVAILABLE
     expect(caddieApiService.updateCaddie).toHaveBeenCalledWith({
       id: '1',
       updates: {
-        status: CaddieStatus.AVAILABLE,
+        status: 'AVAILABLE',
       },
     })
   })

@@ -1,6 +1,5 @@
 import { ERROR_CODES } from '../constants/app.constants';
 import type { Caddie } from '../types'
-import { CaddieStatus } from '../types'
 import {
   type CreateCaddieInput,
   type ValidationResult,
@@ -102,7 +101,7 @@ class CaddieService {
     const newCaddie: Caddie = {
       ...input,
       id,
-      status: CaddieStatus.AVAILABLE,
+      status: 'AVAILABLE',
       listId: null,
       historyCount: 0,
       absencesCount: 0,
@@ -241,7 +240,8 @@ class CaddieService {
     const inactiveCaddies = totalCaddies - activeCaddies;
 
     const byStatus: Record<string, number> = {};
-    Object.values(CaddieStatus).forEach(status => {
+    const statusValues = ['AVAILABLE', 'IN_PREP', 'IN_FIELD', 'LATE', 'ABSENT', 'ON_LEAVE']
+    statusValues.forEach(status => {
       byStatus[status] = caddies.filter(c => c.status === status).length;
     });
 

@@ -1,12 +1,12 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { RotateCcw } from 'lucide-react'
 
-import { CaddieStatus } from '../../../types'
 import type { Caddie } from '../../../types'
 import { useCaddieStore, useListStore } from '../../../stores'
 import { useLists } from '../../../hooks/useLists'
 import { socketService } from '../../../services/socketService'
 import { queueApiService } from '../../../services/queueApiService'
+import { caddieApiService } from '../../../services/caddieApiService'
 import type { ListManagerProps } from './ListManager.types'
 import { NumberInput } from '../../ui'
 import ListTabs from './ListTabs'
@@ -91,7 +91,7 @@ const ListManager: React.FC<ListManagerProps> = () => {
         .map(qp => ({
           ...qp.caddie,
           id: qp.caddie.id,
-          status: qp.operationalStatus === 'AVAILABLE' ? CaddieStatus.AVAILABLE : CaddieStatus.LATE,
+          status: qp.operationalStatus === 'AVAILABLE' ? 'AVAILABLE' : 'LATE',
           weekendPriority: qp.position,
         }))
     }
@@ -100,12 +100,12 @@ const ListManager: React.FC<ListManagerProps> = () => {
       .filter(c =>
         c.isActive &&
         c.category === list.category &&
-        (c.status === CaddieStatus.AVAILABLE || c.status === CaddieStatus.LATE) &&
+        (c.status === 'AVAILABLE' || c.status === 'LATE') &&
         c.number >= list.rangeStart &&
         c.number <= list.rangeEnd
       )
       .sort((a, b) => {
-        if (a.status !== b.status) return a.status === CaddieStatus.AVAILABLE ? -1 : 1
+        if (a.status !== b.status) return a.status === 'AVAILABLE' ? -1 : 1
         if (list.order === 'RANDOM' || list.order === 'MANUAL') {
           return a.weekendPriority - b.weekendPriority
         }
@@ -118,7 +118,7 @@ const ListManager: React.FC<ListManagerProps> = () => {
     return caddies.filter(c => 
       c.isActive && 
       c.category === activeList.category &&
-      (c.status === CaddieStatus.IN_FIELD || c.status === CaddieStatus.IN_PREP)
+      (c.status === 'IN_FIELD' || c.status === 'IN_PREP')
     )
   }, [caddies, activeList])
 
@@ -127,19 +127,19 @@ const ListManager: React.FC<ListManagerProps> = () => {
     return caddies.filter(c => 
       c.isActive && 
       c.category === activeList.category &&
-      (c.status === CaddieStatus.ABSENT || c.status === CaddieStatus.ON_LEAVE)
+      (c.status === 'ABSENT' || c.status === 'ON_LEAVE')
     )
   }, [caddies, activeList])
 
   const handleBulkDispatch = () => {
-    const updates: { id: string, status: CaddieStatus, listId?: string }[] = []
+    const updates: { id: string, status: string, listId?: string }[] = []
     lists.forEach(list => {
       const count = bulkCounts[list.id] || 0
       if (count > 0) {
         const queue = getQueue(list.id)
         const toDispatch = queue.slice(0, count)
         toDispatch.forEach(c => {
-          updates.push({ id: c.id, status: CaddieStatus.IN_PREP, listId: list.id })
+          updates.push({ id: c.id, status: 'IN_PREP', listId: list.id })
         })
       }
     })
@@ -253,10 +253,10 @@ const ListManager: React.FC<ListManagerProps> = () => {
                     <div className="list-manager__return-circle">
                       <span className="list-manager__return-number">{caddie.number}</span>
                       <div className="list-manager__return-badge">ID</div>
-                      <span className={`list-manager__return-indicator ${caddie.status === CaddieStatus.IN_PREP ? 'list-manager__return-indicator--prep' : 'list-manager__return-indicator--field'}`}></span>
+                      <span className={`list-manager__return-indicator ${caddie.status === 'IN_PREP' ? 'list-manager__return-indicator--prep' : 'list-manager__return-indicator--field'}`}></span>
                     </div>
                     <p className="list-manager__return-name">{caddie.name}</p>
-                    <button onClick={() => updateCaddie({ id: caddie.id, updates: { status: CaddieStatus.AVAILABLE } })} className="list-manager__return-btn">Return</button>
+                    <button onClick={() => caddieApiService.updateCaddieStatus(caddie.id, 'AVAILABLE')} className="list-manager__return-btn">Return</button>
                   </div>
                 ))}
               </div>
@@ -275,17 +275,17 @@ const ListManager: React.FC<ListManagerProps> = () => {
                         <span className="list-manager__return-number">{caddie.number}</span>
                         <div className="list-manager__return-badge">ID</div>
                         <span className={`list-manager__return-indicator ${
-                          caddie.status === CaddieStatus.ABSENT 
-                            ? 'list-manager__return-indicator--absent' 
+                          caddie.status === 'ABSENT'
+                            ? 'list-manager__return-indicator--absent'
                             : 'list-manager__return-indicator--leave'
                         }`}></span>
                       </div>
                       <p className="list-manager__return-name">{caddie.name}</p>
                       <div className="list-manager__status-badge">
-                        {caddie.status === CaddieStatus.ABSENT ? 'Absent' : 'On Leave'}
+                        {caddie.status === 'ABSENT' ? 'Absent' : 'On Leave'}
                       </div>
                       <button 
-                        onClick={() => updateCaddie({ id: caddie.id, updates: { status: CaddieStatus.AVAILABLE } })} 
+                        onClick={() => updateCaddie({ id: caddie.id, updates: { status: 'AVAILABLE' } })} 
                         className="list-manager__return-btn"
                       >
                         Restore to Available

@@ -1,5 +1,4 @@
 import type { Caddie, ListConfig} from '../../../types';
-import { CaddieStatus } from '../../../types'
 import type { QueuePosition } from '../../../stores/listStore'
 
 /**

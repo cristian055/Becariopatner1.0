@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest'
 import { render, screen, fireEvent, cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import CaddieEditModal from './CaddieEditModal'
-import { CaddieStatus } from '../../../types'
+
 import type { CaddieEditModalProps } from './CaddieManager.types'
 
 afterEach(() => {
@@ -14,7 +14,7 @@ const mockCaddie = {
   id: '1',
   name: 'Juan Pérez',
   number: 1,
-  status: CaddieStatus.AVAILABLE,
+  status: 'AVAILABLE',
   isActive: true,
   listId: null,
   historyCount: 42,

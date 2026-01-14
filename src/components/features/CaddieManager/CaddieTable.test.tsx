@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest'
 import { render, screen, fireEvent, cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import CaddieTable from './CaddieTable'
-import { CaddieStatus } from '@/types'
+
 
 afterEach(() => {
   cleanup()
@@ -12,7 +12,7 @@ const mockCaddie = {
   id: '1',
   name: 'Juan Pérez',
   number: 1,
-  status: CaddieStatus.AVAILABLE,
+  status: 'AVAILABLE',
   isActive: true,
   listId: null,
   historyCount: 42,

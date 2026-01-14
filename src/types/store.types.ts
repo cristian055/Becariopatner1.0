@@ -1,5 +1,5 @@
 import type { Caddie, ListConfig, WeeklyShift, WeeklyAssignment, CaddieLocation, CaddieRole, DayAvailability } from './index'
-import type { CaddieStatus, CaddieCategory } from './index'
+import type { CaddieCategory } from './index'
 
 // Store Types
 export interface CaddieState {
@@ -66,7 +66,7 @@ export interface UpdateCaddieInput {
 }
 
 export interface BulkUpdateInput {
-  updates: Array<{ id: string; status: CaddieStatus; listId?: string }>;
+  updates: Array<{ id: string; status: 'AVAILABLE' | 'IN_PREP' | 'IN_FIELD' | 'LATE' | 'ABSENT' | 'ON_LEAVE'; listId?: string }>;
 }
 
 export interface PromoteCaddieInput {

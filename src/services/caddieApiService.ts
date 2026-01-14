@@ -4,7 +4,7 @@
  */
 
 import { request } from './apiClient'
-import type { Caddie, CaddieStatus } from '../types'
+import type { Caddie, CaddieOperationalStatus } from '../types'
 import type {
   CreateCaddieInput,
   UpdateCaddieInput,
@@ -21,7 +21,7 @@ interface CaddieStatisticsResponse {
   total: number
   active: number
   inactive: number
-  byStatus: Record<CaddieStatus, number>
+  byStatus: Record<CaddieOperationalStatus, number>
   byCategory: Record<string, number>
 }
 
@@ -30,7 +30,7 @@ interface QueueResponse {
     id: string
     name: string
     number: number
-    status: CaddieStatus
+    status: CaddieOperationalStatus
     category: 'Primera' | 'Segunda' | 'Tercera'
     weekendPriority: number
   }>
@@ -41,7 +41,7 @@ interface ReturnsResponse {
     id: string
     name: string
     number: number
-    status: CaddieStatus
+    status: CaddieOperationalStatus
     category: 'Primera' | 'Segunda' | 'Tercera'
   }>
 }
@@ -90,7 +90,7 @@ async function fetchQueueCaddies(): Promise<Array<{
   id: string
   name: string
   number: number
-  status: CaddieStatus
+  status: CaddieOperationalStatus
   category: 'Primera' | 'Segunda' | 'Tercera'
   weekendPriority: number
 }>> {
@@ -105,7 +105,7 @@ async function fetchReturnCaddies(): Promise<Array<{
   id: string
   name: string
   number: number
-  status: CaddieStatus
+  status: CaddieOperationalStatus
   category: 'Primera' | 'Segunda' | 'Tercera'
 }>> {
   const response = await request<ReturnsResponse>('/caddies/returns')
@@ -147,6 +147,16 @@ async function updateCaddie(input: UpdateCaddieInput): Promise<Caddie> {
   })
 }
 
+async function updateCaddieStatus(
+  id: string,
+  status: 'AVAILABLE' | 'IN_PREP' | 'IN_FIELD'
+): Promise<Caddie> {
+  return await request<Caddie>(`/caddies/${id}/status`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status }),
+  })
+}
+
 /**
  * Delete a caddie (soft delete)
  */
@@ -180,6 +190,7 @@ export const caddieApiService = {
   fetchCaddiesByAvailability,
   createCaddie,
   updateCaddie,
+  updateCaddieStatus,
   deleteCaddie,
   bulkUpdateCaddies,
 }

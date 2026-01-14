@@ -1,6 +1,5 @@
 import React from 'react'
 import type { Caddie } from '../types'
-import { CaddieStatus } from '../types'
 import { useCaddieStore } from '../stores'
 import {
   filterBySearchTerm,
@@ -107,7 +106,8 @@ export const useCaddies = (props: UseCaddiesProps = {}) => {
     const inactive = total - active
 
     const byStatus: Record<string, number> = {}
-    Object.values(CaddieStatus).forEach((status) => {
+    const statusValues = ['AVAILABLE', 'IN_PREP', 'IN_FIELD', 'LATE', 'ABSENT', 'ON_LEAVE']
+    statusValues.forEach((status) => {
       byStatus[status] = caddies.filter((c) => c.status === status).length
     })
 

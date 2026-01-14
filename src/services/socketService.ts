@@ -24,10 +24,11 @@ interface CaddieDispatchedEvent {
 }
 
 interface CaddieStatusChangedEvent {
-  caddieId: string
+  id: string
+  name: string
+  number: number
+  operationalStatus: string
   previousStatus: string
-  newStatus: string
-  timestamp: number
 }
 
 interface QueueUpdatedEvent {
@@ -59,12 +60,9 @@ interface ListUpdatedEvent {
 interface DailyAttendanceUpdatedEvent {
   id: string
   caddieId: string
-  caddie?: unknown
   date: string
   status: string
-  arrivalTime?: string
   servicesCount: number
-  timestamp: number
 }
 
 interface ConnectOptions {
@@ -162,9 +160,10 @@ class SocketService {
     })
 
     // Listen for caddie events
-    this.socket.on('caddie:status_changed', (data) => {
-      console.log('Caddie status changed:', data)
-      this.notifyListeners('caddie:status:changed', data)
+    this.socket.on('caddie:status_changed', (payload) => {
+      console.log('Caddie status changed:', payload)
+      const eventData = payload as { data: CaddieStatusChangedEvent; timestamp: number }
+      this.notifyListeners('caddie:status:changed', eventData.data)
     })
 
     this.socket.on('caddie:added', (data) => {
@@ -207,9 +206,10 @@ class SocketService {
     })
 
     // Listen for daily attendance events
-    this.socket.on('daily_attendance:updated', (data) => {
-      console.log('Daily attendance updated:', data)
-      this.notifyListeners('daily_attendance:updated', data)
+    this.socket.on('daily_attendance:updated', (payload) => {
+      console.log('Daily attendance updated:', payload)
+      const eventData = payload as { data: DailyAttendanceUpdatedEvent; timestamp: number }
+      this.notifyListeners('daily_attendance:updated', eventData.data)
     })
   }
 

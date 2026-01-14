@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 import type { Caddie, CaddieCategory } from '../types'
-import { CaddieStatus } from '../types'
 import type {
   CaddieState,
   CreateCaddieInput,
@@ -34,6 +33,8 @@ interface CaddieStore extends CaddieState, DispatchState {
   setShowPopup: (show: boolean) => void;
   promoteCaddie: (id: string, toCategory: CaddieCategory) => Promise<void>;
   handleQueueUpdated: (data: { category: string; queue: unknown[] }) => void;
+  handleCaddieStatusChanged: (data: { id: string; name: string; number: number; operationalStatus: string; previousStatus: string }) => void;
+  handleDailyAttendanceUpdated: (data: { id: string; caddieId: string; date: string; status: string; servicesCount: number }) => void;
 }
 
 export const useCaddieStore = create<CaddieStore>((set, get) => ({
@@ -118,17 +119,17 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
 
         // Increment counters when transitioning TO these statuses (not FROM)
         if (oldStatus !== newStatus) {
-          if (newStatus === CaddieStatus.ABSENT) {
+          if (newStatus === 'ABSENT') {
             updatedInput.updates = {
               ...updatedInput.updates,
               absencesCount: currentCaddie.absencesCount + 1
             };
-          } else if (newStatus === CaddieStatus.ON_LEAVE) {
+          } else if (newStatus === 'ON_LEAVE') {
             updatedInput.updates = {
               ...updatedInput.updates,
               leaveCount: currentCaddie.leaveCount + 1
             };
-          } else if (newStatus === CaddieStatus.LATE) {
+          } else if (newStatus === 'LATE') {
             updatedInput.updates = {
               ...updatedInput.updates,
               lateCount: currentCaddie.lateCount + 1
@@ -301,13 +302,52 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
     }
   },
 
-  // Handle queue updated WebSocket event
   handleQueueUpdated: (data) => {
     logger.action('handleQueueUpdated', { category: data.category }, 'CaddieStore');
 
-    // Reload caddies to get updated queue positions and status
-    // This ensures we have the latest operationalStatus and attendanceStatus
     get().fetchCaddies();
+  },
+
+  handleCaddieStatusChanged: (rawData) => {
+    const data = (rawData as { data?: unknown }).data || rawData
+    const { id, operationalStatus, previousStatus } = data as {
+      id: string
+      name: string
+      number: number
+      operationalStatus: string
+      previousStatus: string
+    }
+
+    logger.action('handleCaddieStatusChanged', { caddieId: id, operationalStatus }, 'CaddieStore');
+
+    set(state => ({
+      caddies: state.caddies.map(c =>
+        c.id === id
+          ? { ...c, operationalStatus: operationalStatus as 'AVAILABLE' | 'IN_PREP' | 'IN_FIELD' }
+          : c
+      ),
+    }));
+  },
+
+  handleDailyAttendanceUpdated: (rawData) => {
+    const data = (rawData as { data?: unknown }).data || rawData
+    const { caddieId, status } = data as {
+      id: string
+      caddieId: string
+      date: string
+      status: string
+      servicesCount: number
+    }
+
+    logger.action('handleDailyAttendanceUpdated', { caddieId, status }, 'CaddieStore');
+
+    set(state => ({
+      caddies: state.caddies.map(c =>
+        c.id === caddieId
+          ? { ...c, attendanceStatus: status as 'PRESENT' | 'LATE' | 'ABSENT' | 'ON_LEAVE' }
+          : c
+      ),
+    }));
   },
 
 }));

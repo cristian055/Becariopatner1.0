@@ -7,7 +7,6 @@ import CaddieEditModal from './CaddieEditModal'
 import type { CaddieManagerProps } from './CaddieManager.types'
 import { DEFAULT_AVAILABILITY } from './CaddieManager.types'
 import type { Caddie } from '../../../types'
-import { CaddieStatus } from '../../../types'
 import './CaddieManager.css'
 
 const CaddieManager: React.FC<CaddieManagerProps> = () => {
@@ -161,7 +160,7 @@ const CaddieManager: React.FC<CaddieManagerProps> = () => {
           caddie={isAddingCaddie ? {
             ...newCaddie,
             id: `temp-${Date.now()}`,
-            status: CaddieStatus.AVAILABLE,
+            status: 'AVAILABLE',
             listId: null,
             historyCount: 0,
             absencesCount: 0,

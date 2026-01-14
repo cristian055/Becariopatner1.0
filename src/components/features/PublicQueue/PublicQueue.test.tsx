@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import PublicQueue from './PublicQueue'
 import type { Caddie, ListConfig } from '../../../types'
-import { CaddieStatus } from '../../../types'
+
 
 // Mock sub-components to focus on PublicQueue logic
 vi.mock('./QueueHeader', () => ({
@@ -23,7 +23,7 @@ const mockCaddies: Caddie[] = [
     id: '1',
     name: 'JUAN PEREZ',
     number: 101,
-    status: CaddieStatus.AVAILABLE,
+    status: 'AVAILABLE',
     isActive: true,
     category: 'Primera',
     location: 'Medellín',

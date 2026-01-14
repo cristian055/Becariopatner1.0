@@ -9,10 +9,11 @@ import {
   Activity,
   Hash
 } from 'lucide-react'
-import { CaddieStatus, DailyAttendanceStatus } from '../../../types'
+import { CaddieOperationalStatus, DailyAttendanceStatus } from '../../../types'
 import type { QueueGridProps } from './ListManager.types'
 import type { QueuePosition } from '../../../stores/listStore'
 import { attendanceApiService } from '../../../services/attendanceApiService'
+import { caddieApiService } from '../../../services/caddieApiService'
 import CategoryPromotion from '../CategoryPromotion/CategoryPromotion'
 import './QueueGrid.css'
 
@@ -25,15 +26,19 @@ const QueueGrid: React.FC<QueueGridProps & { queuePositions?: QueuePosition[] }>
   onDragOver,
   onDrop,
   onPositionChange,
-  onUpdateCaddie,
+  onUpdateCaddie: _onUpdateCaddie,
   queuePositions
 }) => {
   const activeList = useMemo(() => lists.find(l => l.id === activeTabId), [lists, activeTabId])
 
-  const handleStatusChange = (caddieId: string, status: CaddieStatus, attendanceStatus?: DailyAttendanceStatus) => {
-    onUpdateCaddie?.(caddieId, { status })
+  const handleStatusChange = (caddieId: string, operationalStatus: CaddieOperationalStatus, attendanceStatus?: DailyAttendanceStatus) => {
+    const today = new Date().toISOString().split('T')[0]
+    
+    caddieApiService.updateCaddieStatus(caddieId, operationalStatus).catch(error => {
+      console.error('Failed to update caddie status:', error)
+    })
+    
     if (attendanceStatus) {
-      const today = new Date().toISOString().split('T')[0]
       attendanceApiService.createDailyAttendance({
         caddieId,
         date: today,
@@ -44,13 +49,26 @@ const QueueGrid: React.FC<QueueGridProps & { queuePositions?: QueuePosition[] }>
     }
   }
 
-  const handleSalirACargar = (caddieId: string, listId: string) => {
-    onUpdateCaddie?.(caddieId, { status: CaddieStatus.IN_PREP, listId })
+  const handleSalirACargar = (caddieId: string, _listId: string) => {
+    caddieApiService.updateCaddieStatus(caddieId, 'IN_PREP').catch(error => {
+      console.error('Failed to update caddie status:', error)
+    })
     const today = new Date().toISOString().split('T')[0]
     attendanceApiService.createDailyAttendance({
       caddieId,
       date: today,
       status: DailyAttendanceStatus.PRESENT
+    }).catch(error => {
+      console.error('Failed to create daily attendance:', error)
+    })
+  }
+
+  const handleAttendanceOnly = (caddieId: string, attendanceStatus: DailyAttendanceStatus) => {
+    const today = new Date().toISOString().split('T')[0]
+    attendanceApiService.createDailyAttendance({
+      caddieId,
+      date: today,
+      status: attendanceStatus
     }).catch(error => {
       console.error('Failed to create daily attendance:', error)
     })
@@ -65,7 +83,7 @@ const QueueGrid: React.FC<QueueGridProps & { queuePositions?: QueuePosition[] }>
         .map(qp => ({
           ...qp.caddie,
           id: qp.caddie.id,
-          status: qp.operationalStatus === 'AVAILABLE' ? CaddieStatus.AVAILABLE : CaddieStatus.LATE,
+          status: qp.operationalStatus === 'AVAILABLE' ? 'AVAILABLE' : 'LATE',
           weekendPriority: qp.position,
         }))
     }
@@ -74,12 +92,12 @@ const QueueGrid: React.FC<QueueGridProps & { queuePositions?: QueuePosition[] }>
       .filter(c =>
         c.isActive &&
         c.category === activeList.category &&
-        (c.status === CaddieStatus.AVAILABLE || c.status === CaddieStatus.LATE) &&
+        (c.status === 'AVAILABLE' || c.status === 'LATE') &&
         c.number >= activeList.rangeStart &&
         c.number <= activeList.rangeEnd
       )
       .sort((a, b) => {
-        if (a.status !== b.status) return a.status === CaddieStatus.AVAILABLE ? -1 : 1
+        if (a.status !== b.status) return a.status === 'AVAILABLE' ? -1 : 1
         if (activeList.order === 'RANDOM' || activeList.order === 'MANUAL') {
           return a.weekendPriority - b.weekendPriority
         }
@@ -190,14 +208,14 @@ const QueueGrid: React.FC<QueueGridProps & { queuePositions?: QueuePosition[] }>
 
                 <div className="queue-grid__quick-actions">
                   <button
-                    onClick={() => handleStatusChange(caddie.id, CaddieStatus.ABSENT, DailyAttendanceStatus.ABSENT)}
+                    onClick={() => handleAttendanceOnly(caddie.id, DailyAttendanceStatus.ABSENT)}
                     className="queue-grid__quick-btn queue-grid__quick-btn--absent"
                   >
                     <CalendarX size={20} />
                     <span className="queue-grid__quick-btn-label">No vino</span>
                   </button>
                   <button
-                    onClick={() => handleStatusChange(caddie.id, CaddieStatus.ON_LEAVE, DailyAttendanceStatus.ON_LEAVE)}
+                    onClick={() => handleAttendanceOnly(caddie.id, DailyAttendanceStatus.ON_LEAVE)}
                     className="queue-grid__quick-btn queue-grid__quick-btn--leave"
                   >
                     <FileText size={20} />
@@ -205,11 +223,22 @@ const QueueGrid: React.FC<QueueGridProps & { queuePositions?: QueuePosition[] }>
                   </button>
                   <button
                     onClick={() => {
-                      const newStatus = caddie.status === CaddieStatus.LATE ? CaddieStatus.AVAILABLE : CaddieStatus.LATE
-                      const attendanceStatus = newStatus === CaddieStatus.LATE ? DailyAttendanceStatus.LATE : undefined
-                      handleStatusChange(caddie.id, newStatus, attendanceStatus)
+                      const today = new Date().toISOString().split('T')[0]
+                      if (caddie.status === 'LATE') {
+                        caddieApiService.updateCaddieStatus(caddie.id, 'AVAILABLE').catch(error => {
+                          console.error('Failed to update caddie status:', error)
+                        })
+                      } else {
+                        attendanceApiService.createDailyAttendance({
+                          caddieId: caddie.id,
+                          date: today,
+                          status: DailyAttendanceStatus.LATE
+                        }).catch(error => {
+                          console.error('Failed to create daily attendance:', error)
+                        })
+                      }
                     }}
-                    className={`queue-grid__quick-btn queue-grid__quick-btn--late ${caddie.status === CaddieStatus.LATE ? 'queue-grid__quick-btn--late-active' : ''}`}
+                    className={`queue-grid__quick-btn queue-grid__quick-btn--late ${caddie.status === 'LATE' ? 'queue-grid__quick-btn--late-active' : ''}`}
                   >
                     <ClockAlert size={20} />
                     <span className="queue-grid__quick-btn-label">Tarde</span>

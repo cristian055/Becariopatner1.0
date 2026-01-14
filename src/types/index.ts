@@ -1,15 +1,6 @@
 export type CaddieOperationalStatus = 'AVAILABLE' | 'IN_PREP' | 'IN_FIELD';
 export type AttendanceStatus = 'PRESENT' | 'LATE' | 'ABSENT' | 'ON_LEAVE';
 
-export enum CaddieStatus {
-  AVAILABLE = 'AVAILABLE',
-  IN_PREP = 'IN_PREP',
-  IN_FIELD = 'IN_FIELD',
-  LATE = 'LATE',
-  ABSENT = 'ABSENT',
-  ON_LEAVE = 'ON_LEAVE'
-}
-
 export enum DailyAttendanceStatus {
   PRESENT = 'PRESENT',
   LATE = 'LATE',
@@ -37,8 +28,7 @@ export interface Caddie {
   id: string;
   name: string;
   number: number;
-  status: CaddieStatus;
-  isActive: boolean; // Maestro: Activo o Inactivo
+  isActive: boolean;
   listId: string | null;
   historyCount: number;
   absencesCount: number;
