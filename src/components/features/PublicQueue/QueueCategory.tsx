@@ -5,7 +5,9 @@ import './QueueCategory.css'
 
 const QueueCategory: React.FC<QueueCategoryProps> = ({ category, topCaddies }) => {
   const { name, icon: Icon, color } = category
-  const emptySlots = Math.max(0, 5 - topCaddies.length)
+  // Defensive check: ensure topCaddies is always an array
+  const safeCaddies = Array.isArray(topCaddies) ? topCaddies : []
+  const emptySlots = Math.max(0, 5 - safeCaddies.length)
 
   return (
     <div className="queue-category">
@@ -18,7 +20,7 @@ const QueueCategory: React.FC<QueueCategoryProps> = ({ category, topCaddies }) =
       </div>
 
       <div className="queue-category__list">
-        {topCaddies.map((caddie, idx) => (
+        {safeCaddies.map((caddie, idx) => (
           <CaddieRow key={caddie.id} caddie={caddie} index={idx} />
         ))}
 

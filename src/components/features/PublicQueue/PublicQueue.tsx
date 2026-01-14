@@ -9,6 +9,7 @@ import QueueCategory from './QueueCategory'
 import DispatchPopup from './DispatchPopup'
 import { usePublicStore } from '../../../stores'
 import { isAuthenticated } from '../../../services/authService'
+import type { PublicCaddie } from '../../../services/publicApiService'
 import './PublicQueue.css'
 
 const CATEGORIES: QueueCategoryInfo[] = [
@@ -27,16 +28,16 @@ const PublicQueue: React.FC<PublicQueueProps> = ({ onBack }) => {
   // Get top caddies for each category
   // For public users: use publicStore data (already sorted by backend)
   // For admin: use caddieStore data (original behavior)
-  const getCategoryTop = (category: string) => {
+  const getCategoryTop = (category: string): PublicCaddie[] => {
     if (!authenticated) {
       // Use public store data
       switch (category) {
         case 'Primera':
-          return primera
+          return Array.isArray(primera) ? primera : []
         case 'Segunda':
-          return segunda
+          return Array.isArray(segunda) ? segunda : []
         case 'Tercera':
-          return tercera
+          return Array.isArray(tercera) ? tercera : []
         default:
           return []
       }

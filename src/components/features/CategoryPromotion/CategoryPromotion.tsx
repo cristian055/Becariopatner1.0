@@ -1,6 +1,6 @@
 import React from 'react';
-import { useCaddieStore } from '../../stores/caddieStore';
-import type { CaddieCategory } from '../../types';
+import { useCaddieStore } from '../../../stores/caddieStore';
+import type { CaddieCategory } from '../../../types';
 import { ChevronUp, CheckCircle2, AlertCircle } from 'lucide-react';
 import './CategoryPromotion.css';
 

@@ -288,11 +288,12 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
 
       const data = await publicApiService.fetchPublicQueue()
 
+      // Defensive: ensure all category arrays are defined
       set({
-        primera: data.Primera,
-        segunda: data.Segunda,
-        tercera: data.Tercera,
-        lastUpdate: data.lastUpdate,
+        primera: Array.isArray(data.Primera) ? data.Primera : [],
+        segunda: Array.isArray(data.Segunda) ? data.Segunda : [],
+        tercera: Array.isArray(data.Tercera) ? data.Tercera : [],
+        lastUpdate: data.lastUpdate || null,
         loading: false,
       })
 
@@ -312,11 +313,12 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
 
       const data = await publicApiService.fetchPublicLists(filters)
 
+      // Defensive: ensure all category arrays are defined
       set({
-        primera: data.Primera,
-        segunda: data.Segunda,
-        tercera: data.Tercera,
-        lastUpdate: data.lastUpdate,
+        primera: Array.isArray(data.Primera) ? data.Primera : [],
+        segunda: Array.isArray(data.Segunda) ? data.Segunda : [],
+        tercera: Array.isArray(data.Tercera) ? data.Tercera : [],
+        lastUpdate: data.lastUpdate || null,
         loading: false,
       })
 
