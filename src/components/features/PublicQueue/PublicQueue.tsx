@@ -13,9 +13,9 @@ import type { PublicCaddie } from '../../../services/publicApiService'
 import './PublicQueue.css'
 
 const CATEGORIES: QueueCategoryInfo[] = [
-  { name: 'Primera', icon: Star, color: 'bg-campestre-800' },
-  { name: 'Segunda', icon: Trophy, color: 'bg-campestre-600' },
-  { name: 'Tercera', icon: UsersIcon, color: 'bg-campestre-500' },
+  { name: 'PRIMERA', icon: Star, color: 'bg-campestre-800' },
+  { name: 'SEGUNDA', icon: Trophy, color: 'bg-campestre-600' },
+  { name: 'TERCERA', icon: UsersIcon, color: 'bg-campestre-500' },
 ]
 
 const PublicQueue: React.FC<PublicQueueProps> = ({ onBack }) => {
@@ -32,11 +32,11 @@ const PublicQueue: React.FC<PublicQueueProps> = ({ onBack }) => {
     if (!authenticated) {
       // Use public store data
       switch (category) {
-        case 'Primera':
+        case 'PRIMERA':
           return Array.isArray(primera) ? primera : []
-        case 'Segunda':
+        case 'SEGUNDA':
           return Array.isArray(segunda) ? segunda : []
-        case 'Tercera':
+        case 'TERCERA':
           return Array.isArray(tercera) ? tercera : []
         default:
           return []

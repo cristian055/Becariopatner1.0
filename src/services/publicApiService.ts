@@ -13,7 +13,7 @@ export interface PublicCaddie {
   name: string
   number: number
   status: CaddieStatus
-  category: 'Primera' | 'Segunda' | 'Tercera'
+  category: 'PRIMERA' | 'SEGUNDA' | 'TERCERA'
   weekendPriority: number
   location?: string
   role?: string
