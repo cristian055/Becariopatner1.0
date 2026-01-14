@@ -55,7 +55,7 @@ const CaddieManager: React.FC<CaddieManagerProps> = () => {
     }
   }, [isAddingCaddie, caddies, newCaddie.category])
 
-  const handleSaveEdit = (caddie: Caddie): void => {
+  const handleSaveEdit = async (caddie: Caddie, callback?: (result?: any) => void): Promise<void> => {
     const validation = caddieService.validateCaddieNumberUniqueness(
       caddie.number,
       caddie.id,
@@ -67,9 +67,11 @@ const CaddieManager: React.FC<CaddieManagerProps> = () => {
       return
     }
 
-    updateCaddie({ id: caddie.id, updates: caddie })
+    const result = await updateCaddie({ id: caddie.id, updates: caddie })
     setEditingCaddie(null)
     setError(null)
+
+    callback?.(result)
   }
 
   const handleSaveNew = (caddie: Caddie): void => {

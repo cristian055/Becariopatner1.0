@@ -4,7 +4,8 @@
  * Supports both authenticated (admin) and public (monitor) connections
  */
 
-import { io, Socket } from 'socket.io-client'
+import type { Socket } from 'socket.io-client';
+import { io } from 'socket.io-client'
 import { getToken, getUserLocation } from './authService'
 
 const WS_URL = import.meta.env.VITE_WS_URL || 'http://localhost:3000'

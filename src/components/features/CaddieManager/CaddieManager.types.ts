@@ -33,7 +33,7 @@ export interface CaddieTableProps {
 }
 
 /**
- * Props for the CaddieEditModal component
+ * Props for CaddieEditModal component
  */
 export interface CaddieEditModalProps {
   isOpen: boolean
@@ -42,7 +42,7 @@ export interface CaddieEditModalProps {
   allCaddies: Caddie[]
   error: string | null
   onClose: () => void
-  onSave: (caddie: Caddie) => void
+  onSave: (caddie: Caddie, callback?: (result?: any) => void) => void
   onErrorChange: (error: string | null) => void
 }
 

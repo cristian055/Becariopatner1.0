@@ -9,12 +9,13 @@ import QueueCategory from './QueueCategory'
 import DispatchPopup from './DispatchPopup'
 import { usePublicStore } from '../../../stores'
 import { isAuthenticated } from '../../../services/authService'
+import type { PublicCaddie } from '../../../services/publicApiService'
 import './PublicQueue.css'
 
 const CATEGORIES: QueueCategoryInfo[] = [
-  { name: 'Primera', icon: Star, color: 'bg-campestre-800' },
-  { name: 'Segunda', icon: Trophy, color: 'bg-campestre-600' },
-  { name: 'Tercera', icon: UsersIcon, color: 'bg-campestre-500' },
+  { name: 'PRIMERA', icon: Star, color: 'bg-campestre-800' },
+  { name: 'SEGUNDA', icon: Trophy, color: 'bg-campestre-600' },
+  { name: 'TERCERA', icon: UsersIcon, color: 'bg-campestre-500' },
 ]
 
 const PublicQueue: React.FC<PublicQueueProps> = ({ onBack }) => {
@@ -27,16 +28,16 @@ const PublicQueue: React.FC<PublicQueueProps> = ({ onBack }) => {
   // Get top caddies for each category
   // For public users: use publicStore data (already sorted by backend)
   // For admin: use caddieStore data (original behavior)
-  const getCategoryTop = (category: string) => {
+  const getCategoryTop = (category: string): PublicCaddie[] => {
     if (!authenticated) {
       // Use public store data
       switch (category) {
-        case 'Primera':
-          return primera
-        case 'Segunda':
-          return segunda
-        case 'Tercera':
-          return tercera
+        case 'PRIMERA':
+          return Array.isArray(primera) ? primera : []
+        case 'SEGUNDA':
+          return Array.isArray(segunda) ? segunda : []
+        case 'TERCERA':
+          return Array.isArray(tercera) ? tercera : []
         default:
           return []
       }

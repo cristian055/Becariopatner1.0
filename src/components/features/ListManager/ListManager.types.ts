@@ -1,4 +1,6 @@
-import { Caddie, ListConfig, CaddieStatus } from '../../../types'
+import type { Caddie, ListConfig} from '../../../types';
+import { CaddieStatus } from '../../../types'
+import type { QueuePosition } from '../../../stores/listStore'
 
 /**
  * Props for main ListManager component
@@ -27,6 +29,7 @@ export interface QueueGridProps {
   onDrop: (e: React.DragEvent, caddieId: string) => void
   onPositionChange: (caddieId: string, newPos: number) => void
   onUpdateCaddie: (id: string, updates: Partial<Caddie>) => void
+  queuePositions?: QueuePosition[]
 }
 
 /**

@@ -1,9 +1,30 @@
 import { create } from 'zustand'
 import type { ListConfig } from '../types'
 import { INITIAL_LISTS, LIST_ORDER_TYPES } from '../constants/app.constants'
-import type { ListState, UpdateListInput } from '../types/store.types'
+import type { UpdateListInput } from '../types/store.types'
 import { logger } from '../utils'
 import { listApiService } from '../services/listApiService'
+
+export interface QueuePosition {
+  id: string;
+  caddieId: string;
+  category: string;
+  position: number;
+  operationalStatus: string;
+  caddie: {
+    id: string;
+    name: string;
+    number: number;
+    role: string;
+  };
+}
+
+interface ListState {
+  lists: ListConfig[];
+  queues: Record<string, QueuePosition[]>;
+  loading: boolean;
+  error: string | null;
+}
 
 /**
  * ListStore - Global state for list configuration management
@@ -20,11 +41,15 @@ interface ListStore extends ListState {
   randomizeList: (listId: string) => void;
   setListOrder: (listId: string, order: typeof LIST_ORDER_TYPES[keyof typeof LIST_ORDER_TYPES]) => void;
   resetLists: () => void;
+  setQueue: (category: string, queuePositions: QueuePosition[]) => void;
+  updateQueuePosition: (caddieId: string, updates: Partial<QueuePosition>) => void;
+  handleQueueUpdated: (data: { category: string; queuePositions: QueuePosition[] }) => void;
 }
 
 export const useListStore = create<ListStore>((set, get) => ({
   // Initial state
   lists: INITIAL_LISTS,
+  queues: {},
   loading: false,
   error: null,
 
@@ -132,9 +157,50 @@ export const useListStore = create<ListStore>((set, get) => ({
 
     set({
       lists: INITIAL_LISTS,
+      queues: {},
       error: null,
     });
 
     logger.info('Lists reset to initial state', 'ListStore');
+  },
+
+  // Set queue positions for a category
+  setQueue: (category, queuePositions) => {
+    logger.action('setQueue', { category, count: queuePositions.length }, 'ListStore');
+
+    set(state => ({
+      queues: { ...state.queues, [category]: queuePositions },
+    }));
+
+    logger.info(`Queue set for category: ${category}`, 'ListStore');
+  },
+
+  // Update a specific queue position
+  updateQueuePosition: (caddieId, updates) => {
+    logger.action('updateQueuePosition', { caddieId, updates }, 'ListStore');
+
+    set(state => ({
+      queues: Object.fromEntries(
+        Object.entries(state.queues).map(([cat, positions]) => [
+          cat,
+          positions.map(p =>
+            p.caddieId === caddieId ? { ...p, ...updates } : p
+          ),
+        ])
+      ),
+    }));
+
+    logger.info(`Queue position updated: ${caddieId}`, 'ListStore');
+  },
+
+  // Handle queue updated WebSocket event
+  handleQueueUpdated: (data) => {
+    logger.action('handleQueueUpdated', { category: data.category }, 'ListStore');
+
+    set(state => ({
+      queues: { ...state.queues, [data.category]: data.queuePositions },
+    }));
+
+    logger.info(`Queue updated via WebSocket: ${data.category}`, 'ListStore');
   },
 }));

@@ -1,0 +1,231 @@
+.category-promotion {
+  position: relative;
+  display: inline-block;
+}
+
+.category-promotion__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #0d9488;
+  background-color: white;
+  border: 2px solid #0d9488;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.category-promotion__trigger:hover:not(:disabled) {
+  background-color: #f0fdf4;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.1);
+}
+
+.category-promotion__trigger:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(13, 148, 136, 0.1);
+}
+
+.category-promotion__trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+
+.category-promotion__trigger:focus-visible {
+  outline: 2px solid #0d9488;
+  outline-offset: 2px;
+}
+
+.category-promotion__trigger-text {
+  flex: 1;
+}
+
+.category-promotion__icon {
+  transition: transform 0.2s ease;
+}
+
+.category-promotion__icon--open {
+  transform: rotate(180deg);
+}
+
+.category-promotion__dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 200px;
+  background-color: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  z-index: 10;
+  animation: dropdown-fade-in 0.2s ease;
+}
+
+.category-promotion__header {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.category-promotion__title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #374151;
+}
+
+.category-promotion__options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.category-promotion__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #1f2937;
+  background-color: white;
+  border: 2px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.category-promotion__option:hover:not(:disabled) {
+  background-color: #f0fdf4;
+  border-color: #0d9488;
+  color: #0d9488;
+  transform: translateX(4px);
+}
+
+.category-promotion__option:active:not(:disabled) {
+  transform: translateX(2px);
+}
+
+.category-promotion__option:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-color: #f9fafb;
+}
+
+.category-promotion__option:focus-visible {
+  outline: 2px solid #0d9488;
+  outline-offset: 2px;
+}
+
+.category-promotion__option-label {
+  flex: 1;
+}
+
+.category-promotion__error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+  background-color: #fef2f2;
+  border: 2px solid #fecaca;
+  border-radius: 0.5rem;
+  color: #dc2626;
+}
+
+.category-promotion__error-text {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.category-promotion__success {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+  background-color: #f0fdf4;
+  border: 2px solid #bbf7d0;
+  border-radius: 0.5rem;
+  color: #059669;
+}
+
+.category-promotion__success-text {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.category-promotion__toast {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background-color: #059669;
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: toast-fade-in 0.3s ease;
+  z-index: 5;
+}
+
+@media (max-width: 640px) {
+  .category-promotion__trigger {
+    padding: 0.4375rem 0.875rem;
+    font-size: 0.75rem;
+  }
+
+  .category-promotion__dropdown {
+    min-width: 180px;
+    padding: 0.75rem;
+  }
+
+  .category-promotion__option {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  .category-promotion__toast {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.75rem;
+  }
+}
+
+@keyframes dropdown-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

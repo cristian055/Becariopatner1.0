@@ -135,39 +135,39 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
     // Backend sends: { event, data: { category, ... }, timestamp }
     // Extract the actual data from nested structure
     const data = (rawData as { data?: unknown }).data || rawData
-    const { category, queue } = data as { 
-      category: 'Primera' | 'Segunda' | 'Tercera'
-      queue?: PublicCaddie[] 
+    const { category, queue } = data as {
+      category: 'PRIMERA' | 'SEGUNDA' | 'TERCERA'
+      queue?: PublicCaddie[]
     }
-    
+
     logger.info(`Queue updated event received for category: ${category}`, 'PublicStore')
-    
+
     // If no category, skip update
     if (!category) {
       logger.warn('Queue update missing category', 'PublicStore')
       return
     }
-    
+
     const updates: Partial<PublicQueueState> = {}
-    
+
     // If queue data is provided, use it; otherwise just mark as updated
     if (queue) {
       switch (category) {
-        case 'Primera':
+        case 'PRIMERA':
           updates.primera = queue
           break
-        case 'Segunda':
+        case 'SEGUNDA':
           updates.segunda = queue
           break
-        case 'Tercera':
+        case 'TERCERA':
           updates.tercera = queue
           break
       }
     }
-    
+
     updates.lastUpdate = new Date().toISOString()
     set(updates)
-    
+
     // Also refresh from server to get latest data
     get().fetchPublicQueue()
   },
@@ -177,18 +177,18 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
     // Backend sends: { event, data: { caddieId, name, ... }, timestamp }
     // Extract the actual data from nested structure
     const data = (rawData as { data?: unknown }).data || rawData
-    const caddieData = data as { 
+    const caddieData = data as {
       caddieId: string
       name?: string
       number?: number
-      category?: 'Primera' | 'Segunda' | 'Tercera'
+      category?: 'PRIMERA' | 'SEGUNDA' | 'TERCERA'
       newStatus: string
       previousStatus?: string
-      caddie?: DispatchCaddie 
+      caddie?: DispatchCaddie
     }
-    
+
     logger.info(`Caddie status changed: ${caddieData.caddieId} -> ${caddieData.newStatus}`, 'PublicStore')
-    
+
     // If status changed to IN_PREP (authorize dispatch), accumulate for popup
     if (caddieData.newStatus === 'IN_PREP') {
       // Build caddie info for popup
@@ -196,29 +196,29 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
         id: caddieData.caddieId,
         name: caddieData.name || 'Caddie',
         number: caddieData.number || 0,
-        category: caddieData.category || 'Primera',
+        category: caddieData.category || 'PRIMERA',
       }
-      
+
       // Check if this caddie is already in pending list (avoid duplicates)
       const alreadyPending = pendingDispatchCaddies.some(c => c.id === caddieForPopup.id)
       if (!alreadyPending) {
         pendingDispatchCaddies.push(caddieForPopup)
         logger.info(`Accumulated ${pendingDispatchCaddies.length} caddies for dispatch popup`, 'PublicStore')
       }
-      
+
       // Clear existing timer
       if (dispatchBatchTimer) {
         clearTimeout(dispatchBatchTimer)
       }
-      
+
       // Set timer to show popup after accumulation period
       dispatchBatchTimer = setTimeout(() => {
         if (pendingDispatchCaddies.length > 0) {
           const caddies = [...pendingDispatchCaddies]
           const ids = caddies.map(c => c.id)
-          
+
           logger.info(`Showing dispatch popup with ${caddies.length} caddies`, 'PublicStore')
-          
+
           set({
             lastDispatchBatch: {
               ids,
@@ -227,52 +227,52 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
             },
             showPopup: true,
           })
-          
+
           // Clear the pending list
           pendingDispatchCaddies = []
         }
         dispatchBatchTimer = null
       }, BATCH_ACCUMULATION_TIME)
     }
-    
+
     // Update local state based on the status change
     const { primera, segunda, tercera } = get()
     const category = caddieData.category
-    
+
     if (category) {
       // Remove caddie from queue if status is no longer AVAILABLE or LATE
       const isInQueue = ['AVAILABLE', 'LATE'].includes(caddieData.newStatus)
-      
+
       const updateList = (list: PublicCaddie[]) => {
         if (!isInQueue) {
           // Remove from list if no longer in queue status
           return list.filter(c => c.id !== caddieData.caddieId)
         }
         // Update status if caddie is in list
-        return list.map(c => 
-          c.id === caddieData.caddieId 
+        return list.map(c =>
+          c.id === caddieData.caddieId
             ? { ...c, status: caddieData.newStatus }
             : c
         )
       }
       
       const updates: Partial<PublicQueueState> = { lastUpdate: new Date().toISOString() }
-      
+
       switch (category) {
-        case 'Primera':
+        case 'PRIMERA':
           updates.primera = updateList(primera)
           break
-        case 'Segunda':
+        case 'SEGUNDA':
           updates.segunda = updateList(segunda)
           break
-        case 'Tercera':
+        case 'TERCERA':
           updates.tercera = updateList(tercera)
           break
       }
-      
+
       set(updates)
     }
-    
+
     // Also refresh from server to ensure consistency
     // Use a small delay to avoid too frequent requests
     setTimeout(() => {
@@ -289,10 +289,11 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
       const data = await publicApiService.fetchPublicQueue()
 
       set({
-        primera: data.Primera,
-        segunda: data.Segunda,
-        tercera: data.Tercera,
-        lastUpdate: data.lastUpdate,
+        // API returns UPPERCASE keys: PRIMERA, SEGUNDA, TERCERA
+        primera: Array.isArray(data.PRIMERA) ? data.PRIMERA : [],
+        segunda: Array.isArray(data.SEGUNDA) ? data.SEGUNDA : [],
+        tercera: Array.isArray(data.TERCERA) ? data.TERCERA : [],
+        lastUpdate: data.lastUpdate || null,
         loading: false,
       })
 
@@ -313,10 +314,11 @@ export const usePublicStore = create<PublicStore>((set, get) => ({
       const data = await publicApiService.fetchPublicLists(filters)
 
       set({
-        primera: data.Primera,
-        segunda: data.Segunda,
-        tercera: data.Tercera,
-        lastUpdate: data.lastUpdate,
+        // API returns UPPERCASE keys: PRIMERA, SEGUNDA, TERCERA
+        primera: Array.isArray(data.PRIMERA) ? data.PRIMERA : [],
+        segunda: Array.isArray(data.SEGUNDA) ? data.SEGUNDA : [],
+        tercera: Array.isArray(data.TERCERA) ? data.TERCERA : [],
+        lastUpdate: data.lastUpdate || null,
         loading: false,
       })
 

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Caddie } from '../types'
+import type { Caddie, CaddieCategory } from '../types'
 import { CaddieStatus } from '../types'
 import type {
   CaddieState,
@@ -10,6 +10,7 @@ import type {
 } from '../types/store.types'
 import { logger } from '../utils'
 import { caddieApiService } from '../services/caddieApiService'
+import { request } from '../services/apiClient'
 
 // Initial state - empty array, will be populated from API
 
@@ -24,13 +25,15 @@ interface CaddieStore extends CaddieState, DispatchState {
   setError: (error: string | null) => void;
   fetchCaddies: () => Promise<void>;
   createCaddie: (input: CreateCaddieInput) => Promise<void>;
-  updateCaddie: (input: UpdateCaddieInput) => void;
+  updateCaddie: (input: UpdateCaddieInput) => Promise<{ numberReassigned: boolean }>;
   deleteCaddie: (id: string) => void;
   bulkUpdateCaddies: (input: BulkUpdateInput) => void;
   reorderCaddie: (listId: string, caddieId: string, newIndex: number) => void;
   resetCaddies: () => void;
   setLastDispatchBatch: (batch: { ids: string[]; timestamp: number } | null) => void;
   setShowPopup: (show: boolean) => void;
+  promoteCaddie: (id: string, toCategory: CaddieCategory) => Promise<void>;
+  handleQueueUpdated: (data: { category: string; queue: unknown[] }) => void;
 }
 
 export const useCaddieStore = create<CaddieStore>((set, get) => ({
@@ -108,33 +111,33 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
       // Check if we need to increment counters based on status change
       const currentCaddie = get().caddies.find(c => c.id === input.id);
       const updatedInput = { ...input };
-      
+
       if (currentCaddie && input.updates?.status) {
         const oldStatus = currentCaddie.status;
         const newStatus = input.updates.status;
-        
+
         // Increment counters when transitioning TO these statuses (not FROM)
         if (oldStatus !== newStatus) {
           if (newStatus === CaddieStatus.ABSENT) {
-            updatedInput.updates = { 
-              ...updatedInput.updates, 
-              absencesCount: currentCaddie.absencesCount + 1 
+            updatedInput.updates = {
+              ...updatedInput.updates,
+              absencesCount: currentCaddie.absencesCount + 1
             };
           } else if (newStatus === CaddieStatus.ON_LEAVE) {
-            updatedInput.updates = { 
-              ...updatedInput.updates, 
-              leaveCount: currentCaddie.leaveCount + 1 
+            updatedInput.updates = {
+              ...updatedInput.updates,
+              leaveCount: currentCaddie.leaveCount + 1
             };
           } else if (newStatus === CaddieStatus.LATE) {
-            updatedInput.updates = { 
-              ...updatedInput.updates, 
-              lateCount: currentCaddie.lateCount + 1 
+            updatedInput.updates = {
+              ...updatedInput.updates,
+              lateCount: currentCaddie.lateCount + 1
             };
           }
         }
       }
 
-      const updatedCaddie = await caddieApiService.updateCaddie(updatedInput);
+      const updatedCaddie = await caddieApiService.updateCaddie(updatedInput) as Caddie & { numberReassigned: boolean };
 
       set(state => ({
         caddies: state.caddies.map(c => {
@@ -145,10 +148,13 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
       }));
 
       logger.info(`Caddie updated: ${input.id}`, 'CaddieStore');
+
+      return { numberReassigned: updatedCaddie.numberReassigned || false };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to update caddie';
       set({ error: errorMessage });
       logger.serviceError('UPDATE_ERROR', errorMessage, error, 'CaddieStore');
+      return { numberReassigned: false };
     }
   },
 
@@ -259,6 +265,49 @@ export const useCaddieStore = create<CaddieStore>((set, get) => ({
       set({ loading: false, error: errorMessage });
       logger.serviceError('RESET_ERROR', errorMessage, error, 'CaddieStore');
     }
+  },
+
+  // Promote caddie to a higher category
+  promoteCaddie: async (id, toCategory) => {
+    logger.action('promoteCaddie', { id, toCategory }, 'CaddieStore');
+
+    try {
+      set({ loading: true, error: null });
+
+      const result = await request<{ caddie: Caddie }>('/api/caddies/promote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ caddieId: id, newCategory: toCategory }),
+      });
+
+      // Update local state (will be overridden by WebSocket event)
+      set(state => ({
+        caddies: state.caddies.map(c => {
+          if (c.id === id) {
+            logger.stateChange(`caddie.${id}`, c.category, toCategory, 'CaddieStore');
+            return { ...c, category: toCategory, ...result.caddie };
+          }
+          return c;
+        }),
+        loading: false,
+      }));
+
+      logger.info(`Caddie promoted: ${id} to ${toCategory}`, 'CaddieStore');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to promote caddie';
+      set({ loading: false, error: errorMessage });
+      logger.serviceError('PROMOTE_ERROR', errorMessage, error, 'CaddieStore');
+      throw new Error(errorMessage);
+    }
+  },
+
+  // Handle queue updated WebSocket event
+  handleQueueUpdated: (data) => {
+    logger.action('handleQueueUpdated', { category: data.category }, 'CaddieStore');
+
+    // Reload caddies to get updated queue positions and status
+    // This ensures we have the latest operationalStatus and attendanceStatus
+    get().fetchCaddies();
   },
 
 }));

@@ -11,10 +11,12 @@ import {
 } from 'lucide-react'
 import { CaddieStatus, DailyAttendanceStatus } from '../../../types'
 import type { QueueGridProps } from './ListManager.types'
+import type { QueuePosition } from '../../../stores/listStore'
 import { attendanceApiService } from '../../../services/attendanceApiService'
+import CategoryPromotion from '../CategoryPromotion/CategoryPromotion'
 import './QueueGrid.css'
 
-const QueueGrid: React.FC<QueueGridProps> = ({
+const QueueGrid: React.FC<QueueGridProps & { queuePositions?: QueuePosition[] }> = ({
   caddies,
   lists,
   activeTabId,
@@ -23,7 +25,8 @@ const QueueGrid: React.FC<QueueGridProps> = ({
   onDragOver,
   onDrop,
   onPositionChange,
-  onUpdateCaddie
+  onUpdateCaddie,
+  queuePositions
 }) => {
   const activeList = useMemo(() => lists.find(l => l.id === activeTabId), [lists, activeTabId])
 
@@ -55,6 +58,18 @@ const QueueGrid: React.FC<QueueGridProps> = ({
 
   const queue = useMemo(() => {
     if (!activeList) return []
+    
+    if (queuePositions && queuePositions.length > 0) {
+      return queuePositions
+        .filter(qp => qp.operationalStatus === 'AVAILABLE' || qp.operationalStatus === 'LATE')
+        .map(qp => ({
+          ...qp.caddie,
+          id: qp.caddie.id,
+          status: qp.operationalStatus === 'AVAILABLE' ? CaddieStatus.AVAILABLE : CaddieStatus.LATE,
+          weekendPriority: qp.position,
+        }))
+    }
+    
     return caddies
       .filter(c =>
         c.isActive &&
@@ -70,7 +85,7 @@ const QueueGrid: React.FC<QueueGridProps> = ({
         }
         return activeList.order === 'ASC' ? a.number - b.number : b.number - a.number
       })
-  }, [caddies, activeList])
+  }, [caddies, activeList, queuePositions])
 
   if (!activeList) return null
 
@@ -123,35 +138,44 @@ const QueueGrid: React.FC<QueueGridProps> = ({
                   
                   <div className="queue-grid__actions-container">
                      {isManualReorderMode ? (
-                       <div className="queue-grid__reorder-control">
-                         <span className="queue-grid__reorder-label">Change Turn</span>
-                         <input 
-                           type="number" 
-                           value={idx + 1}
-                           min={1}
-                           max={queue.length}
-                           onChange={(e) => onPositionChange(caddie.id, parseInt(e.target.value, 10) || 1)}
-                           className="queue-grid__reorder-input"
-                         />
-                       </div>
-                     ) : (
-                       <div className="queue-grid__badge-group">
-                         <div className="queue-grid__status-tag">
-                           <MapPin size={10} />
-                           <span className="queue-grid__status-label">{caddie.location}</span>
-                         </div>
-                         <div className="queue-grid__status-tag queue-grid__status-tag--role">
-                           <Activity size={10} />
-                           <span className="queue-grid__status-label">{caddie.role}</span>
-                         </div>
-                       </div>
-                     )}
+                        <div className="queue-grid__reorder-control">
+                          <span className="queue-grid__reorder-label">Change Turn</span>
+                          <input 
+                            type="number" 
+                            value={idx + 1}
+                            min={1}
+                            max={queue.length}
+                            onChange={(e) => onPositionChange(caddie.id, parseInt(e.target.value, 10) || 1)}
+                            className="queue-grid__reorder-input"
+                          />
+                        </div>
+                      ) : (
+                        <div className="queue-grid__badge-group">
+                          <div className="queue-grid__status-tag">
+                            <MapPin size={10} />
+                            <span className="queue-grid__status-label">{caddie.location}</span>
+                          </div>
+                          <div className="queue-grid__status-tag queue-grid__status-tag--role">
+                            <Activity size={10} />
+                            <span className="queue-grid__status-label">{caddie.role}</span>
+                          </div>
+                        </div>
+                      )}
                   </div>
                 </div>
                 <p className={`queue-grid__status-text ${idx === 0 ? 'queue-grid__status-text--ready' : 'queue-grid__status-text--waiting'}`}>
                   {idx === 0 ? 'En turno' : `TURNO #${idx + 1} `}
                 </p>
               </div>
+              
+              {!isManualReorderMode && (
+                <div className="queue-grid__promotion">
+                  <CategoryPromotion
+                    caddieId={caddie.id}
+                    currentCategory={activeList.category as any}
+                  />
+                </div>
+              )}
             </div>
 
             {!isManualReorderMode && (
